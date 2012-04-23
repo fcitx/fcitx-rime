@@ -1,0 +1,7 @@
+[InputMethod]
+UniqueName=rime
+_Name=Rime
+IconName=rime
+Priority=10
+LangCode=zh_TW
+Parent=fcitx-rime
