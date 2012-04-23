@@ -67,7 +67,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
         NULL,
         NULL,
         10,
-        "zh_TW"
+        "zh"
     );
 
     return rime;
@@ -142,22 +142,35 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
     }
 
     FcitxMessages* msgPreedit = FcitxInputStateGetPreedit(input);
-    FcitxInputStateSetCursorPos(input, context.composition.cursor_pos);
+    FcitxMessages* msgClientPreedit = FcitxInputStateGetClientPreedit(input);
+    FcitxInputStateSetShowCursor(input, false);
+    FcitxInputStateSetClientCursorPos(input, context.composition.cursor_pos);
     FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", context.composition.preedit);
 
-    if (context.composition.sel_start < context.composition.sel_end) {/*
-        glong start = g_utf8_strlen(context.composition.preedit, context.composition.sel_start);
-        glong end = g_utf8_strlen(context.composition.preedit, context.composition.sel_end);
-        ibus_attr_list_append(text->attrs,
-                            ibus_attr_foreground_new(BLACK, start, end));
-        ibus_attr_list_append(text->attrs,
-                            ibus_attr_background_new(DARK, start, end));*/
+    if (context.composition.sel_start > 0) {
+        char* temp = strndup(context.composition.preedit, context.composition.sel_start);
+        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", temp);
+        free(temp);
+    }
+
+    if (context.composition.sel_start < context.composition.sel_end) {
+        char* temp = strndup(&context.composition.preedit[context.composition.sel_start], context.composition.sel_end - context.composition.sel_start);
+        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_HIGHLIGHT | MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", temp);
+        free(temp);
+    }
+
+    if (context.composition.sel_end > 0) {
+        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", &context.composition.preedit[context.composition.sel_end]);
     }
 
     if (context.menu.num_candidates)
     {
         FcitxCandidateWordList* candList = FcitxInputStateGetCandidateList(input);
-        FcitxCandidateWordSetChoose(candList, DIGIT_STR_CHOOSE);
+        const char* digit = DIGIT_STR_CHOOSE;
+        char strChoose[11];
+        strChoose[10] = '\0';
+        FcitxCandidateWordSetPageSize(candList, 10);
+        int num_select_keys = strlen(context.menu.select_keys);
         int i;
         for (i = 0; i < context.menu.num_candidates; ++i) {
             FcitxCandidateWord candWord;
@@ -168,7 +181,16 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
             candWord.priv = NULL;
 
             FcitxCandidateWordAppend(candList, &candWord);
+            if (i < 10) {
+                if (i < num_select_keys) {
+                    strChoose[i] = context.menu.select_keys[i];
+                }
+                else {
+                    strChoose[i] = digit[i];
+                }
+            }
         }
+        FcitxCandidateWordSetChoose(candList, strChoose);
     }
 
     return IRV_DISPLAY_CANDWORDS;
