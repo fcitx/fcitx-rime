@@ -2,27 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(fcitx-rime)
 
-
-set(LIBRIME_VERSION 0.1)
-set(LIBRIME_SOVERSION 0)
-
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 include(FindPkgConfig)
-
-set(Boost_USE_STATIC_LIBS OFF)
-set(Boost_USE_MULTITHREADED ON)
-find_package(Boost 1.43.0 REQUIRED COMPONENTS filesystem regex signals system thread)
-
-find_package(YamlCpp REQUIRED)
-
 find_package(Fcitx 4.2.0 REQUIRED)
-
-find_package(Threads)
-find_package(ZLIB)
-find_package(KyotoCabinet REQUIRED)
-
-find_package(Opencc REQUIRED)
+find_package(Rime REQUIRED)
 
 set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_CXX_FLAGS}")
