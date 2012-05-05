@@ -116,10 +116,11 @@ INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned int sta
     }
     boolean result = RimeProcessKey(rime->session_id, sym, state);
 
-    RimeCommit commit;
+    RimeCommit commit = {0};
     if (RimeGetCommit(rime->session_id, &commit)) {
         FcitxInputContext* ic = FcitxInstanceGetCurrentIC(rime->owner);
         FcitxInstanceCommitString(rime->owner, ic, commit.text);
+        RimeFreeCommit(&commit);
     }
     if (!result) {
         return IRV_TO_PROCESS;
@@ -135,9 +136,11 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
     FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
     FcitxInstanceCleanInputWindow(rime->owner);
 
-    RimeContext context;
+    RimeContext context = {0};
+    RIME_STRUCT_INIT(RimeContext, context);
     if (!RimeGetContext(rime->session_id, &context) ||
         context.composition.length == 0) {
+        RimeFreeContext(&context);
         return IRV_DISPLAY_CANDWORDS;
     }
 
@@ -174,9 +177,9 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         int i;
         for (i = 0; i < context.menu.num_candidates; ++i) {
             FcitxCandidateWord candWord;
-            candWord.strWord = strdup (context.menu.candidates[i]);
+            candWord.strWord = strdup (context.menu.candidates[i].text);
             candWord.wordType = MSG_INPUT;
-            candWord.strExtra = NULL;
+            candWord.strExtra = context.menu.candidates[i].comment ? strdup (context.menu.candidates[i].comment) : NULL;
             candWord.callback = NULL;
             candWord.priv = NULL;
 
@@ -193,5 +196,6 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         FcitxCandidateWordSetChoose(candList, strChoose);
     }
 
+    RimeFreeContext(&context);
     return IRV_DISPLAY_CANDWORDS;
 }
