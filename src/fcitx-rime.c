@@ -178,8 +178,9 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         for (i = 0; i < context.menu.num_candidates; ++i) {
             FcitxCandidateWord candWord;
             candWord.strWord = strdup (context.menu.candidates[i].text);
-            candWord.wordType = MSG_INPUT;
+            candWord.wordType = MSG_OTHER;
             candWord.strExtra = context.menu.candidates[i].comment ? strdup (context.menu.candidates[i].comment) : NULL;
+            candWord.extraType = MSG_CODE;
             candWord.callback = NULL;
             candWord.priv = NULL;
 
