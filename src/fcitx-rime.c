@@ -129,6 +129,45 @@ INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned int sta
         return IRV_DISPLAY_CANDWORDS;
 }
 
+INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
+{
+    RimeContext context = {0};
+    FcitxRime *rime = (FcitxRime *)arg;
+    RIME_STRUCT_INIT(RimeContext, context);
+    INPUT_RETURN_VALUE retVal = IRV_TO_PROCESS;
+    if (RimeGetContext(rime->session_id, &context)) {
+        if (context.menu.num_candidates)
+        {
+            int i = *(int*) candWord->priv;
+            const char* digit = DIGIT_STR_CHOOSE;
+            int num_select_keys = strlen(context.menu.select_keys);
+            FcitxKeySym sym;
+            if (i < 10) {
+                if (i < num_select_keys)
+                    sym = context.menu.select_keys[i];
+                else
+                    sym = digit[i];
+            }
+            if (sym != FcitxKey_None) {
+                boolean result = RimeProcessKey(rime->session_id, sym, 0);
+                RimeCommit commit = {0};
+                if (RimeGetCommit(rime->session_id, &commit)) {
+                    FcitxInputContext* ic = FcitxInstanceGetCurrentIC(rime->owner);
+                    FcitxInstanceCommitString(rime->owner, ic, commit.text);
+                    RimeFreeCommit(&commit);
+                }
+                if (!result)
+                    retVal = IRV_TO_PROCESS;
+                else
+                    retVal = IRV_DISPLAY_CANDWORDS;
+            }
+        }
+    }
+
+    RimeFreeContext(&context);
+    return retVal;
+}
+
 
 INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
 {
@@ -181,8 +220,11 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
             candWord.wordType = MSG_OTHER;
             candWord.strExtra = context.menu.candidates[i].comment ? strdup (context.menu.candidates[i].comment) : NULL;
             candWord.extraType = MSG_CODE;
-            candWord.callback = NULL;
-            candWord.priv = NULL;
+            candWord.callback = FcitxRimeGetCandWord;
+            candWord.owner = rime;
+            int* priv = fcitx_utils_new(int);
+            *priv = i;
+            candWord.priv = priv;
 
             FcitxCandidateWordAppend(candList, &candWord);
             if (i < 10) {
