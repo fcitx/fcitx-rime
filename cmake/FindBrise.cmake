@@ -6,11 +6,11 @@
 
 if(IS_DIRECTORY /usr/share/brise)
 	set(BRISE_DIR /usr/share/brise)
-else(IS_DIRECTORY /usr/share/rime/brise)
+elseif(IS_DIRECTORY /usr/share/rime/brise)
 	set(BRISE_DIR /usr/share/rime/brise)
-else
+else()
 	set(BRISE_FOUND FALSE)
-endif
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Brise DEFAULT_MSG
