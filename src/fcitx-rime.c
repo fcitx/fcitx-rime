@@ -37,7 +37,8 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     if (fp)
         fclose(fp);
     FcitxXDGGetFileUserWithPrefix("rime", "", NULL, &user_path);
-    char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
+    //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
+    const char* shared_data_dir = "/usr/share/rime-data";
 
     RimeTraits ibus_rime_traits;
     ibus_rime_traits.shared_data_dir = shared_data_dir;
