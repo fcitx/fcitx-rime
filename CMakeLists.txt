@@ -8,6 +8,13 @@ include(FindPkgConfig)
 find_package(Fcitx 4.2.0 REQUIRED)
 find_package(Rime REQUIRED)
 
+if(NOT DEFINED RIME_DATA_DIR)
+  find_package(Brise REQUIRED)
+  set(RIME_DATA_DIR ${BRISE_DIR})
+endif(NOT DEFINED RIME_DATA_DIR)
+message(STATUS "Precompiler macro RIME_DATA_DIR is set to \"${RIME_DATA_DIR}\"")
+add_definitions(-DRIME_DATA_DIR="${RIME_DATA_DIR}")
+
 set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_C_FLAGS}")
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_CXX_FLAGS}")
 set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--as-needed ${CMAKE_SHARED_LINKER_FLAGS}")

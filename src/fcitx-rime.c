@@ -31,6 +31,7 @@ int ABI_VERSION = FCITX_ABI_VERSION;
 static void* FcitxRimeCreate(FcitxInstance* instance)
 {
     FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
+    rime->owner = instance;
 
     char* user_path = NULL;
     FILE* fp = FcitxXDGGetFileUserWithPrefix("rime", ".place_holder", "w", NULL);
@@ -38,7 +39,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
         fclose(fp);
     FcitxXDGGetFileUserWithPrefix("rime", "", NULL, &user_path);
     //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
-    const char* shared_data_dir = "/usr/share/rime-data";
+    const char* shared_data_dir = RIME_DATA_DIR;
 
     RimeTraits ibus_rime_traits;
     ibus_rime_traits.shared_data_dir = shared_data_dir;
@@ -51,22 +52,22 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
         // TODO: notification...
     }
 
-    rime->owner = instance;
     rime->session_id = RimeCreateSession();
-    FcitxInstanceRegisterIM(
+
+    FcitxIMIFace iface;
+    memset(&iface, 0, sizeof(FcitxIMIFace));
+    iface.Init = FcitxRimeInit;
+    iface.ResetIM = FcitxRimeReset;
+    iface.DoInput = FcitxRimeDoInput;
+    iface.GetCandWords = FcitxRimeGetCandWords;
+
+    FcitxInstanceRegisterIMv2(
         instance,
         rime,
         "rime",
         _("Rime"),
         "rime",
-        FcitxRimeInit,
-        FcitxRimeReset,
-        FcitxRimeDoInput,
-        FcitxRimeGetCandWords,
-        NULL,
-        NULL,
-        NULL,
-        NULL,
+        iface,
         10,
         "zh"
     );
@@ -87,7 +88,12 @@ void FcitxRimeDestroy(void* arg)
 boolean FcitxRimeInit(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
+    boolean flag = false;
     FcitxInstanceSetContext(rime->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
+    FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_AUTO_FIRST_CANDIDATE_HIGHTLIGHT, &flag);
+    FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_AUTOENG, &flag);
+    FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_QUICKPHRASE, &flag);
+
     return true;
 }
 
@@ -103,9 +109,18 @@ void FcitxRimeReset(void* arg)
     }
 }
 
-INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned int state)
+INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym _sym, unsigned int _state)
 {
     FcitxRime *rime = (FcitxRime *)arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
+    uint32_t sym = FcitxInputStateGetKeySym(input);
+    uint32_t state = FcitxInputStateGetKeyState(input);
+
+    _state &= (FcitxKeyState_Ctrl | FcitxKeyState_Alt | FcitxKeyState_Shift | FcitxKeyState_Super);
+
+    if (_state & (~(FcitxKeyState_Ctrl | FcitxKeyState_Alt))) {
+        return IRV_TO_PROCESS;
+    }
 
     state &= (FcitxKeyState_Ctrl | FcitxKeyState_Alt);
 
@@ -218,7 +233,10 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         for (i = 0; i < context.menu.num_candidates; ++i) {
             FcitxCandidateWord candWord;
             candWord.strWord = strdup (context.menu.candidates[i].text);
-            candWord.wordType = MSG_OTHER;
+            if (i == context.menu.highlighted_candidate_index)
+                candWord.wordType = MSG_CANDIATE_CURSOR;
+            else
+                candWord.wordType = MSG_OTHER;
             candWord.strExtra = context.menu.candidates[i].comment ? strdup (context.menu.candidates[i].comment) : NULL;
             candWord.extraType = MSG_CODE;
             candWord.callback = FcitxRimeGetCandWord;
