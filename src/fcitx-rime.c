@@ -38,7 +38,8 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     if (fp)
         fclose(fp);
     FcitxXDGGetFileUserWithPrefix("rime", "", NULL, &user_path);
-    char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
+    //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
+    const char* shared_data_dir = RIME_DATA_DIR;
 
     RimeTraits ibus_rime_traits;
     ibus_rime_traits.shared_data_dir = shared_data_dir;
@@ -200,24 +201,40 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
 
     FcitxMessages* msgPreedit = FcitxInputStateGetPreedit(input);
     FcitxMessages* msgClientPreedit = FcitxInputStateGetClientPreedit(input);
-    FcitxInputStateSetShowCursor(input, false);
-    FcitxInputStateSetClientCursorPos(input, context.composition.cursor_pos);
-    FcitxMessagesAddMessageAtLast(msgPreedit, MSG_INPUT, "%s", context.composition.preedit);
+    FcitxInputStateSetShowCursor(input, true);
+    FcitxInputStateSetCursorPos(input, context.composition.cursor_pos);
+    if (context.commit_text_preview) {
+        FcitxInputStateSetClientCursorPos(input, strlen(context.commit_text_preview));
+    }
 
+    /* converted text */
     if (context.composition.sel_start > 0) {
         char* temp = strndup(context.composition.preedit, context.composition.sel_start);
-        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", temp);
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_OTHER, "%s", temp);
         free(temp);
+        if (context.commit_text_preview) {
+            temp = strndup(context.commit_text_preview, context.composition.sel_start);
+            FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_INPUT, "%s", temp);
+            free(temp);
+        }
     }
 
+    /* converting candidate */
     if (context.composition.sel_start < context.composition.sel_end) {
         char* temp = strndup(&context.composition.preedit[context.composition.sel_start], context.composition.sel_end - context.composition.sel_start);
-        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_HIGHLIGHT | MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", temp);
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_HIGHLIGHT | MSG_CODE, "%s", temp);
         free(temp);
+        if (context.commit_text_preview) {
+            FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_HIGHLIGHT, "%s", &context.commit_text_preview[context.composition.sel_start]);
+        }
     }
 
-    if (context.composition.sel_end > 0) {
-        FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", &context.composition.preedit[context.composition.sel_end]);
+    /* remaining input to convert */
+    if (context.composition.sel_end < strlen(context.composition.preedit)) {
+        FcitxMessagesAddMessageAtLast(msgPreedit, MSG_CODE, "%s", &context.composition.preedit[context.composition.sel_end]);
+        if (context.commit_text_preview) {
+            FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", &context.composition.preedit[context.composition.sel_end]);
+        }
     }
 
     if (context.menu.num_candidates)
