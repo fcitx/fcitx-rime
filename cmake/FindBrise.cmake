@@ -4,11 +4,12 @@
 # BRISE_FOUND - System has brise package
 # BRISE_DIR - Brise absolute path
 
-set(BRISE_FIND_DIR "${PROJECT_SOURCE_DIR}/../brise"
-                   "${CMAKE_INSTALL_PREFIX}/share/brise"
-                   "${CMAKE_INSTALL_PREFIX}/share/rime/brise"
+set(BRISE_FIND_DIR "${CMAKE_INSTALL_PREFIX}/share/brise"
+                   "${CMAKE_INSTALL_PREFIX}/share/rime-data"
+                   "${CMAKE_INSTALL_PREFIX}/share/rime/data"
                    "/usr/share/brise"
-                   "/usr/share/rime/brise")
+                   "/usr/share/rime-data"
+                   "/usr/share/rime/data")
 
 set(BRISE_FOUND FALSE)
 
