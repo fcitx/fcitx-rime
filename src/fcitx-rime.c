@@ -157,7 +157,7 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
             int i = *(int*) candWord->priv;
             const char* digit = DIGIT_STR_CHOOSE;
             int num_select_keys = strlen(context.menu.select_keys);
-            FcitxKeySym sym;
+            FcitxKeySym sym = FcitxKey_None;
             if (i < 10) {
                 if (i < num_select_keys)
                     sym = context.menu.select_keys[i];
