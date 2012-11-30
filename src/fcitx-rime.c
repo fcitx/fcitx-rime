@@ -16,6 +16,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance);
 static void FcitxRimeDestroy(void* arg);
 static boolean FcitxRimeInit(void* arg);
 static void FcitxRimeReset(void* arg);
+static void FcitxRimeReloadConfig(void* arg);
 static INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned int state);
 static INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg);
 
@@ -28,10 +29,7 @@ FcitxIMClass ime = {
 FCITX_EXPORT_API
 int ABI_VERSION = FCITX_ABI_VERSION;
 
-static void* FcitxRimeCreate(FcitxInstance* instance)
-{
-    FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
-    rime->owner = instance;
+static void FcitxRimeStart(FcitxRime* rime) {
 
     char* user_path = NULL;
     FILE* fp = FcitxXDGGetFileUserWithPrefix("rime", ".place_holder", "w", NULL);
@@ -53,6 +51,13 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     }
 
     rime->session_id = RimeCreateSession();
+}
+
+static void* FcitxRimeCreate(FcitxInstance* instance)
+{
+    FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
+    rime->owner = instance;
+    FcitxRimeStart(rime);
 
     FcitxIMIFace iface;
     memset(&iface, 0, sizeof(FcitxIMIFace));
@@ -60,6 +65,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     iface.ResetIM = FcitxRimeReset;
     iface.DoInput = FcitxRimeDoInput;
     iface.GetCandWords = FcitxRimeGetCandWords;
+    iface.ReloadConfig = FcitxRimeReloadConfig;
 
     FcitxInstanceRegisterIMv2(
         instance,
@@ -277,3 +283,15 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
     RimeFreeContext(&context);
     return IRV_DISPLAY_CANDWORDS;
 }
+
+void FcitxRimeReloadConfig(void* arg)
+{
+    FcitxRime* rime = (FcitxRime*) arg;
+    if (rime->session_id) {
+        RimeDestroySession(rime->session_id);
+        rime->session_id = 0;
+    }
+    RimeFinalize();
+    FcitxRimeStart(rime);
+}
+
