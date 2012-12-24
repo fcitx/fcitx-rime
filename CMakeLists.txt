@@ -5,7 +5,7 @@ project(fcitx-rime)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 include(FindPkgConfig)
-find_package(Fcitx 4.2.0 REQUIRED)
+find_package(Fcitx 4.2.7 REQUIRED)
 find_package(Rime REQUIRED)
 
 if(NOT DEFINED RIME_DATA_DIR)
@@ -29,6 +29,6 @@ configure_file(
 add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
+add_subdirectory(po)
 add_subdirectory(src)
-
 add_subdirectory(data)

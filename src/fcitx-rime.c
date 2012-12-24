@@ -278,6 +278,8 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
             }
         }
         FcitxCandidateWordSetChoose(candList, strChoose);
+
+        FcitxCandidateWordSetOverridePaging(candList, context.menu.page_no != 0, !context.menu.is_last_page, NULL, NULL, NULL);
     }
 
     RimeFreeContext(&context);

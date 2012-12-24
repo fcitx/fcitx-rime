@@ -1,0 +1,27 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Weng Xuetian <wengxt@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2012-12-24 14:16-0500\n"
+"PO-Revision-Date: 2012-12-24 14:17-0500\n"
+"Last-Translator: Weng Xuetian <wengxt@gmail.com>\n"
+"Language-Team: Chinese Simplified <kde-china@kde.org>\n"
+"Language: LANG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.5\n"
+
+#: src/fcitx-rime.c:74 src/fcitx-rime.conf.in:3 src/rime.conf.in:3
+msgid "Rime"
+msgstr "中州韻"
+
+#: src/fcitx-rime.conf.in:4
+msgid "Rime Wrapper For Fcitx"
+msgstr "Fcitx 的中州韻封装"
+
