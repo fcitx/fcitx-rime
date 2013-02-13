@@ -7,3 +7,4 @@ Enabled=True
 Library=fcitx-rime.so
 Type=SharedLibrary
 IMRegisterMethod=ConfigFile
+LoadLocal=True
