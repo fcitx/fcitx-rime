@@ -18,6 +18,8 @@ static boolean FcitxRimeInit(void* arg);
 static void FcitxRimeReset(void* arg);
 static void FcitxRimeReloadConfig(void* arg);
 static INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned int state);
+static INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym sym, unsigned int state);
+static INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym _sym, unsigned int _state);
 static INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg);
 
 FCITX_EXPORT_API
@@ -39,13 +41,13 @@ static void FcitxRimeStart(FcitxRime* rime) {
     //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
     const char* shared_data_dir = RIME_DATA_DIR;
 
-    RimeTraits ibus_rime_traits;
-    ibus_rime_traits.shared_data_dir = shared_data_dir;
-    ibus_rime_traits.user_data_dir = user_path;
-    ibus_rime_traits.distribution_name = "Rime";
-    ibus_rime_traits.distribution_code_name = "fcitx-rime";
-    ibus_rime_traits.distribution_version = "0.1";
-    RimeInitialize(&ibus_rime_traits);
+    RimeTraits fcitx_rime_traits;
+    fcitx_rime_traits.shared_data_dir = shared_data_dir;
+    fcitx_rime_traits.user_data_dir = user_path;
+    fcitx_rime_traits.distribution_name = "Rime";
+    fcitx_rime_traits.distribution_code_name = "fcitx-rime";
+    fcitx_rime_traits.distribution_version = "0.1";
+    RimeInitialize(&fcitx_rime_traits);
     if (RimeStartMaintenanceOnWorkspaceChange()) {
         // TODO: notification...
     }
@@ -64,6 +66,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     iface.Init = FcitxRimeInit;
     iface.ResetIM = FcitxRimeReset;
     iface.DoInput = FcitxRimeDoInput;
+    iface.DoReleaseInput = FcitxRimeDoReleaseInput;
     iface.GetCandWords = FcitxRimeGetCandWords;
     iface.ReloadConfig = FcitxRimeReloadConfig;
 
@@ -115,20 +118,44 @@ void FcitxRimeReset(void* arg)
     }
 }
 
+INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym _sym, unsigned int _state)
+{
+    FcitxRime *rime = (FcitxRime *)arg;
+    FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
+    uint32_t sym = FcitxInputStateGetKeySym(input);
+    uint32_t state = FcitxInputStateGetKeyState(input);
+    _state &= (FcitxKeyState_SimpleMask);
+
+    if (_state & (~(FcitxKeyState_Ctrl_Alt_Shift))) {
+        return IRV_TO_PROCESS;
+    }
+
+    state &= (FcitxKeyState_SimpleMask);
+
+    return FcitxRimeDoInputReal(arg, sym, state | (1 << 30));
+}
+
+
 INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym _sym, unsigned int _state)
 {
     FcitxRime *rime = (FcitxRime *)arg;
     FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
     uint32_t sym = FcitxInputStateGetKeySym(input);
     uint32_t state = FcitxInputStateGetKeyState(input);
+    _state &= (FcitxKeyState_SimpleMask);
 
-    _state &= (FcitxKeyState_Ctrl | FcitxKeyState_Alt | FcitxKeyState_Shift | FcitxKeyState_Super);
-
-    if (_state & (~(FcitxKeyState_Ctrl | FcitxKeyState_Alt))) {
+    if (_state & (~(FcitxKeyState_Ctrl_Alt_Shift))) {
         return IRV_TO_PROCESS;
     }
 
-    state &= (FcitxKeyState_Ctrl | FcitxKeyState_Alt);
+    state &= (FcitxKeyState_SimpleMask);
+
+    return FcitxRimeDoInputReal(arg, sym, state);
+}
+
+INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym sym, unsigned int state)
+{
+    FcitxRime *rime = (FcitxRime *)arg;
 
     if (!RimeFindSession(rime->session_id)) {
         rime->session_id = RimeCreateSession();
@@ -145,6 +172,8 @@ INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym _sym, unsigned int _s
         RimeFreeCommit(&commit);
     }
     if (!result) {
+        FcitxRimeGetCandWords(rime);
+        FcitxUIUpdateInputWindow(rime->owner);
         return IRV_TO_PROCESS;
     }
     else
@@ -178,8 +207,11 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
                     FcitxInstanceCommitString(rime->owner, ic, commit.text);
                     RimeFreeCommit(&commit);
                 }
-                if (!result)
+                if (!result) {
+                    FcitxRimeGetCandWords(rime);
+                    FcitxUIUpdateInputWindow(rime->owner);
                     retVal = IRV_TO_PROCESS;
+                }
                 else
                     retVal = IRV_DISPLAY_CANDWORDS;
             }
