@@ -270,9 +270,6 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
     /* remaining input to convert */
     if (context.composition.sel_end < strlen(context.composition.preedit)) {
         FcitxMessagesAddMessageAtLast(msgPreedit, MSG_CODE, "%s", &context.composition.preedit[context.composition.sel_end]);
-        if (context.commit_text_preview) {
-            FcitxMessagesAddMessageAtLast(msgClientPreedit, MSG_DONOT_COMMIT_WHEN_UNFOCUS, "%s", &context.composition.preedit[context.composition.sel_end]);
-        }
     }
 
     if (context.menu.num_candidates)
