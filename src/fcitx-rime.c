@@ -1,6 +1,7 @@
 #include <fcitx/instance.h>
 #include <fcitx/context.h>
 #include <fcitx/candidate.h>
+#include <fcitx/hook.h>
 #include <fcitx-config/xdg.h>
 #include <libintl.h>
 #include <rime_api.h>
@@ -21,6 +22,12 @@ static INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym sym, unsigned 
 static INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym sym, unsigned int state);
 static INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym _sym, unsigned int _state);
 static INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg);
+static void FcitxRimeToggleEnZh(void* arg);
+static const char* FcitxRimeGetDummy(void* arg);
+static void FcitxRimeToggleSync(void* arg);
+static void FcitxRimeToggleDeploy(void* arg);
+static void FcitxRimeResetUI(void* arg);
+static void FcitxRimeUpdateStatus(FcitxRime* rime);
 
 FCITX_EXPORT_API
 FcitxIMClass ime = {
@@ -31,7 +38,7 @@ FcitxIMClass ime = {
 FCITX_EXPORT_API
 int ABI_VERSION = FCITX_ABI_VERSION;
 
-static void FcitxRimeStart(FcitxRime* rime) {
+static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
 
     char* user_path = NULL;
     FILE* fp = FcitxXDGGetFileUserWithPrefix("rime", ".place_holder", "w", NULL);
@@ -48,7 +55,7 @@ static void FcitxRimeStart(FcitxRime* rime) {
     fcitx_rime_traits.distribution_code_name = "fcitx-rime";
     fcitx_rime_traits.distribution_version = "0.1";
     RimeInitialize(&fcitx_rime_traits);
-    if (RimeStartMaintenanceOnWorkspaceChange()) {
+    if (RimeStartMaintenance(fullcheck)) {
         // TODO: notification...
     }
 
@@ -59,7 +66,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
 {
     FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
     rime->owner = instance;
-    FcitxRimeStart(rime);
+    FcitxRimeStart(rime, false);
 
     FcitxIMIFace iface;
     memset(&iface, 0, sizeof(FcitxIMIFace));
@@ -81,6 +88,42 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
         "zh"
     );
 
+    FcitxUIRegisterComplexStatus(
+        instance,
+        rime,
+        "rimeenzh",
+        "",
+        "",
+        FcitxRimeToggleEnZh,
+        FcitxRimeGetDummy);
+
+    FcitxUIRegisterComplexStatus(
+        instance,
+        rime,
+        "rimedeploy",
+        _("\xe2\x9f\xb2 Deploy"),
+        _("Deploy"),
+        FcitxRimeToggleDeploy,
+        FcitxRimeGetDummy);
+
+    FcitxUIRegisterComplexStatus(
+        instance,
+        rime,
+        "rimesync",
+        _("\xe2\x87\x85 Synchronize"),
+        _("Synchronize"),
+        FcitxRimeToggleSync,
+        FcitxRimeGetDummy);
+
+    FcitxUISetStatusVisable(instance, "rimeenzh", false);
+    FcitxUISetStatusVisable(instance, "rimesync", false);
+    FcitxUISetStatusVisable(instance, "rimedeploy", false);
+    FcitxIMEventHook hk;
+    hk.arg = rime;
+    hk.func = FcitxRimeResetUI;
+
+    FcitxInstanceRegisterResetInputHook(instance, hk);
+
     return rime;
 }
 
@@ -97,11 +140,13 @@ void FcitxRimeDestroy(void* arg)
 boolean FcitxRimeInit(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
-    boolean flag = false;
+    boolean flag = true;
     FcitxInstanceSetContext(rime->owner, CONTEXT_IM_KEYBOARD_LAYOUT, "us");
     FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_AUTO_FIRST_CANDIDATE_HIGHTLIGHT, &flag);
     FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_AUTOENG, &flag);
     FcitxInstanceSetContext(rime->owner, CONTEXT_DISABLE_QUICKPHRASE, &flag);
+
+    FcitxRimeUpdateStatus(rime);
 
     return true;
 }
@@ -135,6 +180,26 @@ INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym _sym, unsigned
     return FcitxRimeDoInputReal(arg, sym, state | (1 << 30));
 }
 
+void FcitxRimeUpdateStatus(FcitxRime* rime)
+{
+    RimeStatus status = {0};
+    RIME_STRUCT_INIT(RimeStatus, status);
+    if (RimeGetStatus(rime->session_id, &status)) {
+        char* text = "";
+        if (status.is_disabled) {
+            text = "\xe2\x8c\x9b";
+        } else if (status.is_ascii_mode) {
+            text = "A";
+        } else if (status.schema_name &&
+                status.schema_name[0] != '.') {
+            text = status.schema_name;
+        } else {
+            text = "中";
+        }
+        FcitxUISetStatusString(rime->owner, "rimeenzh", text, text);
+        RimeFreeStatus(&status);
+    }
+}
 
 INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym _sym, unsigned int _state)
 {
@@ -171,6 +236,9 @@ INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym sym, unsigned int
         FcitxInstanceCommitString(rime->owner, ic, commit.text);
         RimeFreeCommit(&commit);
     }
+
+    FcitxRimeUpdateStatus(rime);
+
     if (!result) {
         FcitxRimeGetCandWords(rime);
         FcitxUIUpdateInputWindow(rime->owner);
@@ -323,6 +391,52 @@ void FcitxRimeReloadConfig(void* arg)
         rime->session_id = 0;
     }
     RimeFinalize();
-    FcitxRimeStart(rime);
+    FcitxRimeStart(rime, false);
+
+    FcitxRimeUpdateStatus(rime);
+}
+
+const char* FcitxRimeGetDummy(void* arg)
+{
+    return "";
+}
+
+void FcitxRimeToggleEnZh(void* arg)
+{
+
+}
+
+void FcitxRimeResetUI(void* arg)
+{
+
+    FcitxRime* rime = (FcitxRime*) arg;
+    FcitxInstance* instance = rime->owner;
+    FcitxIM* im = FcitxInstanceGetCurrentIM(instance);
+    boolean visible;
+    if (!im || strcmp(im->uniqueName, "rime") != 0)
+        visible = false;
+    else
+        visible = true;
+    FcitxUISetStatusVisable(instance, "rimeenzh", visible);
+    FcitxUISetStatusVisable(instance, "rimesync", visible);
+    FcitxUISetStatusVisable(instance, "rimedeploy", visible);
+}
+
+void FcitxRimeToggleSync(void* arg)
+{
+    RimeSyncUserData();
+}
+
+void FcitxRimeToggleDeploy(void* arg)
+{
+    FcitxRime* rime = (FcitxRime*) arg;
+    if (rime->session_id) {
+        RimeDestroySession(rime->session_id);
+        rime->session_id = 0;
+    }
+    RimeFinalize();
+    FcitxRimeStart(rime, true);
+
+    FcitxRimeUpdateStatus(rime);
 }
 

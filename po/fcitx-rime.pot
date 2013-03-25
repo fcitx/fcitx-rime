@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2012-12-24 14:16-0500\n"
+"POT-Creation-Date: 2013-03-25 00:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/fcitx-rime.c:74 src/fcitx-rime.conf.in:3 src/rime.conf.in:3
+#: src/fcitx-rime.c:84 src/fcitx-rime.conf.in:3 src/rime.conf.in:3
 msgid "Rime"
+msgstr ""
+
+#: src/fcitx-rime.c:104
+msgid "⟲ Deploy"
+msgstr ""
+
+#: src/fcitx-rime.c:105
+msgid "Deploy"
+msgstr ""
+
+#: src/fcitx-rime.c:113
+msgid "⇅ Synchronize"
+msgstr ""
+
+#: src/fcitx-rime.c:114
+msgid "Synchronize"
 msgstr ""
 
 #: src/fcitx-rime.conf.in:4
