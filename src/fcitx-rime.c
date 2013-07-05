@@ -207,13 +207,13 @@ INPUT_RETURN_VALUE FcitxRimeDoInput(void* arg, FcitxKeySym _sym, unsigned int _s
     FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
     uint32_t sym = FcitxInputStateGetKeySym(input);
     uint32_t state = FcitxInputStateGetKeyState(input);
-    _state &= (FcitxKeyState_SimpleMask);
+    _state &= (FcitxKeyState_SimpleMask | FcitxKeyState_CapsLock);
 
-    if (_state & (~(FcitxKeyState_Ctrl_Alt_Shift))) {
+    if (_state & (~(FcitxKeyState_Ctrl_Alt_Shift | FcitxKeyState_CapsLock))) {
         return IRV_TO_PROCESS;
     }
 
-    state &= (FcitxKeyState_SimpleMask);
+    state &= (FcitxKeyState_SimpleMask | FcitxKeyState_CapsLock);
 
     return FcitxRimeDoInputReal(arg, sym, state);
 }
@@ -439,4 +439,3 @@ void FcitxRimeToggleDeploy(void* arg)
 
     FcitxRimeUpdateStatus(rime);
 }
-
