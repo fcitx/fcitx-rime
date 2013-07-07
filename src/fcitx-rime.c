@@ -11,6 +11,7 @@
 typedef struct _FcitxRime {
     FcitxInstance* owner;
     RimeSessionId session_id;
+    char* iconname;
 } FcitxRime;
 
 static void* FcitxRimeCreate(FcitxInstance* instance);
@@ -23,7 +24,9 @@ static INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym sym, un
 static INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym _sym, unsigned int _state);
 static INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg);
 static void FcitxRimeToggleEnZh(void* arg);
-static const char* FcitxRimeGetDummy(void* arg);
+static const char* FcitxRimeGetIMIcon(void* arg);
+static const char* FcitxRimeGetDeployIcon(void *arg);
+static const char* FcitxRimeGetSyncIcon(void *arg);
 static void FcitxRimeToggleSync(void* arg);
 static void FcitxRimeToggleDeploy(void* arg);
 static void FcitxRimeResetUI(void* arg);
@@ -91,33 +94,33 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     FcitxUIRegisterComplexStatus(
         instance,
         rime,
-        "rimeenzh",
+        "rime-enzh",
         "",
         "",
         FcitxRimeToggleEnZh,
-        FcitxRimeGetDummy);
+        FcitxRimeGetIMIcon);
 
     FcitxUIRegisterComplexStatus(
         instance,
         rime,
-        "rimedeploy",
-        _("\xe2\x9f\xb2 Deploy"),
+        "rime-deploy",
+        _("Deploy"),
         _("Deploy"),
         FcitxRimeToggleDeploy,
-        FcitxRimeGetDummy);
+        FcitxRimeGetDeployIcon);
 
     FcitxUIRegisterComplexStatus(
         instance,
         rime,
-        "rimesync",
-        _("\xe2\x87\x85 Synchronize"),
+        "rime-sync",
+        _("Synchronize"),
         _("Synchronize"),
         FcitxRimeToggleSync,
-        FcitxRimeGetDummy);
+        FcitxRimeGetSyncIcon);
 
-    FcitxUISetStatusVisable(instance, "rimeenzh", false);
-    FcitxUISetStatusVisable(instance, "rimesync", false);
-    FcitxUISetStatusVisable(instance, "rimedeploy", false);
+    FcitxUISetStatusVisable(instance, "rime-enzh", false);
+    FcitxUISetStatusVisable(instance, "rime-sync", false);
+    FcitxUISetStatusVisable(instance, "rime-deploy", false);
     FcitxIMEventHook hk;
     hk.arg = rime;
     hk.func = FcitxRimeResetUI;
@@ -134,6 +137,7 @@ void FcitxRimeDestroy(void* arg)
         RimeDestroySession(rime->session_id);
         rime->session_id = 0;
     }
+    fcitx_utils_free(rime->iconname);
     RimeFinalize();
 }
 
@@ -196,7 +200,7 @@ void FcitxRimeUpdateStatus(FcitxRime* rime)
         } else {
             text = "中";
         }
-        FcitxUISetStatusString(rime->owner, "rimeenzh", text, text);
+        FcitxUISetStatusString(rime->owner, "rime-enzh", text, text);
         RimeFreeStatus(&status);
     }
 }
@@ -396,10 +400,43 @@ void FcitxRimeReloadConfig(void* arg)
     FcitxRimeUpdateStatus(rime);
 }
 
-const char* FcitxRimeGetDummy(void* arg)
+static const char* FcitxRimeGetIMIcon(void* arg)
 {
+#if 0
+    FcitxRime* rime = (FcitxRime*) arg;
+    RimeStatus status = {0};
+    RIME_STRUCT_INIT(RimeStatus, status);
+    if (RimeGetStatus(rime->session_id, &status)) {
+        char* text = "";
+        if (status.is_disabled) {
+            text = "rime-disabled";
+        } else if (status.is_ascii_mode) {
+            text = "rime-en";
+        } else if (status.schema_id) {
+            fcitx_utils_free(rime->iconname);
+            fcitx_utils_alloc_cat_str(rime->iconname, "rime-", status.schema_id);
+            text = rime->iconname;
+        } else {
+            text = "rime-ch";
+        }
+        RimeFreeStatus(&status);
+
+        return text;
+    }
+#endif
     return "";
 }
+
+static const char* FcitxRimeGetDeployIcon(void *arg)
+{
+    return "rime-deploy";
+}
+
+static const char* FcitxRimeGetSyncIcon(void *arg)
+{
+    return "rime-sync";
+}
+
 
 void FcitxRimeToggleEnZh(void* arg)
 {
@@ -417,9 +454,9 @@ void FcitxRimeResetUI(void* arg)
         visible = false;
     else
         visible = true;
-    FcitxUISetStatusVisable(instance, "rimeenzh", visible);
-    FcitxUISetStatusVisable(instance, "rimesync", visible);
-    FcitxUISetStatusVisable(instance, "rimedeploy", visible);
+    FcitxUISetStatusVisable(instance, "rime-enzh", visible);
+    FcitxUISetStatusVisable(instance, "rime-sync", visible);
+    FcitxUISetStatusVisable(instance, "rime-deploy", visible);
 }
 
 void FcitxRimeToggleSync(void* arg)
