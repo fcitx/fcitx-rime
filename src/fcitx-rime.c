@@ -402,28 +402,26 @@ void FcitxRimeReloadConfig(void* arg)
 
 static const char* FcitxRimeGetIMIcon(void* arg)
 {
-#if 0
     FcitxRime* rime = (FcitxRime*) arg;
     RimeStatus status = {0};
     RIME_STRUCT_INIT(RimeStatus, status);
     if (RimeGetStatus(rime->session_id, &status)) {
         char* text = "";
         if (status.is_disabled) {
-            text = "rime-disabled";
+            text = "@rime-disabled";
         } else if (status.is_ascii_mode) {
-            text = "rime-en";
+            text = "@rime-latin";
         } else if (status.schema_id) {
             fcitx_utils_free(rime->iconname);
-            fcitx_utils_alloc_cat_str(rime->iconname, "rime-", status.schema_id);
+            fcitx_utils_alloc_cat_str(rime->iconname, "@rime-ch-", status.schema_id);
             text = rime->iconname;
         } else {
-            text = "rime-ch";
+            text = "@rime-ch";
         }
         RimeFreeStatus(&status);
 
         return text;
     }
-#endif
     return "";
 }
 
