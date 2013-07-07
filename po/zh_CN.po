@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-04-25 00:02-0400\n"
-"PO-Revision-Date: 2013-03-25 22:17+0000\n"
+"POT-Creation-Date: 2013-07-07 12:02-0400\n"
+"PO-Revision-Date: 2013-04-29 10:18+0000\n"
 "Last-Translator: Xuetian Weng <wengxt@gmail.com>\n"
 "Language-Team: Chinese (China) <fcitx-dev@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/fcitx-rime.c:105
+#: src/fcitx-rime.c:107 src/fcitx-rime.c:108
 msgid "Deploy"
 msgstr "重新部署"
 
-#: src/fcitx-rime.c:84 src/fcitx-rime.conf.in:3 src/rime.conf.in:3
+#: src/fcitx-rime.c:87 src/fcitx-rime.conf.in:3 src/rime.conf.in:3
 msgid "Rime"
 msgstr "中州韻"
 
@@ -30,14 +30,12 @@ msgstr "中州韻"
 msgid "Rime Wrapper For Fcitx"
 msgstr "Fcitx 的中州韻封装"
 
-#: src/fcitx-rime.c:114
+#: src/fcitx-rime.c:116 src/fcitx-rime.c:117
 msgid "Synchronize"
 msgstr "同步"
 
-#: src/fcitx-rime.c:113
-msgid "⇅ Synchronize"
-msgstr "⇅ 同步"
+#~ msgid "⇅ Synchronize"
+#~ msgstr "⇅ 同步"
 
-#: src/fcitx-rime.c:104
-msgid "⟲ Deploy"
-msgstr "⟲ 重新部署"
+#~ msgid "⟲ Deploy"
+#~ msgstr "⟲ 重新部署"
