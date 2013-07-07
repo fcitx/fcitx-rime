@@ -413,10 +413,10 @@ static const char* FcitxRimeGetIMIcon(void* arg)
             text = "@rime-latin";
         } else if (status.schema_id) {
             fcitx_utils_free(rime->iconname);
-            fcitx_utils_alloc_cat_str(rime->iconname, "@rime-ch-", status.schema_id);
+            fcitx_utils_alloc_cat_str(rime->iconname, "@rime-im-", status.schema_id);
             text = rime->iconname;
         } else {
-            text = "@rime-ch";
+            text = "@rime-im";
         }
         RimeFreeStatus(&status);
 
