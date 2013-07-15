@@ -1,9 +1,19 @@
-install(FILES zhung.png RENAME rime.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/imicon)
-install(FILES rime-deploy.png RENAME rime-deploy.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/default)
-install(FILES rime-sync.png RENAME rime-sync.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/default)
+# for im icon
+install(FILES rime.png RENAME rime.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/imicon)
 
-install(FILES zhung.png RENAME fcitx-rime.png DESTINATION share/icons/hicolor/48x48/apps)
-install(FILES rime-deploy.png RENAME fcitx-rime-deploy.png DESTINATION share/icons/hicolor/48x48/status)
-install(FILES rime-sync.png RENAME fcitx-rime-sync.png DESTINATION share/icons/hicolor/48x48/status)
-install(FILES rime-deploy.svg RENAME fcitx-rime-deploy.svg DESTINATION share/icons/hicolor/scalable/status)
-install(FILES rime-sync.svg RENAME fcitx-rime-sync.svg DESTINATION share/icons/hicolor/scalable/status)
+# for skin
+foreach(png rime-sync rime-im rime-disable rime-latin rime-deploy)
+install(FILES ${png}.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/default)
+endforeach()
+
+# with prefix
+foreach(svg rime rime-deploy rime-sync)
+install(FILES ${svg}.png RENAME fcitx-${svg}.png DESTINATION share/icons/hicolor/48x48/apps)
+install(FILES ${svg}.svg RENAME fcitx-${svg}.svg DESTINATION share/icons/hicolor/scalable/status)
+endforeach()
+
+# without prefix
+foreach(svg rime-im rime-latin rime-disable)
+install(FILES ${svg}.png DESTINATION share/icons/hicolor/48x48/apps)
+install(FILES ${svg}.svg DESTINATION share/icons/hicolor/scalable/status)
+endforeach()
