@@ -2,9 +2,7 @@
 install(FILES rime.png RENAME rime.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/imicon)
 
 # for skin
-foreach(png rime-sync rime-im rime-disable rime-latin rime-deploy)
-install(FILES ${png}.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin/default)
-endforeach()
+install(DIRECTORY default DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin)
 
 # with prefix
 foreach(svg rime rime-deploy rime-sync)
