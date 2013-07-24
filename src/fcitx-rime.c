@@ -69,6 +69,7 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
 {
     FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
     rime->owner = instance;
+    RimeSetupLogging("rime.fcitx-rime");
     FcitxRimeStart(rime, false);
 
     FcitxIMIFace iface;
