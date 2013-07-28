@@ -3,6 +3,7 @@
 #include <fcitx/candidate.h>
 #include <fcitx/hook.h>
 #include <fcitx-config/xdg.h>
+#include <fcitx/module/freedesktop-notify/fcitx-freedesktop-notify.h>
 #include <libintl.h>
 #include <rime_api.h>
 
@@ -41,6 +42,29 @@ FcitxIMClass ime = {
 FCITX_EXPORT_API
 int ABI_VERSION = FCITX_ABI_VERSION;
 
+void FcitxRimeNotificationHandler(void* context_object,
+                                  RimeSessionId session_id,
+                                  const char* message_type,
+                                  const char* message_value)
+{
+    const char* message = NULL;
+    FcitxRime* rime = (FcitxRime*) context_object;
+    if (!strcmp(message_type, "deploy")) {
+        if (!strcmp(message_value, "start")) {
+            message = _("Rime is under maintenance ...");
+        } else if (!strcmp(message_value, "success")) {
+            message = _("Rime is ready.");
+        } else if (!strcmp(message_value, "failure")) {
+            message = _("Rime has encountered an error. "
+                        "See /tmp/rime.fcitx.ERROR for details.");
+        }
+    }
+
+    if (message) {
+        FcitxFreeDesktopNotifyShowAddonTip(rime->owner, "fcitx-rime-deploy", "fcitx-rime-deploy", _("Rime"), message);
+    }
+}
+
 static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
 
     char* user_path = NULL;
@@ -50,6 +74,8 @@ static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
     FcitxXDGGetFileUserWithPrefix("rime", "", NULL, &user_path);
     //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
     const char* shared_data_dir = RIME_DATA_DIR;
+
+    RimeSetNotificationHandler(FcitxRimeNotificationHandler, rime);
 
     RimeTraits fcitx_rime_traits;
     fcitx_rime_traits.shared_data_dir = shared_data_dir;
@@ -187,6 +213,9 @@ INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym _sym, unsigned
 
 void FcitxRimeUpdateStatus(FcitxRime* rime)
 {
+    if (!RimeFindSession(rime->session_id)) {
+        rime->session_id = RimeCreateSession();
+    }
     RimeStatus status = {0};
     RIME_STRUCT_INIT(RimeStatus, status);
     if (RimeGetStatus(rime->session_id, &status)) {
