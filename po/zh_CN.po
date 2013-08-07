@@ -4,13 +4,14 @@
 #
 # Translators:
 # Xuetian Weng <wengxt@gmail.com>, 2012-2013
+# wwj402 <wwj402@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-07-28 12:02-0400\n"
-"PO-Revision-Date: 2013-07-07 16:09+0000\n"
-"Last-Translator: Xuetian Weng <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2013-08-07 12:02-0400\n"
+"PO-Revision-Date: 2013-08-07 15:38+0000\n"
+"Last-Translator: wwj402 <wwj402@gmail.com>\n"
 "Language-Team: Chinese (China) <fcitx-dev@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -33,15 +34,15 @@ msgstr "Fcitx 的中州韻封装"
 
 #: src/fcitx-rime.c:58
 msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
-msgstr ""
+msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
 
 #: src/fcitx-rime.c:56
 msgid "Rime is ready."
-msgstr ""
+msgstr "Rime 就绪。"
 
 #: src/fcitx-rime.c:54
 msgid "Rime is under maintenance ..."
-msgstr ""
+msgstr "Rime 正在维护中..."
 
 #: src/fcitx-rime.c:143 src/fcitx-rime.c:144
 msgid "Synchronize"
