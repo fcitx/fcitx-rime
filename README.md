@@ -27,21 +27,21 @@ Generally it means, distros that are a little old like openSUSE 11.4 or Ubuntu 1
 
 ### Dependency
 
-*cmake
+* cmake
 
-*gcc-c++
+* gcc-c++
 
-*intltool
+* intltool
 
-*fcitx-devel with all three skins
+* fcitx-devel with all three skins
 
  some distro like openSUSE split a fcitx-skin-classic and a fcitx-skin-dark, so you need them.
 
-*librime-devel
+* ibrime-devel
 
-*brise
+* brise
 
-*hicolor-icon-theme 
+* hicolor-icon-theme 
 
  optional, for directory ownership.
 
