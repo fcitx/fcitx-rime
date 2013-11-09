@@ -13,6 +13,8 @@ typedef struct _FcitxRime {
     FcitxInstance* owner;
     RimeSessionId session_id;
     char* iconname;
+    RimeApi* api;
+    boolean firstRun;
 } FcitxRime;
 
 static void* FcitxRimeCreate(FcitxInstance* instance);
@@ -75,27 +77,35 @@ static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
     //char* shared_data_dir = fcitx_utils_get_fcitx_path_with_filename("pkgdatadir", "rime");
     const char* shared_data_dir = RIME_DATA_DIR;
 
-    RimeSetNotificationHandler(FcitxRimeNotificationHandler, rime);
-
-    RimeTraits fcitx_rime_traits;
+    RIME_STRUCT(RimeTraits, fcitx_rime_traits);
     fcitx_rime_traits.shared_data_dir = shared_data_dir;
+    fcitx_rime_traits.app_name = "rime.fcitx-rime";
     fcitx_rime_traits.user_data_dir = user_path;
     fcitx_rime_traits.distribution_name = "Rime";
     fcitx_rime_traits.distribution_code_name = "fcitx-rime";
-    fcitx_rime_traits.distribution_version = "0.1";
-    RimeInitialize(&fcitx_rime_traits);
-    if (RimeStartMaintenance(fullcheck)) {
-        // TODO: notification...
+    fcitx_rime_traits.distribution_version = "0.2.3";
+    if (rime->firstRun) {
+        rime->api->setup(&fcitx_rime_traits);
+        rime->firstRun = false;
     }
+    rime->api->initialize(&fcitx_rime_traits);
+    rime->api->set_notification_handler(FcitxRimeNotificationHandler, rime);
+    rime->api->start_maintenance(fullcheck);
 
-    rime->session_id = RimeCreateSession();
+    rime->session_id = rime->api->create_session();
 }
 
 static void* FcitxRimeCreate(FcitxInstance* instance)
 {
     FcitxRime* rime = (FcitxRime*) fcitx_utils_malloc0(sizeof(FcitxRime));
     rime->owner = instance;
-    RimeSetupLogging("rime.fcitx-rime");
+    rime->api = rime_get_api();
+    rime->firstRun = true;
+    if (!rime->api) {
+        free(rime);
+        return NULL;
+    }
+
     FcitxRimeStart(rime, false);
 
     FcitxIMIFace iface;
@@ -161,11 +171,12 @@ void FcitxRimeDestroy(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
     if (rime->session_id) {
-        RimeDestroySession(rime->session_id);
+        rime->api->destroy_session(rime->session_id);
         rime->session_id = 0;
     }
     fcitx_utils_free(rime->iconname);
-    RimeFinalize();
+    rime->api->finalize();
+    free(rime);
 }
 
 boolean FcitxRimeInit(void* arg)
@@ -186,11 +197,15 @@ boolean FcitxRimeInit(void* arg)
 void FcitxRimeReset(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
-    if (!RimeFindSession(rime->session_id)) {
-        rime->session_id = RimeCreateSession();
+
+    if (rime->api->is_maintenance_mode()) {
+        return;
+    }
+    if (!rime->api->find_session(rime->session_id)) {
+        rime->session_id = rime->api->create_session();
     }
     if (rime->session_id) {
-        RimeProcessKey(rime->session_id, FcitxKey_Escape, 0);
+        rime->api->process_key(rime->session_id, FcitxKey_Escape, 0);
     }
 }
 
@@ -213,12 +228,15 @@ INPUT_RETURN_VALUE FcitxRimeDoReleaseInput(void* arg, FcitxKeySym _sym, unsigned
 
 void FcitxRimeUpdateStatus(FcitxRime* rime)
 {
-    if (!RimeFindSession(rime->session_id)) {
-        rime->session_id = RimeCreateSession();
+    if (rime->api->is_maintenance_mode()) {
+        return;
     }
-    RimeStatus status = {0};
-    RIME_STRUCT_INIT(RimeStatus, status);
-    if (RimeGetStatus(rime->session_id, &status)) {
+    if (!rime->api->find_session(rime->session_id)) {
+        rime->session_id = rime->api->create_session();
+    }
+    
+    RIME_STRUCT(RimeStatus, status);
+    if (rime->api->get_status(rime->session_id, &status)) {
         char* text = "";
         if (status.is_disabled) {
             text = "\xe2\x8c\x9b";
@@ -231,7 +249,7 @@ void FcitxRimeUpdateStatus(FcitxRime* rime)
             text = "中";
         }
         FcitxUISetStatusString(rime->owner, "rime-enzh", text, text);
-        RimeFreeStatus(&status);
+        rime->api->free_status(&status);
     }
 }
 
@@ -256,19 +274,22 @@ INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym sym, unsigned int
 {
     FcitxRime *rime = (FcitxRime *)arg;
 
-    if (!RimeFindSession(rime->session_id)) {
-        rime->session_id = RimeCreateSession();
+    if (rime->api->is_maintenance_mode()) {
+        return IRV_TO_PROCESS;
+    }
+    if (!rime->api->find_session(rime->session_id)) {
+        rime->session_id = rime->api->create_session();
     }
     if (!rime->session_id) { // service disabled
         return IRV_TO_PROCESS;
     }
-    boolean result = RimeProcessKey(rime->session_id, sym, state);
+    boolean result = rime->api->process_key(rime->session_id, sym, state);
 
-    RimeCommit commit = {0};
-    if (RimeGetCommit(rime->session_id, &commit)) {
+    RIME_STRUCT(RimeCommit, commit);
+    if (rime->api->get_commit(rime->session_id, &commit)) {
         FcitxInputContext* ic = FcitxInstanceGetCurrentIC(rime->owner);
         FcitxInstanceCommitString(rime->owner, ic, commit.text);
-        RimeFreeCommit(&commit);
+        rime->api->free_commit(&commit);
     }
 
     FcitxRimeUpdateStatus(rime);
@@ -284,16 +305,15 @@ INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym sym, unsigned int
 
 INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
 {
-    RimeContext context = {0};
     FcitxRime *rime = (FcitxRime *)arg;
-    RIME_STRUCT_INIT(RimeContext, context);
+    RIME_STRUCT(RimeContext, context);
     INPUT_RETURN_VALUE retVal = IRV_TO_PROCESS;
-    if (RimeGetContext(rime->session_id, &context)) {
+    if (rime->api->get_context(rime->session_id, &context)) {
         if (context.menu.num_candidates)
         {
             int i = *(int*) candWord->priv;
             const char* digit = DIGIT_STR_CHOOSE;
-            int num_select_keys = strlen(context.menu.select_keys);
+            int num_select_keys = context.menu.select_keys ? strlen(context.menu.select_keys) : 0;
             FcitxKeySym sym = FcitxKey_None;
             if (i < 10) {
                 if (i < num_select_keys)
@@ -302,12 +322,13 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
                     sym = digit[i];
             }
             if (sym != FcitxKey_None) {
-                boolean result = RimeProcessKey(rime->session_id, sym, 0);
-                RimeCommit commit = {0};
-                if (RimeGetCommit(rime->session_id, &commit)) {
+                boolean result = rime->api->process_key(rime->session_id, sym, 0);
+                
+                RIME_STRUCT(RimeCommit, commit);
+                if (rime->api->get_commit(rime->session_id, &commit)) {
                     FcitxInputContext* ic = FcitxInstanceGetCurrentIC(rime->owner);
                     FcitxInstanceCommitString(rime->owner, ic, commit.text);
-                    RimeFreeCommit(&commit);
+                    rime->api->free_commit(&commit);
                 }
                 if (!result) {
                     FcitxRimeGetCandWords(rime);
@@ -318,9 +339,9 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
                     retVal = IRV_DISPLAY_CANDWORDS;
             }
         }
+        rime->api->free_context(&context);
     }
 
-    RimeFreeContext(&context);
     return retVal;
 }
 
@@ -331,11 +352,13 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
     FcitxInputState *input = FcitxInstanceGetInputState(rime->owner);
     FcitxInstanceCleanInputWindow(rime->owner);
 
-    RimeContext context = {0};
-    RIME_STRUCT_INIT(RimeContext, context);
-    if (!RimeGetContext(rime->session_id, &context) ||
-        context.composition.length == 0) {
-        RimeFreeContext(&context);
+    RIME_STRUCT(RimeContext, context);
+    if (!rime->api->get_context(rime->session_id, &context)) {
+        return IRV_DISPLAY_CANDWORDS;
+    }
+
+    if (context.composition.length == 0) {
+        rime->api->free_context(&context);
         return IRV_DISPLAY_CANDWORDS;
     }
 
@@ -381,7 +404,7 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         char strChoose[11];
         strChoose[10] = '\0';
         FcitxCandidateWordSetPageSize(candList, 10);
-        int num_select_keys = strlen(context.menu.select_keys);
+        int num_select_keys = context.menu.select_keys ? strlen(context.menu.select_keys) : 0;
         int i;
         for (i = 0; i < context.menu.num_candidates; ++i) {
             FcitxCandidateWord candWord;
@@ -413,7 +436,7 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         FcitxCandidateWordSetOverridePaging(candList, context.menu.page_no != 0, !context.menu.is_last_page, NULL, NULL, NULL);
     }
 
-    RimeFreeContext(&context);
+    rime->api->free_context(&context);
     return IRV_DISPLAY_CANDWORDS;
 }
 
@@ -421,10 +444,10 @@ void FcitxRimeReloadConfig(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
     if (rime->session_id) {
-        RimeDestroySession(rime->session_id);
+        rime->api->destroy_session(rime->session_id);
         rime->session_id = 0;
     }
-    RimeFinalize();
+    rime->api->finalize();
     FcitxRimeStart(rime, false);
 
     FcitxRimeUpdateStatus(rime);
@@ -433,9 +456,8 @@ void FcitxRimeReloadConfig(void* arg)
 static const char* FcitxRimeGetIMIcon(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
-    RimeStatus status = {0};
-    RIME_STRUCT_INIT(RimeStatus, status);
-    if (RimeGetStatus(rime->session_id, &status)) {
+    RIME_STRUCT(RimeStatus, status);
+    if (rime->api->get_status(rime->session_id, &status)) {
         char* text = "";
         if (status.is_disabled) {
             text = "@rime-disabled";
@@ -448,7 +470,7 @@ static const char* FcitxRimeGetIMIcon(void* arg)
         } else {
             text = "@rime-im";
         }
-        RimeFreeStatus(&status);
+        rime->api->free_status(&status);
 
         return text;
     }
@@ -489,17 +511,18 @@ void FcitxRimeResetUI(void* arg)
 
 void FcitxRimeToggleSync(void* arg)
 {
-    RimeSyncUserData();
+    FcitxRime* rime = (FcitxRime*) arg;
+    rime->api->sync_user_data();
 }
 
 void FcitxRimeToggleDeploy(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
     if (rime->session_id) {
-        RimeDestroySession(rime->session_id);
+        rime->api->sync_user_data(rime->session_id);
         rime->session_id = 0;
     }
-    RimeFinalize();
+    rime->api->finalize();
     FcitxRimeStart(rime, true);
 
     FcitxRimeUpdateStatus(rime);
