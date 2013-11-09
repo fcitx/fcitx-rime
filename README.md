@@ -31,8 +31,6 @@ Generally it means, distros that are a little old like openSUSE 11.4 or Ubuntu 1
 
 *gcc-c++
 
-*intltool
-
 *fcitx-devel with all three skins
 
  some distro like openSUSE split a fcitx-skin-classic and a fcitx-skin-dark, so you need them.
