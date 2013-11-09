@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 include(FindPkgConfig)
 find_package(Fcitx 4.2.8.1 REQUIRED)
-find_package(Rime REQUIRED)
+pkg_check_modules(RIME "rime>=1.0.0" REQUIRED)
 
 if(NOT DEFINED RIME_DATA_DIR)
   find_package(Brise REQUIRED)
