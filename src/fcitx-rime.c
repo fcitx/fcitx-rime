@@ -281,6 +281,7 @@ INPUT_RETURN_VALUE FcitxRimeDoInputReal(void* arg, FcitxKeySym sym, unsigned int
         rime->session_id = rime->api->create_session();
     }
     if (!rime->session_id) { // service disabled
+        FcitxRimeUpdateStatus(rime);
         return IRV_TO_PROCESS;
     }
     boolean result = rime->api->process_key(rime->session_id, sym, state);
@@ -474,7 +475,7 @@ static const char* FcitxRimeGetIMIcon(void* arg)
 
         return text;
     }
-    return "";
+    return "@rime-disabled";
 }
 
 static const char* FcitxRimeGetDeployIcon(void *arg)
