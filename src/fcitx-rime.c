@@ -15,6 +15,7 @@ typedef struct _FcitxRime {
     char* iconname;
     RimeApi* api;
     boolean firstRun;
+    FcitxUIMenu schemamenu;
 } FcitxRime;
 
 static void* FcitxRimeCreate(FcitxInstance* instance);
@@ -34,6 +35,8 @@ static void FcitxRimeToggleSync(void* arg);
 static void FcitxRimeToggleDeploy(void* arg);
 static void FcitxRimeResetUI(void* arg);
 static void FcitxRimeUpdateStatus(FcitxRime* rime);
+static boolean FcitxRimeSchemaMenuAction(FcitxUIMenu *menu, int index);
+static void FcitxRimeSchemaMenuUpdate(FcitxUIMenu *menu);
 
 FCITX_EXPORT_API
 FcitxIMClass ime = {
@@ -163,6 +166,15 @@ static void* FcitxRimeCreate(FcitxInstance* instance)
     hk.func = FcitxRimeResetUI;
 
     FcitxInstanceRegisterResetInputHook(instance, hk);
+    
+    FcitxMenuInit(&rime->schemamenu);
+    rime->schemamenu.name = strdup(_("Schema List"));
+    rime->schemamenu.candStatusBind = strdup("rime-enzh");
+    rime->schemamenu.MenuAction = FcitxRimeSchemaMenuAction;
+    rime->schemamenu.UpdateMenu = FcitxRimeSchemaMenuUpdate;
+    rime->schemamenu.priv = rime;
+    rime->schemamenu.isSubMenu = false;
+    FcitxUIRegisterMenu(rime->owner, &rime->schemamenu);
 
     return rime;
 }
@@ -174,6 +186,10 @@ void FcitxRimeDestroy(void* arg)
         rime->api->destroy_session(rime->session_id);
         rime->session_id = 0;
     }
+
+    FcitxUIUnRegisterMenu(rime->owner, &rime->schemamenu);
+    FcitxMenuFinalize(&rime->schemamenu);
+    
     fcitx_utils_free(rime->iconname);
     rime->api->finalize();
     free(rime);
@@ -250,6 +266,8 @@ void FcitxRimeUpdateStatus(FcitxRime* rime)
         }
         FcitxUISetStatusString(rime->owner, "rime-enzh", text, text);
         rime->api->free_status(&status);
+    } else {
+        FcitxUISetStatusString(rime->owner, "rime-enzh", "\xe2\x8c\x9b", "\xe2\x8c\x9b");
     }
 }
 
@@ -454,6 +472,59 @@ void FcitxRimeReloadConfig(void* arg)
     FcitxRimeUpdateStatus(rime);
 }
 
+
+boolean FcitxRimeSchemaMenuAction(FcitxUIMenu* menu, int index)
+{
+    FcitxRime * rime = menu->priv;
+    if (rime->api->is_maintenance_mode()) {
+        return false;
+    }
+    if (!rime->api->find_session(rime->session_id)) {
+        rime->session_id = rime->api->create_session();
+    }
+
+    if (index == 0) {
+        rime->api->set_option(rime->session_id, "ascii_mode", true);
+    } else {
+        rime->api->set_option(rime->session_id, "ascii_mode", false);
+        RimeSchemaList list = {0};
+        if (rime->api->get_schema_list(&list)) {
+            if (list.size > index - 1) {
+                rime->api->select_schema(rime->session_id,list.list[index-1].schema_id);
+                FcitxRimeUpdateStatus(rime);
+                FcitxRimeGetCandWords(rime);
+                FcitxUIUpdateInputWindow(rime->owner);
+            }
+            rime->api->free_schema_list(&list);
+        }
+    }
+
+    return true;
+}
+
+void FcitxRimeSchemaMenuUpdate(FcitxUIMenu* menu)
+{
+    FcitxRime * rime = menu->priv;
+    if (rime->api->is_maintenance_mode()) {
+        return;
+    }
+    if (!rime->api->find_session(rime->session_id)) {
+        rime->session_id = rime->api->create_session();
+    }
+
+    FcitxMenuClear(menu);
+
+    FcitxMenuAddMenuItem(menu, _("English"), MENUTYPE_SIMPLE, NULL);
+    RimeSchemaList list = {0};
+    if (rime->api->get_schema_list(&list)) {
+        size_t i = 0;
+        for (i = 0; i < list.size; ++i) {
+            FcitxMenuAddMenuItem(menu, list.list[i].name, MENUTYPE_SIMPLE, NULL);
+        }
+        rime->api->free_schema_list(&list);
+    }
+}
+
 static const char* FcitxRimeGetIMIcon(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
@@ -461,7 +532,7 @@ static const char* FcitxRimeGetIMIcon(void* arg)
     if (rime->api->get_status(rime->session_id, &status)) {
         char* text = "";
         if (status.is_disabled) {
-            text = "@rime-disabled";
+            text = "@rime-disable";
         } else if (status.is_ascii_mode) {
             text = "@rime-latin";
         } else if (status.schema_id) {
@@ -475,7 +546,7 @@ static const char* FcitxRimeGetIMIcon(void* arg)
 
         return text;
     }
-    return "@rime-disabled";
+    return "@rime-disable";
 }
 
 static const char* FcitxRimeGetDeployIcon(void *arg)
@@ -514,6 +585,8 @@ void FcitxRimeToggleSync(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
     rime->api->sync_user_data();
+    FcitxRimeGetCandWords(rime);
+    FcitxUIUpdateInputWindow(rime->owner);
 }
 
 void FcitxRimeToggleDeploy(void* arg)
@@ -527,4 +600,6 @@ void FcitxRimeToggleDeploy(void* arg)
     FcitxRimeStart(rime, true);
 
     FcitxRimeUpdateStatus(rime);
+    FcitxRimeGetCandWords(rime);
+    FcitxUIUpdateInputWindow(rime->owner);
 }
