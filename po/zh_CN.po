@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Xuetian Weng <wengxt@gmail.com>, 2014
 # Xuetian Weng <wengxt@gmail.com>, 2012-2013
 # wwj402 <wwj402@gmail.com>, 2013
 msgid ""
@@ -10,7 +11,7 @@ msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
 "POT-Creation-Date: 2013-11-29 06:01-0500\n"
-"PO-Revision-Date: 2014-01-01 08:57+0000\n"
+"PO-Revision-Date: 2014-01-08 21:13+0000\n"
 "Last-Translator: Xuetian Weng <wengxt@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/fcitx/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -46,11 +47,11 @@ msgstr "同步"
 
 #: src/fcitx-rime.c:171
 msgid "Schema List"
-msgstr ""
+msgstr "方案列表"
 
 #: src/fcitx-rime.c:517
 msgid "English"
-msgstr ""
+msgstr "英文"
 
 #: src/fcitx-rime.conf.in:4
 msgid "Rime Wrapper For Fcitx"
