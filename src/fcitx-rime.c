@@ -37,6 +37,7 @@ static void FcitxRimeResetUI(void* arg);
 static void FcitxRimeUpdateStatus(FcitxRime* rime);
 static boolean FcitxRimeSchemaMenuAction(FcitxUIMenu *menu, int index);
 static void FcitxRimeSchemaMenuUpdate(FcitxUIMenu *menu);
+static boolean FcitxRimePaging(void* arg, boolean prev);
 
 FCITX_EXPORT_API
 FcitxIMClass ime = {
@@ -364,6 +365,15 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWord(void* arg, FcitxCandidateWord* candWord)
     return retVal;
 }
 
+boolean FcitxRimePaging(void* arg, boolean prev) {
+    FcitxRime *rime = (FcitxRime *)arg;
+    boolean result = RimeProcessKey(rime->session_id, prev ? FcitxKey_Page_Up : FcitxKey_Page_Down, 0);
+    if (result) {
+        FcitxRimeGetCandWords(rime);
+        FcitxUIUpdateInputWindow(rime->owner);
+    }
+    return result;
+}
 
 INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
 {
@@ -452,7 +462,7 @@ INPUT_RETURN_VALUE FcitxRimeGetCandWords(void* arg)
         }
         FcitxCandidateWordSetChoose(candList, strChoose);
 
-        FcitxCandidateWordSetOverridePaging(candList, context.menu.page_no != 0, !context.menu.is_last_page, NULL, NULL, NULL);
+        FcitxCandidateWordSetOverridePaging(candList, context.menu.page_no != 0, !context.menu.is_last_page, FcitxRimePaging, rime, NULL);
     }
 
     rime->api->free_context(&context);
