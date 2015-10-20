@@ -4,13 +4,14 @@
 #
 # Translators:
 # Jeff Huang <s8321414@gmail.com>, 2015
+# csslayer <wengxt@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2015-09-28 18:02+0200\n"
-"PO-Revision-Date: 2015-09-28 14:27+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>\n"
+"POT-Creation-Date: 2015-10-20 06:02+0200\n"
+"PO-Revision-Date: 2015-10-20 03:40+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/"
 "language/zh_TW/)\n"
 "Language: zh_TW\n"
@@ -50,7 +51,7 @@ msgstr "Rime 仍在維護中..."
 
 #: src/fcitx-rime.c:171
 msgid "Schema List"
-msgstr "概要列表"
+msgstr "方案選單"
 
 #: src/fcitx-rime.c:156 src/fcitx-rime.c:157
 msgid "Synchronize"
