@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # csslayer <wengxt@gmail.com>, 2014
 # csslayer <wengxt@gmail.com>, 2012-2013
@@ -10,49 +10,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2013-11-29 06:01-0500\n"
+"POT-Creation-Date: 2015-12-11 23:17-0800\n"
 "PO-Revision-Date: 2014-01-08 21:13+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
+"language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/fcitx-rime.c:59
-msgid "Rime is under maintenance ..."
-msgstr "Rime 正在维护中..."
+#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+msgid "Deploy"
+msgstr "重新部署"
 
-#: src/fcitx-rime.c:61
-msgid "Rime is ready."
-msgstr "Rime 就绪。"
+#: src/fcitx-rime.c:527
+msgid "English"
+msgstr "英文"
 
-#: src/fcitx-rime.c:63
-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
-msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
-
-#: src/fcitx-rime.c:69 src/fcitx-rime.c:127 src/fcitx-rime.conf.in:3
+#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
 msgid "Rime"
 msgstr "中州韻"
 
-#: src/fcitx-rime.c:147 src/fcitx-rime.c:148
-msgid "Deploy"
-msgstr "重新部署"
-
-#: src/fcitx-rime.c:156 src/fcitx-rime.c:157
-msgid "Synchronize"
-msgstr "同步"
-
-#: src/fcitx-rime.c:171
-msgid "Schema List"
-msgstr "方案列表"
-
-#: src/fcitx-rime.c:517
-msgid "English"
-msgstr "英文"
-
 #: src/fcitx-rime.conf.in:4
 msgid "Rime Wrapper For Fcitx"
 msgstr "Fcitx 的中州韻封装"
+
+#: src/fcitx-rime.c:64
+msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
+
+#: src/fcitx-rime.c:62
+msgid "Rime is ready."
+msgstr "Rime 就绪。"
+
+#: src/fcitx-rime.c:60
+msgid "Rime is under maintenance ..."
+msgstr "Rime 正在维护中..."
+
+#: src/fcitx-rime.c:172
+msgid "Schema List"
+msgstr "方案列表"
+
+#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
+msgid "Synchronize"
+msgstr "同步"
