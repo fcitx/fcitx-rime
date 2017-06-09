@@ -1,0 +1,56 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Gökhan Kalayci <gkmediagokhan@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: fcitx\n"
+"Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
+"POT-Creation-Date: 2013-11-29 06:01-0500\n"
+"PO-Revision-Date: 2017-04-20 20:35+0000\n"
+"Last-Translator: Gökhan Kalayci <gkmediagokhan@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/fcitx/fcitx/language/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/fcitx-rime.c:59
+msgid "Rime is under maintenance ..."
+msgstr "Rime bakımda..."
+
+#: src/fcitx-rime.c:61
+msgid "Rime is ready."
+msgstr "Rime hazır."
+
+#: src/fcitx-rime.c:63
+msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+msgstr "Rime bir hatayla karşılaştı. Detaylar için  /tmp/rime.fcitx.ERROR  yoluna bakın."
+
+#: src/fcitx-rime.c:69 src/fcitx-rime.c:127 src/fcitx-rime.conf.in:3
+#: src/rime.conf.in:3
+msgid "Rime"
+msgstr "Rime"
+
+#: src/fcitx-rime.c:147 src/fcitx-rime.c:148
+msgid "Deploy"
+msgstr "Dağıt"
+
+#: src/fcitx-rime.c:156 src/fcitx-rime.c:157
+msgid "Synchronize"
+msgstr "Eşitleme"
+
+#: src/fcitx-rime.c:171
+msgid "Schema List"
+msgstr "Şema Listesi"
+
+#: src/fcitx-rime.c:517
+msgid "English"
+msgstr "İngilizce"
+
+#: src/fcitx-rime.conf.in:4
+msgid "Rime Wrapper For Fcitx"
+msgstr "Fcitx için Rime Wrapper"
