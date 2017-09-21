@@ -16,8 +16,8 @@
 * License along with this library; see the file COPYING. If not,
 * see <http://www.gnu.org/licenses/>.
 */
-#ifndef _FCITX_RIME_H_RIME_H_
-#define _FCITX_RIME_H_RIME_H_
+#ifndef _FCITX_RIMEENGINE_H_
+#define _FCITX_RIMEENGINE_H_
 
 #include <fcitx-config/configuration.h>
 #include <fcitx/addonfactory.h>
@@ -65,7 +65,6 @@ private:
     Instance *instance_;
     rime_api_t *api_;
     bool firstRun_ = true;
-    KeyList selectionKeys_;
     FactoryFor<RimeState> factory_;
 
     FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
@@ -79,4 +78,4 @@ public:
 };
 }
 
-#endif // _FCITX_RIME_H_RIME_H_
+#endif // _FCITX_RIMEENGINE_H_
