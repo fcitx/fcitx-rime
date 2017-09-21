@@ -191,7 +191,7 @@ private:
     std::vector<Text> labels_;
     bool hasPrev_ = false;
     bool hasNext_ = false;
-    CandidateLayoutHint layout_ = CandidateLayoutHint::Vertical;
+    CandidateLayoutHint layout_ = CandidateLayoutHint::NotSet;
     int cursor_ = -1;
     std::vector<std::shared_ptr<CandidateWord>> candidateWords_;
 };
