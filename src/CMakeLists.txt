@@ -1,13 +1,12 @@
+set(RIME_SOURCES
+    rime.cpp
+)
+add_library(rime MODULE ${RIME_SOURCES})
+target_link_libraries(rime Fcitx5::Core Fcitx5::Config PkgConfig::Rime Fcitx5::Module::Notifications)
+set_target_properties(rime PROPERTIES PREFIX "")
+install(TARGETS rime DESTINATION "${CMAKE_INSTALL_LIBDIR}/fcitx5")
+fcitx5_translate_desktop_file(rime.conf.in rime.conf)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/rime.conf" DESTINATION "${CMAKE_INSTALL_DATADIR}/fcitx5/inputmethod")
+fcitx5_translate_desktop_file(rime-addon.conf.in rime-addon.conf)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/rime-addon.conf" RENAME rime.conf DESTINATION "${FCITX_INSTALL_PKGDATADIR}/addon")
 
-include_directories(${FCITX4_FCITX_INCLUDE_DIRS})
-include_directories(${FCITX4_FCITX_CONFIG_INCLUDE_DIRS})
-include_directories(${FCITX4_FCITX_UTILS_INCLUDE_DIRS})
-include_directories(${RIME_INCLUDE_DIRS})
-link_directories(${RIME_LIBRARY_DIRS})
-
-set(FCITX_RIME_SRC fcitx-rime.c)
-
-fcitx_add_addon_full(rime
-  SOURCES ${FCITX_RIME_SRC}
-  IM_CONFIG rime.conf
-  LINK_LIBS ${RIME_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})

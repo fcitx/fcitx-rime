@@ -1,8 +1,8 @@
 # for im icon
-install(FILES rime.png RENAME rime.png DESTINATION ${FCITX4_PREFIX}/share/fcitx/imicon)
+install(FILES rime.png RENAME rime.png DESTINATION share/fcitx5/imicon)
 
 # for skin
-install(DIRECTORY default DESTINATION ${FCITX4_PREFIX}/share/fcitx/skin)
+install(DIRECTORY default DESTINATION share/fcitx5/theme)
 
 # with prefix
 foreach(svg rime rime-deploy rime-sync)

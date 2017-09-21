@@ -1,0 +1,12 @@
+[Addon]
+Name=Rime
+Comment=Rime Wrapper For Fcitx
+Category=InputMethod
+Library=rime
+Type=SharedLibrary
+OnDemand=True
+
+[Addon/OptionalDependencies]
+0=notifications
+
+

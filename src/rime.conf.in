@@ -1,7 +1,6 @@
 [InputMethod]
-UniqueName=rime
-_Name=Rime
-IconName=rime
-Priority=10
+Name=Rime
+Icon=rime
+Label=韻
 LangCode=zh_TW
-Parent=fcitx-rime
+Addon=rime

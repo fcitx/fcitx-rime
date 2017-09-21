@@ -1,12 +1,18 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.4.0)
 
-project(fcitx-rime)
+project(fcitx-rime VERSION 0.4.0)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+find_package(ECM REQUIRED 1.0.0)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
+include(FeatureSummary)
+include(GNUInstallDirs)
+include(ECMSetupVersion)
+include(ECMUninstallTarget)
 
-include(FindPkgConfig)
-find_package(Fcitx 4.2.8.1 REQUIRED)
-pkg_check_modules(RIME "rime>=1.0.0" REQUIRED)
+find_package(Fcitx5Core REQUIRED)
+find_package(Fcitx5Module REQUIRED COMPONENTS Notifications)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(Rime REQUIRED IMPORTED_TARGET "rime>=1.0.0")
 
 if(NOT DEFINED RIME_DATA_DIR)
   find_package(Brise REQUIRED)
@@ -14,20 +20,10 @@ if(NOT DEFINED RIME_DATA_DIR)
 endif(NOT DEFINED RIME_DATA_DIR)
 message(STATUS "Precompiler macro RIME_DATA_DIR is set to \"${RIME_DATA_DIR}\"")
 add_definitions(-DRIME_DATA_DIR="${RIME_DATA_DIR}")
+add_definitions(-DFCITX_GETTEXT_DOMAIN=\"fcitx5-rime\")
+add_definitions(-DFCITX_RIME_VERSION=\"${PROJECT_VERSION}\")
 
-set(CMAKE_C_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_C_FLAGS}")
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-sign-compare -Wno-unused-parameter -fvisibility=hidden ${CMAKE_CXX_FLAGS}")
-set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--as-needed ${CMAKE_SHARED_LINKER_FLAGS}")
-set(CMAKE_MODULE_LINKER_FLAGS "-Wl,--as-needed ${CMAKE_MODULE_LINKER_FLAGS}")
-
-# uninstall target
-configure_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmake_uninstall.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-    IMMEDIATE @ONLY)
-
-add_custom_target(uninstall
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
 add_subdirectory(po)
 add_subdirectory(src)
