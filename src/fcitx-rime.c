@@ -603,7 +603,7 @@ void FcitxRimeToggleDeploy(void* arg)
 {
     FcitxRime* rime = (FcitxRime*) arg;
     if (rime->session_id) {
-        rime->api->sync_user_data(rime->session_id);
+        rime->api->sync_user_data();
         rime->session_id = 0;
     }
     rime->api->finalize();
