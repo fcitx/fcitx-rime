@@ -29,6 +29,12 @@ configure_file(
 add_custom_target(uninstall
     COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
+option(ENABLE_QT5GUI "Build the Rime Config GUI Tool" ON)
+
 add_subdirectory(po)
 add_subdirectory(src)
 add_subdirectory(data)
+if(ENABLE_QT5GUI)
+    add_subdirectory(gui)
+endif(ENABLE_QT5GUI)
+
