@@ -1,3 +1,20 @@
+//
+// Copyright (C) 2018~2018 by xuzhao9 <i@xuzhao.net>
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License,
+// or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// General Public License for more details.
+
+// You should have received a copy of the GNU General Public License
+// along with this program; see the file COPYING. If not,
+// see <http://www.gnu.org/licenses/>.
+//
 #include <fcitx-config/xdg.h>
 
 #include <QtConcurrentRun>
@@ -7,7 +24,6 @@
 
 #include "ConfigMain.h"
 #include "Common.h"
-#include "ui_ConfigMain.h"
 #include <QListWidgetItem>
 #include <QStandardItemModel>
 
@@ -16,39 +32,38 @@
 
 namespace fcitx_rime {
   ConfigMain::ConfigMain(QWidget* parent) :
-    FcitxQtConfigUIWidget(parent), m_ui(new Ui::MainUI),
+    FcitxQtConfigUIWidget(parent), Ui::MainUI(),
     model(new FcitxRimeConfigDataModel()) {
     // Setup UI
     setMinimumSize(680, 500);
-    m_ui->setupUi(this);
-    m_ui->verticallayout_general->setAlignment(Qt::AlignTop);
-    // m_ui->filterTextEdit->setPlaceholderText("Search Input Method");
-     m_ui->addIMButton->setIcon(QIcon::fromTheme("go-next"));
-    m_ui->removeIMButton->setIcon(QIcon::fromTheme("go-previous"));
-    m_ui->moveUpButton->setIcon(QIcon::fromTheme("go-up"));
-    m_ui->moveDownButton->setIcon(QIcon::fromTheme("go-down"));
+    setupUi(this);
+    verticallayout_general->setAlignment(Qt::AlignTop);
+    addIMButton->setIcon(QIcon::fromTheme("go-next"));
+    removeIMButton->setIcon(QIcon::fromTheme("go-previous"));
+    moveUpButton->setIcon(QIcon::fromTheme("go-up"));
+    moveDownButton->setIcon(QIcon::fromTheme("go-down"));
     // m_ui->configureButton->setIcon(QIcon::fromTheme("help-about"));
     // listViews for currentIM and availIM
     QStandardItemModel* listModel = new QStandardItemModel();
-    m_ui->currentIMView->setModel(listModel);
+    currentIMView->setModel(listModel);
     QStandardItemModel* availIMModel = new QStandardItemModel();
-    m_ui->availIMView->setModel(availIMModel);
+    availIMView->setModel(availIMModel);
     // tab shortcut 
-    connect(m_ui->cand_cnt_spinbox, SIGNAL(valueChanged(int)), 
+    connect(cand_cnt_spinbox, SIGNAL(valueChanged(int)), 
             this, SLOT(stateChanged()));
     QList<FcitxQtKeySequenceWidget*> keywgts =
-      m_ui->general_tab->findChildren<FcitxQtKeySequenceWidget*>();
+      general_tab->findChildren<FcitxQtKeySequenceWidget*>();
     for(size_t i = 0; i < keywgts.size(); i ++) {
       connect(keywgts[i], SIGNAL(keySequenceChanged(QKeySequence, FcitxQtModifierSide)),
 	      this, SLOT(keytoggleChanged()));
     }
     // tab schemas
-    connect(m_ui->removeIMButton, SIGNAL(clicked(bool)), this, SLOT(removeIM()));
-    connect(m_ui->addIMButton, SIGNAL(clicked(bool)), this, SLOT(addIM()));
-    connect(m_ui->moveUpButton, SIGNAL(clicked(bool)), this, SLOT(moveUpIM()));
-    connect(m_ui->moveDownButton, SIGNAL(clicked(bool)), this, SLOT(moveDownIM()));
-    connect(m_ui->availIMView->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(availIMSelectionChanged()));
-    connect(m_ui->currentIMView->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(activeIMSelectionChanged()));
+    connect(removeIMButton, SIGNAL(clicked(bool)), this, SLOT(removeIM()));
+    connect(addIMButton, SIGNAL(clicked(bool)), this, SLOT(addIM()));
+    connect(moveUpButton, SIGNAL(clicked(bool)), this, SLOT(moveUpIM()));
+    connect(moveDownButton, SIGNAL(clicked(bool)), this, SLOT(moveDownIM()));
+    connect(availIMView->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(availIMSelectionChanged()));
+    connect(currentIMView->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(activeIMSelectionChanged()));
     rime = FcitxRimeConfigCreate();
     FcitxRimeConfigStart(rime);
     yamlToModel();
@@ -58,7 +73,6 @@ namespace fcitx_rime {
   ConfigMain::~ConfigMain() {
     FcitxRimeDestroy(rime);
     delete model;
-    delete m_ui;
   }
   
   void ConfigMain::keytoggleChanged() {
@@ -72,32 +86,32 @@ namespace fcitx_rime {
   
   void ConfigMain::focusSelectedIM(const QString im_name) {
     // search enabled IM first
-    int sz = m_ui->currentIMView->model()->rowCount();
+    int sz = currentIMView->model()->rowCount();
     for(int i = 0; i < sz; i ++) {
-      QModelIndex ind = m_ui->currentIMView->model()->index(i, 0);
-      const QString name = m_ui->currentIMView->model()->data(ind, Qt::DisplayRole).toString();
+      QModelIndex ind = currentIMView->model()->index(i, 0);
+      const QString name = currentIMView->model()->data(ind, Qt::DisplayRole).toString();
       if(name == im_name) {
-	m_ui->currentIMView->setCurrentIndex(ind);
-	m_ui->currentIMView->setFocus();
+	currentIMView->setCurrentIndex(ind);
+	currentIMView->setFocus();
 	return;
       }
     }
     // if not found, search avali IM list
-    sz = m_ui->availIMView->model()->rowCount();
+    sz = availIMView->model()->rowCount();
     for(int i = 0; i < sz; i ++) {
-      QModelIndex ind = m_ui->availIMView->model()->index(i, 0);
-      const QString name = m_ui->availIMView->model()->data(ind, Qt::DisplayRole).toString();
+      QModelIndex ind = availIMView->model()->index(i, 0);
+      const QString name = availIMView->model()->data(ind, Qt::DisplayRole).toString();
       if(name == im_name) {
-	m_ui->availIMView->setCurrentIndex(ind);
-	m_ui->availIMView->setFocus();
+	availIMView->setCurrentIndex(ind);
+	availIMView->setFocus();
 	return;
       }
     }
   }
   
   void ConfigMain::addIM() {
-    if(m_ui->availIMView->currentIndex().isValid()) {
-      const QString uniqueName =m_ui->availIMView->currentIndex().data(Qt::DisplayRole).toString();
+    if(availIMView->currentIndex().isValid()) {
+      const QString uniqueName =availIMView->currentIndex().data(Qt::DisplayRole).toString();
       int largest = 0;
       int find = -1;
       for(size_t i = 0; i < model->schemas_.size(); i ++) {
@@ -121,8 +135,8 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::removeIM() {
-    if(m_ui->currentIMView->currentIndex().isValid()) {
-      const QString uniqueName = m_ui->currentIMView->currentIndex().data(Qt::DisplayRole).toString();
+    if(currentIMView->currentIndex().isValid()) {
+      const QString uniqueName = currentIMView->currentIndex().data(Qt::DisplayRole).toString();
       for(size_t i = 0; i < model->schemas_.size(); i ++) {
         if(model->schemas_[i].name == uniqueName) {
           model->schemas_[i].active = false;
@@ -137,8 +151,8 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::moveUpIM() {
-    if(m_ui->currentIMView->currentIndex().isValid()) {
-      const QString uniqueName =m_ui->currentIMView->currentIndex().data(Qt::DisplayRole).toString();
+    if(currentIMView->currentIndex().isValid()) {
+      const QString uniqueName =currentIMView->currentIndex().data(Qt::DisplayRole).toString();
       int cur_index = -1;
       for(size_t i = 0; i < model->schemas_.size(); i ++) {
         if(model->schemas_[i].name == uniqueName) {
@@ -163,8 +177,8 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::moveDownIM() {
-    if(m_ui->currentIMView->currentIndex().isValid()) {
-      const QString uniqueName =m_ui->currentIMView->currentIndex().data(Qt::DisplayRole).toString();
+    if(currentIMView->currentIndex().isValid()) {
+      const QString uniqueName =currentIMView->currentIndex().data(Qt::DisplayRole).toString();
       int cur_index = -1;
       for(size_t i = 0; i < model->schemas_.size(); i ++) {
         if(model->schemas_[i].name == uniqueName) {
@@ -188,33 +202,33 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::availIMSelectionChanged() {
-    if(!m_ui->availIMView->currentIndex().isValid()) {
-      m_ui->addIMButton->setEnabled(false);
+    if(!availIMView->currentIndex().isValid()) {
+      addIMButton->setEnabled(false);
     } else {
-      m_ui->addIMButton->setEnabled(true);
+      addIMButton->setEnabled(true);
     }
   }
   
   void ConfigMain::activeIMSelectionChanged() {
-    if(!m_ui->currentIMView->currentIndex().isValid()) {
-      m_ui->removeIMButton->setEnabled(false);
-      m_ui->moveUpButton->setEnabled(false);
-      m_ui->moveDownButton->setEnabled(false);
-      // m_ui->configureButton->setEnabled(false);
+    if(!currentIMView->currentIndex().isValid()) {
+      removeIMButton->setEnabled(false);
+      moveUpButton->setEnabled(false);
+      moveDownButton->setEnabled(false);
+      // configureButton->setEnabled(false);
     } else {
-      m_ui->removeIMButton->setEnabled(true);
-      // m_ui->configureButton->setEnabled(true);
-      if(m_ui->currentIMView->currentIndex().row() == 0) {
-        m_ui->moveUpButton->setEnabled(false);
+      removeIMButton->setEnabled(true);
+      // configureButton->setEnabled(true);
+      if(currentIMView->currentIndex().row() == 0) {
+        moveUpButton->setEnabled(false);
       } else {
-        m_ui->moveUpButton->setEnabled(true);
+        moveUpButton->setEnabled(true);
       }
-      if(m_ui->currentIMView->currentIndex().row() == 
-        m_ui->currentIMView->model()->rowCount() - 1)
+      if(currentIMView->currentIndex().row() == 
+        currentIMView->model()->rowCount() - 1)
       {
-        m_ui->moveDownButton->setEnabled(false);
+        moveDownButton->setEnabled(false);
       } else {
-        m_ui->moveDownButton->setEnabled(true);
+        moveDownButton->setEnabled(true);
       }
     }
   }
@@ -246,20 +260,20 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::uiToModel() {
-    model->candidate_per_word = m_ui->cand_cnt_spinbox->value();
-    setModelFromLayout(model->toggle_keys, m_ui->horizontallayout_toggle);
-    setModelFromLayout(model->ascii_key, m_ui->horizontallayout_ascii);
-    setModelFromLayout(model->pgdown_key, m_ui->horizontallayout_pagedown);
-    setModelFromLayout(model->pgup_key, m_ui->horizontallayout_pageup);
-    setModelFromLayout(model->trasim_key, m_ui->horizontallayout_trasim);
-    setModelFromLayout(model->halffull_key, m_ui->horizontallayout_hfshape);
+    model->candidate_per_word = cand_cnt_spinbox->value();
+    setModelFromLayout(model->toggle_keys, horizontallayout_toggle);
+    setModelFromLayout(model->ascii_key, horizontallayout_ascii);
+    setModelFromLayout(model->pgdown_key, horizontallayout_pagedown);
+    setModelFromLayout(model->pgup_key, horizontallayout_pageup);
+    setModelFromLayout(model->trasim_key, horizontallayout_trasim);
+    setModelFromLayout(model->halffull_key, horizontallayout_hfshape);
     
     // clear cuurent model and save from the ui
     for(int i = 0; i < model->schemas_.size(); i ++) {
       model->schemas_[i].index = 0;
       model->schemas_[i].active = false;
     }
-    QStandardItemModel* qmodel = static_cast<QStandardItemModel*>(m_ui->currentIMView->model());
+    QStandardItemModel* qmodel = static_cast<QStandardItemModel*>(currentIMView->model());
     QModelIndex parent;
     int seqno = 1;
     for(int r = 0; r < qmodel->rowCount(parent); ++r) {
@@ -305,14 +319,14 @@ namespace fcitx_rime {
   }
   
   void ConfigMain::modelToUi() {
-    m_ui->cand_cnt_spinbox->setValue(model->candidate_per_word);
+    cand_cnt_spinbox->setValue(model->candidate_per_word);
     // set shortcut keys
-    setKeySeqFromLayout(m_ui->horizontallayout_toggle, model->toggle_keys);
-    setKeySeqFromLayout(m_ui->horizontallayout_pagedown, model->pgdown_key);
-    setKeySeqFromLayout(m_ui->horizontallayout_pageup, model->pgup_key);
-    setKeySeqFromLayout(m_ui->horizontallayout_ascii, model->ascii_key);
-    setKeySeqFromLayout(m_ui->horizontallayout_trasim, model->trasim_key);
-    setKeySeqFromLayout(m_ui->horizontallayout_hfshape, model->halffull_key);
+    setKeySeqFromLayout(horizontallayout_toggle, model->toggle_keys);
+    setKeySeqFromLayout(horizontallayout_pagedown, model->pgdown_key);
+    setKeySeqFromLayout(horizontallayout_pageup, model->pgup_key);
+    setKeySeqFromLayout(horizontallayout_ascii, model->ascii_key);
+    setKeySeqFromLayout(horizontallayout_trasim, model->trasim_key);
+    setKeySeqFromLayout(horizontallayout_hfshape, model->halffull_key);
     
     // set available and enabled input methods
     for(size_t i = 0; i < model->schemas_.size(); i ++) {
@@ -320,20 +334,20 @@ namespace fcitx_rime {
       if(schema.active) {
         QStandardItem* active_schema = new QStandardItem(schema.name);
 	active_schema->setEditable(false);
-        auto qmodel = static_cast<QStandardItemModel*>(m_ui->currentIMView->model());
+        auto qmodel = static_cast<QStandardItemModel*>(currentIMView->model());
         qmodel->appendRow(active_schema);
       } else {
         QStandardItem* inactive_schema = new QStandardItem(schema.name);
 	inactive_schema->setEditable(false);
-        auto qmodel = static_cast<QStandardItemModel*>(m_ui->availIMView->model());
+        auto qmodel = static_cast<QStandardItemModel*>(availIMView->model());
         qmodel->appendRow(inactive_schema);
       }
     }
   }
 
   void ConfigMain::updateIMList() {
-    auto avail_IMmodel = static_cast<QStandardItemModel*>(m_ui->availIMView->model());
-    auto active_IMmodel = static_cast<QStandardItemModel*>(m_ui->currentIMView->model());
+    auto avail_IMmodel = static_cast<QStandardItemModel*>(availIMView->model());
+    auto active_IMmodel = static_cast<QStandardItemModel*>(currentIMView->model());
     avail_IMmodel->removeRows(0, avail_IMmodel->rowCount());
     active_IMmodel->removeRows(0, active_IMmodel->rowCount());
     for(size_t i = 0; i < model->schemas_.size(); i ++) {
@@ -422,11 +436,11 @@ namespace fcitx_rime {
     if(suc) {
       model->candidate_per_word = page_size;
     } else {
-      model->candidate_per_word = DEFAULT_PAGE_SIZE;
+      model->candidate_per_word = default_page_size;
     }
     // toggle keys
     size_t keys_size = FcitxRimeConfigGetToggleKeySize(rime, rime->default_conf);
-    keys_size = keys_size > MAX_SHORTCUTS ? MAX_SHORTCUTS : keys_size;
+    keys_size = keys_size > max_shortcuts ? max_shortcuts : keys_size;
     char** keys = (char**)fcitx_utils_malloc0(sizeof(char*) * keys_size);
     FcitxRimeConfigGetToggleKeys(rime, rime->default_conf, keys, keys_size);
     for(size_t i = 0; i < keys_size; i ++) {
@@ -437,7 +451,6 @@ namespace fcitx_rime {
     }
     fcitx_utils_free(keys);
     // load other shortcuts
-    FcitxRimeBeginKeyBinding(rime->default_conf);
     size_t buffer_size = 30;
     char* accept = (char*)fcitx_utils_malloc0(buffer_size);
     char* act_key = (char*)fcitx_utils_malloc0(buffer_size);
@@ -474,13 +487,12 @@ namespace fcitx_rime {
     fcitx_utils_free(act_type);
     FcitxRimeEndKeyBinding(rime->default_conf);
     model->sortKeys();
-    // load available schemas
     getAvailableSchemas();
   }
   
   void ConfigMain::getAvailableSchemas() {
     const char* absolute_path = RimeGetUserDataDir();
-    FcitxStringHashSet* files = FcitxXDGGetFiles(FCITX_RIME_DIR_PREFIX, NULL, FCITX_RIME_SCHEMA_SUFFIX);
+    FcitxStringHashSet* files = FcitxXDGGetFiles(fcitx_rime_dir_prefix, NULL, fcitx_rime_schema_suffix);
     HASH_SORT(files, fcitx_utils_string_hash_set_compare);
     HASH_FOREACH(f, files, FcitxStringHashSet) {
       auto schema = FcitxRimeSchema();
