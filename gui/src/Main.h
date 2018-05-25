@@ -25,10 +25,10 @@ class FcitxRimeConfigTool : public FcitxQtConfigUIPlugin {
 public:
     Q_PLUGIN_METADATA(IID "FcitxQtConfigUIFactoryInterface_iid" FILE "fcitx-rime-config.json")
     explicit FcitxRimeConfigTool(QObject* parent = 0);
-    virtual QString name() override;
-    virtual QStringList files() override;
-    virtual QString domain() override;
-    virtual FcitxQtConfigUIWidget* create(const QString& key) override;
+    QString name() override;
+    QStringList files() override;
+    QString domain() override;
+    FcitxQtConfigUIWidget* create(const QString& key) override;
 };
 
 #endif // FCITX_RIME_MAIN_H

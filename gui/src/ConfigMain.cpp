@@ -32,7 +32,7 @@
 
 namespace fcitx_rime {
   ConfigMain::ConfigMain(QWidget* parent) :
-    FcitxQtConfigUIWidget(parent), Ui::MainUI(),
+    FcitxQtConfigUIWidget(parent),
     model(new FcitxRimeConfigDataModel()) {
     // Setup UI
     setMinimumSize(680, 500);
@@ -42,7 +42,7 @@ namespace fcitx_rime {
     removeIMButton->setIcon(QIcon::fromTheme("go-previous"));
     moveUpButton->setIcon(QIcon::fromTheme("go-up"));
     moveDownButton->setIcon(QIcon::fromTheme("go-down"));
-    // m_ui->configureButton->setIcon(QIcon::fromTheme("help-about"));
+    // configureButton->setIcon(QIcon::fromTheme("help-about"));
     // listViews for currentIM and availIM
     QStandardItemModel* listModel = new QStandardItemModel();
     currentIMView->setModel(listModel);
