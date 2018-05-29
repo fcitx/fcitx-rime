@@ -8,3 +8,4 @@ Library=fcitx-rime.so
 Type=SharedLibrary
 IMRegisterMethod=ConfigFile
 LoadLocal=True
+SubConfig=Fcitx Rime Config:native:rime/config,fcitx:domain

@@ -15,3 +15,7 @@ foreach(svg rime-im rime-latin rime-disable)
 install(FILES ${svg}.png DESTINATION share/icons/hicolor/48x48/apps)
 install(FILES ${svg}.svg DESTINATION share/icons/hicolor/scalable/status)
 endforeach()
+
+# install the config tool icon
+install(FILES rime128.png RENAME fcitx-rime.png DESTINATION share/icons/hicolor/128x128/apps)
+
