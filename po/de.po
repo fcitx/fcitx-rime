@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2017-07-28 05:02-0700\n"
-"PO-Revision-Date: 2017-07-28 11:46+0000\n"
+"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+"PO-Revision-Date: 2017-09-23 18:54+0000\n"
 "Last-Translator: mar well <m.wellendorf@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
 "Language: de\n"
@@ -19,6 +19,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. i18n: file: gui/src/ConfigMain.ui:348
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+msgid "<b>Select Input Schema:</b>"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:283
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+msgid "Active Input Schemas:"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:221
+#. i18n: ectx: property (text), widget (QLabel, label)
+msgid "Available Input Schemas:"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:33
+#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+msgid "Call-out Menu"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:179
+#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+msgid "Candidate Word Number"
+msgstr ""
+
 #: src/fcitx-rime.c:148 src/fcitx-rime.c:149
 msgid "Deploy"
 msgstr "Deploy"
@@ -26,6 +51,34 @@ msgstr "Deploy"
 #: src/fcitx-rime.c:527
 msgid "English"
 msgstr "Englisch"
+
+#: src/fcitx-rime.conf.in:11
+msgid "Fcitx Rime Config"
+msgstr ""
+
+#: gui/src/ConfigMain.cpp:246
+msgid "Fcitx Rime Config GUI Tool"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:114
+#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+msgid "Half/Full Shape"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+msgid "MainWindow"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:86
+#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+msgid "Page Down"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:58
+#. i18n: ectx: property (text), widget (QLabel, label_pageup)
+msgid "Page Up"
+msgstr ""
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
@@ -50,10 +103,39 @@ msgstr "Rime ist bereit."
 msgid "Rime is under maintenance ..."
 msgstr "Rime wird im Moment gewartet."
 
+#. i18n: file: gui/src/ConfigMain.ui:195
+#. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+#, fuzzy
+msgid "Schema"
+msgstr "Liste Schemata"
+
 #: src/fcitx-rime.c:172
 msgid "Schema List"
 msgstr "Liste Schemata"
 
+#. i18n: file: gui/src/ConfigMain.ui:26
+#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+msgid "Shortcut"
+msgstr ""
+
 #: src/fcitx-rime.c:157 src/fcitx-rime.c:158
 msgid "Synchronize"
 msgstr "Synchronisieren"
+
+#. i18n: file: gui/src/ConfigMain.ui:159
+#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+msgid "Traditional/Simplified"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:139
+#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+msgid "Western/Eastern"
+msgstr ""
+
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr ""
+
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr ""
