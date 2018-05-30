@@ -17,22 +17,22 @@
 //
 #include <fcitx-config/xdg.h>
 
-#include <QDialogButtonBox>
-#include <QFutureWatcher>
-#include <QTreeWidgetItem>
-#include <QtConcurrentRun>
-
 #include "Common.h"
 #include "ConfigMain.h"
+#include <QDialogButtonBox>
+#include <QFutureWatcher>
 #include <QListWidgetItem>
 #include <QStandardItemModel>
+#include <QTreeWidgetItem>
+#include <QtConcurrentRun>
+#include <QtGlobal>
 
 // TODO: when failed-read happens, disable ui
 // TODO: when failed-save happens, disable ui and show reason
 
 namespace fcitx_rime {
 ConfigMain::ConfigMain(QWidget *parent)
-    : FcitxQtConfigUIWidget(parent), model(new FcitxRimeConfigDataModel()) {
+    : FcitxQtConfigUIWidget(parent), model(new RimeConfigDataModel()) {
     // Setup UI
     setMinimumSize(680, 500);
     setupUi(this);
@@ -43,41 +43,35 @@ ConfigMain::ConfigMain(QWidget *parent)
     moveDownButton->setIcon(QIcon::fromTheme("go-down"));
     // configureButton->setIcon(QIcon::fromTheme("help-about"));
     // listViews for currentIM and availIM
-    QStandardItemModel *listModel = new QStandardItemModel();
+    QStandardItemModel *listModel = new QStandardItemModel(this);
     currentIMView->setModel(listModel);
-    QStandardItemModel *availIMModel = new QStandardItemModel();
+    QStandardItemModel *availIMModel = new QStandardItemModel(this);
     availIMView->setModel(availIMModel);
     // tab shortcut
-    connect(cand_cnt_spinbox, SIGNAL(valueChanged(int)), this,
-            SLOT(stateChanged()));
+    connect(cand_cnt_spinbox, QOverload<int>::of(&QSpinBox::valueChanged), this,
+            &ConfigMain::stateChanged);
     QList<FcitxQtKeySequenceWidget *> keywgts =
         general_tab->findChildren<FcitxQtKeySequenceWidget *>();
     for (size_t i = 0; i < keywgts.size(); i++) {
-        connect(keywgts[i],
-                SIGNAL(keySequenceChanged(QKeySequence, FcitxQtModifierSide)),
-                this, SLOT(keytoggleChanged()));
+        connect(keywgts[i], &FcitxQtKeySequenceWidget::keySequenceChanged, this,
+                &ConfigMain::keytoggleChanged);
     }
     // tab schemas
-    connect(removeIMButton, SIGNAL(clicked(bool)), this, SLOT(removeIM()));
-    connect(addIMButton, SIGNAL(clicked(bool)), this, SLOT(addIM()));
-    connect(moveUpButton, SIGNAL(clicked(bool)), this, SLOT(moveUpIM()));
-    connect(moveDownButton, SIGNAL(clicked(bool)), this, SLOT(moveDownIM()));
-    connect(availIMView->selectionModel(),
-            SIGNAL(currentChanged(QModelIndex, QModelIndex)), this,
-            SLOT(availIMSelectionChanged()));
+    connect(removeIMButton, &QPushButton::clicked, this, &ConfigMain::removeIM);
+    connect(addIMButton, &QPushButton::clicked, this, &ConfigMain::addIM);
+    connect(moveUpButton, &QPushButton::clicked, this, &ConfigMain::moveUpIM);
+    connect(moveDownButton, &QPushButton::clicked, this,
+            &ConfigMain::moveDownIM);
+    connect(availIMView->selectionModel(), &QItemSelectionModel::currentChanged,
+            this, &ConfigMain::availIMSelectionChanged);
     connect(currentIMView->selectionModel(),
-            SIGNAL(currentChanged(QModelIndex, QModelIndex)), this,
-            SLOT(activeIMSelectionChanged()));
-    rime = FcitxRimeConfigCreate();
-    FcitxRimeConfigStart(rime);
+            &QItemSelectionModel::currentChanged, this,
+            &ConfigMain::activeIMSelectionChanged);
     yamlToModel();
     modelToUi();
 }
 
-ConfigMain::~ConfigMain() {
-    FcitxRimeDestroy(rime);
-    delete model;
-}
+ConfigMain::~ConfigMain() { delete model; }
 
 void ConfigMain::keytoggleChanged() { stateChanged(); }
 
@@ -297,7 +291,10 @@ void ConfigMain::save() {
     QFutureWatcher<void> *futureWatcher = new QFutureWatcher<void>(this);
     futureWatcher->setFuture(
         QtConcurrent::run<void>(this, &ConfigMain::modelToYaml));
-    connect(futureWatcher, SIGNAL(finished()), this, SIGNAL(saveFinished()));
+    connect(futureWatcher, &QFutureWatcher<void>::finished, this, [this]() {
+        emit changed(false);
+        emit saveFinished();
+    });
 }
 
 QList<FcitxQtKeySequenceWidget *>
@@ -378,135 +375,78 @@ void ConfigMain::updateIMList() {
     }
 }
 
-// type: toggle 0, send 1
-void ConfigMain::setModelKeysToYaml(QVector<FcitxKeySeq> &model_keys, int type,
-                                    const char *key) {
-    char **keys =
-        (char **)fcitx_utils_malloc0(sizeof(char *) * model_keys.size());
-    for (int i = 0; i < model_keys.size(); i++) {
-        std::string s = model_keys[i].toString();
-        keys[i] = (char *)fcitx_utils_malloc0(s.length() + 1);
-        memcpy(keys[i], s.c_str(), s.length());
-    }
-    FcitxRimeConfigSetKeyBindingSet(rime->default_conf, type, key,
-                                    (const char **)keys, model_keys.size());
-    for (int i = 0; i < model_keys.size(); i++) {
-        fcitx_utils_free(keys[i]);
-    }
-    fcitx_utils_free(keys);
-}
-
 void ConfigMain::modelToYaml() {
-    rime->api->config_set_int(rime->default_conf, "menu/page_size",
-                              model->candidate_per_word);
-    char **tkptrs = (char **)fcitx_utils_malloc0(model->toggle_keys.size());
+    config.setInteger("menu/page_size", model->candidate_per_word);
+    std::vector<std::string> toggleKeys;
     for (size_t i = 0; i < model->toggle_keys.size(); i++) {
-        std::string s = model->toggle_keys[i].toString();
-        tkptrs[i] = (char *)fcitx_utils_malloc0(s.length() + 1);
-        memset(tkptrs[i], 0, s.length() + 1);
-        memcpy(tkptrs[i], s.c_str(), s.length());
+        toggleKeys.push_back(model->toggle_keys[i].toString());
     }
-    FcitxRimeConfigSetToggleKeys(rime, rime->default_conf,
-                                 (const char **)tkptrs,
-                                 model->toggle_keys.size());
-    for (size_t i = 0; i < model->toggle_keys.size(); i++) {
-        fcitx_utils_free(tkptrs[i]);
-    }
-    fcitx_utils_free(tkptrs);
 
-    setModelKeysToYaml(model->ascii_key, 0, "ascii_mode");
-    setModelKeysToYaml(model->trasim_key, 0, "simplification");
-    setModelKeysToYaml(model->halffull_key, 0, "full_shape");
-    setModelKeysToYaml(model->pgup_key, 1, "Page_Up");
-    setModelKeysToYaml(model->pgdown_key, 1, "Page_Down");
+    config.setToggleKeys(toggleKeys);
+
+    // FIXME: implement new ui for key bindings.
+    // setModelKeysToYaml(model->ascii_key, 0, "ascii_mode");
+    // setModelKeysToYaml(model->trasim_key, 0, "simplification");
+    // setModelKeysToYaml(model->halffull_key, 0, "full_shape");
+    // setModelKeysToYaml(model->pgup_key, 1, "Page_Up");
+    // setModelKeysToYaml(model->pgdown_key, 1, "Page_Down");
 
     // set active schema list
-    int active = 0;
-    char **schema_names =
-        (char **)fcitx_utils_malloc0(sizeof(char *) * model->schemas_.size());
+    std::vector<std::string> schemaNames;
+    schemaNames.reserve(model->schemas_.size());
     for (int i = 0; i < model->schemas_.size(); i++) {
         if (model->schemas_[i].index == 0) {
             break;
         } else {
-            std::string schema_id = model->schemas_[i].id.toStdString();
-            size_t len = schema_id.length();
-            schema_names[active] = (char *)fcitx_utils_malloc0(len + 1);
-            memcpy(schema_names[active], schema_id.c_str(), len);
-            active += 1;
+            schemaNames.push_back(model->schemas_[i].id.toStdString());
         }
     }
-    FcitxRimeClearAndSetSchemaList(rime, rime->default_conf, schema_names,
-                                   active);
-    for (int i = 0; i < active; i++) {
-        fcitx_utils_free(schema_names[i]);
-    }
-    fcitx_utils_free(schema_names);
+    config.setSchemas(schemaNames);
 
-    FcitxRimeConfigSync(rime);
+    config.sync();
     return;
 }
 
 void ConfigMain::yamlToModel() {
-    FcitxRimeConfigOpenDefault(rime);
     // load page size
     int page_size = 0;
-    bool suc = rime->api->config_get_int(rime->default_conf, "menu/page_size",
-                                         &page_size);
+    bool suc = config.readInteger("menu/page_size", &page_size);
     if (suc) {
         model->candidate_per_word = page_size;
     } else {
         model->candidate_per_word = default_page_size;
     }
     // toggle keys
-    size_t keys_size =
-        FcitxRimeConfigGetToggleKeySize(rime, rime->default_conf);
-    keys_size = keys_size > max_shortcuts ? max_shortcuts : keys_size;
-    char **keys = (char **)fcitx_utils_malloc0(sizeof(char *) * keys_size);
-    FcitxRimeConfigGetToggleKeys(rime, rime->default_conf, keys, keys_size);
-    for (size_t i = 0; i < keys_size; i++) {
-        if (strlen(keys[i]) != 0) { // skip the empty keys
-            model->toggle_keys.push_back(FcitxKeySeq(keys[i]));
+    auto toggleKeys = config.toggleKeys();
+    for (const auto &toggleKey : toggleKeys) {
+        if (!toggleKey.empty()) { // skip the empty keys
+            model->toggle_keys.push_back(FcitxKeySeq(toggleKey.data()));
         }
-        fcitx_utils_free(keys[i]);
     }
-    fcitx_utils_free(keys);
     // load other shortcuts
-    size_t buffer_size = 30;
-    char *accept = (char *)fcitx_utils_malloc0(buffer_size);
-    char *act_key = (char *)fcitx_utils_malloc0(buffer_size);
-    char *act_type = (char *)fcitx_utils_malloc0(buffer_size);
-    FcitxRimeBeginKeyBinding(rime->default_conf);
-    size_t toggle_length = FcitxRimeConfigGetKeyBindingSize(rime->default_conf);
-    for (size_t i = 0; i < toggle_length; i++) {
-        memset(accept, 0, buffer_size);
-        memset(act_key, 0, buffer_size);
-        memset(act_type, 0, buffer_size);
-        FcitxRimeConfigGetNextKeyBinding(rime->default_conf, act_type, act_key,
-                                         accept, buffer_size);
 
-        if (strlen(accept) != 0) {
-            if (strcmp(act_key, "ascii_mode") == 0) {
-                FcitxKeySeq seq = FcitxKeySeq(accept);
-                model->ascii_key.push_back(seq);
-            } else if (strcmp(act_key, "full_shape") == 0) {
-                FcitxKeySeq seq = FcitxKeySeq(accept);
-                model->halffull_key.push_back(seq);
-            } else if (strcmp(act_key, "simplification") == 0) {
-                FcitxKeySeq seq = FcitxKeySeq(accept);
-                model->trasim_key.push_back(seq);
-            } else if (strcmp(act_key, "Page_Up") == 0) {
-                FcitxKeySeq seq = FcitxKeySeq(accept);
-                model->pgup_key.push_back(seq);
-            } else if (strcmp(act_key, "Page_Down") == 0) {
-                FcitxKeySeq seq = FcitxKeySeq(accept);
-                model->pgdown_key.push_back(seq);
-            }
+    auto bindings = config.keybindings();
+    for (const auto &binding : bindings) {
+        if (binding.accept.empty()) {
+            continue;
+        }
+        if (binding.action == "ascii_mode") {
+            FcitxKeySeq seq(binding.accept);
+            model->ascii_key.push_back(seq);
+        } else if (binding.action == "full_shape") {
+            FcitxKeySeq seq(binding.accept);
+            model->halffull_key.push_back(seq);
+        } else if (binding.action == "simplification") {
+            FcitxKeySeq seq(binding.accept);
+            model->trasim_key.push_back(seq);
+        } else if (binding.action == "Page_Up") {
+            FcitxKeySeq seq(binding.accept);
+            model->pgup_key.push_back(seq);
+        } else if (binding.action == "Page_Down") {
+            FcitxKeySeq seq(binding.accept);
+            model->pgdown_key.push_back(seq);
         }
     }
-    fcitx_utils_free(accept);
-    fcitx_utils_free(act_key);
-    fcitx_utils_free(act_type);
-    FcitxRimeEndKeyBinding(rime->default_conf);
     model->sortKeys();
     getAvailableSchemas();
 }
@@ -520,20 +460,14 @@ void ConfigMain::getAvailableSchemas() {
         auto schema = FcitxRimeSchema();
         schema.path = QString::fromLocal8Bit(f->name).prepend(absolute_path);
         auto basefilename = QString::fromLocal8Bit(f->name).section(".", 0, 0);
-        size_t buffer_size = 50;
-        char *name = static_cast<char *>(fcitx_utils_malloc0(buffer_size));
-        char *id = static_cast<char *>(fcitx_utils_malloc0(buffer_size));
-        FcitxRimeGetSchemaAttr(rime, basefilename.toStdString().c_str(), name,
-                               buffer_size, "schema/name");
-        FcitxRimeGetSchemaAttr(rime, basefilename.toStdString().c_str(), id,
-                               buffer_size, "schema/schema_id");
-        schema.name = QString::fromLocal8Bit(name);
-        schema.id = QString::fromLocal8Bit(id);
-        schema.index =
-            FcitxRimeCheckSchemaEnabled(rime, rime->default_conf, id);
-        schema.active = (bool)schema.index;
-        fcitx_utils_free(name);
-        fcitx_utils_free(id);
+        auto name = config.schemaAttr(basefilename.toStdString().c_str(),
+                                      "schema/name");
+        auto id = config.schemaAttr(basefilename.toStdString().c_str(),
+                                    "schema/schema_id");
+        schema.name = QString::fromStdString(name);
+        schema.id = QString::fromStdString(id);
+        schema.index = config.schemaIndex(id.data());
+        schema.active = static_cast<bool>(schema.index);
         model->schemas_.push_back(schema);
     }
     fcitx_utils_free_string_hash_set(files);

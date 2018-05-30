@@ -20,12 +20,12 @@
 
 #include <fcitxqtconfiguiplugin.h>
 
-class FcitxRimeConfigTool : public FcitxQtConfigUIPlugin {
+class RimeConfigParserTool : public FcitxQtConfigUIPlugin {
     Q_OBJECT
 public:
     Q_PLUGIN_METADATA(IID "FcitxQtConfigUIFactoryInterface_iid" FILE
                           "fcitx-rime-config.json")
-    explicit FcitxRimeConfigTool(QObject *parent = 0);
+    explicit RimeConfigParserTool(QObject *parent = 0);
     QString name() override;
     QStringList files() override;
     QString domain() override;

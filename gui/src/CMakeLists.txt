@@ -2,13 +2,13 @@ set(FRCU_SRCS
   Main.cpp
   ConfigMain.cpp
   Model.cpp
-  FcitxRimeConfig.cpp)
+  RimeConfigParser.cpp)
 set(FRCU_HDRS
   Main.h
   ConfigMain.h
   Model.h
   Common.h
-  FcitxRimeConfig.h)
+  RimeConfigParser.h)
 
 set(FRCU_UIS
   ConfigMain.ui)

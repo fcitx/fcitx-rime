@@ -37,6 +37,7 @@ public:
     KeySym sym_;
     FcitxKeySeq();
     FcitxKeySeq(const char *keyseq);
+    FcitxKeySeq(const std::string &keyseq) : FcitxKeySeq(keyseq.data()) {}
     FcitxKeySeq(const QKeySequence qkey);
     std::string toString() const;
     std::string keySymToString(KeySym sym) const;
@@ -52,7 +53,7 @@ public:
     bool active;
 };
 
-class FcitxRimeConfigDataModel {
+class RimeConfigDataModel {
 public:
     QVector<FcitxKeySeq> toggle_keys;
     QVector<FcitxKeySeq> ascii_key;

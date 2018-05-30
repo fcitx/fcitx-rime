@@ -97,6 +97,7 @@ static void FcitxRimeStart(FcitxRime* rime, boolean fullcheck) {
     rime->api->start_maintenance(fullcheck);
 
     rime->session_id = rime->api->create_session();
+    free(user_path);
 }
 
 static void* FcitxRimeCreate(FcitxInstance* instance)

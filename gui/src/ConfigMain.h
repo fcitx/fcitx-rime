@@ -21,8 +21,8 @@
 #include <fcitxqtconfiguiwidget.h>
 #include <fcitxqtkeysequencewidget.h>
 
-#include "FcitxRimeConfig.h"
 #include "Model.h"
+#include "RimeConfigParser.h"
 #include "ui_ConfigMain.h"
 
 namespace fcitx_rime {
@@ -34,6 +34,7 @@ public:
     ~ConfigMain();
     void load() override;
     void save() override;
+    bool asyncSave() override { return true; }
 
     QString addon() override;
     QString icon() override;
@@ -48,8 +49,6 @@ public slots:
     void activeIMSelectionChanged();
 
 private:
-    FcitxRime *rime;
-    FcitxRimeConfigDataModel *model;
     void setFcitxQtKeySeq(char *rime_key, FcitxKeySeq &keyseq);
     void yamlToModel();
     void uiToModel();
@@ -61,8 +60,9 @@ private:
     QList<FcitxQtKeySequenceWidget *> getKeyWidgetsFromLayout(QLayout *layout);
     void setKeySeqFromLayout(QLayout *layout, QVector<FcitxKeySeq> &model_keys);
     void setModelFromLayout(QVector<FcitxKeySeq> &model_keys, QLayout *layout);
-    void setModelKeysToYaml(QVector<FcitxKeySeq> &model_keys, int type,
-                            const char *key);
+
+    RimeConfigParser config;
+    RimeConfigDataModel *model;
 };
 } // namespace fcitx_rime
 

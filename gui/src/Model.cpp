@@ -23,7 +23,7 @@
 #include <iostream>
 
 namespace fcitx_rime {
-void FcitxRimeConfigDataModel::sortSchemas() {
+void RimeConfigDataModel::sortSchemas() {
     std::sort(schemas_.begin(), schemas_.end(),
               [](const FcitxRimeSchema &a, const FcitxRimeSchema &b) -> bool {
                   // if both inactive, sort by id
@@ -40,7 +40,7 @@ void FcitxRimeConfigDataModel::sortSchemas() {
               });
 }
 
-void FcitxRimeConfigDataModel::sortKeys() {
+void RimeConfigDataModel::sortKeys() {
     sortSingleKeySet(toggle_keys);
     sortSingleKeySet(ascii_key);
     sortSingleKeySet(trasim_key);
@@ -49,7 +49,7 @@ void FcitxRimeConfigDataModel::sortKeys() {
     sortSingleKeySet(pgdown_key);
 }
 
-void FcitxRimeConfigDataModel::sortSingleKeySet(QVector<FcitxKeySeq> &keys) {
+void RimeConfigDataModel::sortSingleKeySet(QVector<FcitxKeySeq> &keys) {
     std::sort(keys.begin(), keys.end(),
               [](const FcitxKeySeq &a, const FcitxKeySeq &b) -> bool {
                   auto qa = QKeySequence(FcitxQtKeySequenceWidget::keyFcitxToQt(
