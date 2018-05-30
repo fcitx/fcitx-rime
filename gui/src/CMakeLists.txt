@@ -34,7 +34,6 @@ target_link_libraries(fcitx-rime-config-gui
   Qt5::Widgets
   Qt5::Concurrent
   FcitxQt5::WidgetsAddons
-  PkgConfig::FcitxQt
   PkgConfig::Rime
   ${FCITX4_FCITX_UTILS_LIBRARIES}
   ${FCITX4_FCITX_CONFIG_LIBRARIES})
