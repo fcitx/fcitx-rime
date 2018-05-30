@@ -10,7 +10,7 @@
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
 // General Public License for more details.
-
+//
 // You should have received a copy of the GNU General Public License
 // along with this program; see the file COPYING. If not,
 // see <http://www.gnu.org/licenses/>.
@@ -18,20 +18,20 @@
 #ifndef FCITX_RIME_CONFIG_COMMON_H
 #define FCITX_RIME_CONFIG_COMMON_H
 
-#include <libintl.h>
 #include <QString>
+#include <libintl.h>
 
 #define _(x) QString::fromUtf8(dgettext("fcitx-rime", x))
 
 #define FCITX_RIME_ARRAY_SIZE(array) (sizeof(array) / sizeof(array[0]))
 
 namespace fcitx_rime {
-  inline QString tr2fcitx(const char *message, const char *comment = nullptr) {
+inline QString tr2fcitx(const char *message, const char *comment = nullptr) {
     if (message && message[0]) {
-      return QString(_(message));
+        return QString(_(message));
     } else {
-      return QString();
+        return QString();
     }
-  }
-};
+}
+};     // namespace fcitx_rime
 #endif // _FCITXRIMECONFIGCOMMON_H_

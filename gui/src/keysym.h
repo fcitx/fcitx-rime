@@ -50,6 +50,6 @@ enum class KeyState : uint32_t {
     UsedMask = 0x5c001fff,
     SimpleMask = Ctrl_Alt_Shift | Super | Super2 | Hyper | Meta,
 };
-}
+} // namespace fcitx
 
 #endif
