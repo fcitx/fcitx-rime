@@ -17,6 +17,7 @@
 // see <http://www.gnu.org/licenses/>.
 //
 #include "RimeConfigParser.h"
+#include <QDebug>
 #include <fcitx-config/xdg.h>
 #include <fcitx-utils/utils.h>
 
@@ -231,11 +232,11 @@ void RimeConfigParser::sync() {
     start();
 }
 
-std::string RimeConfigParser::schemaAttr(const char *schema_id,
-                                         const char *attr) {
+std::string RimeConfigParser::stringFromYAML(const char *yaml,
+                                             const char *attr) {
     RimeConfig rime_schema_config;
     memset(&rime_schema_config, 0, sizeof(RimeConfig));
-    RimeSchemaOpen(schema_id, &rime_schema_config);
+    RimeConfigLoadString(&rime_schema_config, yaml);
     RimeConfigCleanUp cleanUp(&rime_schema_config);
     auto str = RimeConfigGetCString(&rime_schema_config, attr);
     std::string result;
@@ -267,23 +268,25 @@ void RimeConfigParser::setSchemas(const std::vector<std::string> &schemas) {
 
 int RimeConfigParser::schemaIndex(const char *schema_id) {
     int idx = 0;
-    listForeach(&default_conf, "schema_list",
-                [&idx, schema_id](RimeConfig *config, const char *path) {
-                    RimeConfig map;
-                    memset(&map, 0, sizeof(RimeConfig));
-                    RimeConfigCleanUp cleanUp(&map);
-                    RimeConfigGetItem(config, path, &map);
-                    auto schema = RimeConfigGetCString(&map, "schema");
-                    if (schema &&
-                        strcmp(schema, schema_id) ==
-                            0) { /* This schema is enabled in default*/
-                        return false;
-                    }
-                    idx++;
-                    return true;
-                });
+    bool found = false;
+    listForeach(
+        &default_conf, "schema_list",
+        [&idx, &found, schema_id](RimeConfig *config, const char *path) {
+            RimeConfig map;
+            memset(&map, 0, sizeof(RimeConfig));
+            RimeConfigCleanUp cleanUp(&map);
+            RimeConfigGetItem(config, path, &map);
+            auto schema = RimeConfigGetCString(&map, "schema");
+            /* This schema is enabled in default*/
+            if (schema && strcmp(schema, schema_id) == 0) {
+                found = true;
+                return false;
+            }
+            idx++;
+            return true;
+        });
 
-    return idx + 1;
+    return found ? (idx + 1) : 0;
 }
 
 } // namespace fcitx_rime

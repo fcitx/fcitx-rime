@@ -20,6 +20,7 @@
 #include "Common.h"
 #include "ConfigMain.h"
 #include <QDialogButtonBox>
+#include <QDir>
 #include <QFutureWatcher>
 #include <QListWidgetItem>
 #include <QStandardItemModel>
@@ -452,25 +453,47 @@ void ConfigMain::yamlToModel() {
 }
 
 void ConfigMain::getAvailableSchemas() {
-    const char *absolute_path = RimeGetUserDataDir();
-    FcitxStringHashSet *files =
-        FcitxXDGGetFiles(fcitx_rime_dir_prefix, NULL, fcitx_rime_schema_suffix);
-    HASH_SORT(files, fcitx_utils_string_hash_set_compare);
-    HASH_FOREACH(f, files, FcitxStringHashSet) {
+    const char *userPath = RimeGetUserDataDir();
+    const char *sysPath = RimeGetSharedDataDir();
+
+    QSet<QString> files;
+    for (auto path : {sysPath, userPath}) {
+        if (!path) {
+            continue;
+        }
+        QDir dir(path);
+        files.unite(QSet<QString>::fromList(dir.entryList(
+            QStringList("*.schema.yaml"), QDir::Files | QDir::Readable)));
+    }
+
+    auto filesList = files.toList();
+    filesList.sort();
+
+    for (const auto &file : filesList) {
         auto schema = FcitxRimeSchema();
-        schema.path = QString::fromLocal8Bit(f->name).prepend(absolute_path);
-        auto basefilename = QString::fromLocal8Bit(f->name).section(".", 0, 0);
-        auto name = config.schemaAttr(basefilename.toStdString().c_str(),
-                                      "schema/name");
-        auto id = config.schemaAttr(basefilename.toStdString().c_str(),
-                                    "schema/schema_id");
+        QString fullPath;
+        for (auto path : {userPath, sysPath}) {
+            QDir dir(path);
+            if (dir.exists(file)) {
+                fullPath = dir.filePath(file);
+                break;
+            }
+        }
+        schema.path = fullPath;
+        QFile fd(fullPath);
+        if (!fd.open(QIODevice::ReadOnly)) {
+            continue;
+        }
+        auto yamlData = fd.readAll();
+        auto name = config.stringFromYAML(yamlData.constData(), "schema/name");
+        auto id =
+            config.stringFromYAML(yamlData.constData(), "schema/schema_id");
         schema.name = QString::fromStdString(name);
         schema.id = QString::fromStdString(id);
         schema.index = config.schemaIndex(id.data());
         schema.active = static_cast<bool>(schema.index);
         model->schemas_.push_back(schema);
     }
-    fcitx_utils_free_string_hash_set(files);
     model->sortSchemas();
 }
 

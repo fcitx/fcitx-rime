@@ -64,7 +64,7 @@ public:
     void setInteger(const char *key, int i);
     bool readInteger(const char *key, int *i);
 
-    std::string schemaAttr(const char *schema_id, const char *attr);
+    std::string stringFromYAML(const char *yaml, const char *attr);
     void setSchemas(const std::vector<std::string> &schemas);
     int schemaIndex(const char *schema);
 
