@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
-"PO-Revision-Date: 2017-09-23 23:45+0000\n"
-"Last-Translator: Gökhan Kalayci <gkmediagokhan@gmail.com>\n"
+"POT-Creation-Date: 2018-05-31 00:03-0700\n"
+"PO-Revision-Date: 2018-05-30 07:04+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/fcitx/fcitx/language/tr/)\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +43,11 @@ msgstr ""
 msgid "Candidate Word Number"
 msgstr ""
 
-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
 msgstr "Dağıt"
 
-#: src/fcitx-rime.c:527
+#: src/fcitx-rime.c:528
 msgid "English"
 msgstr "İngilizce"
 
@@ -55,7 +55,7 @@ msgstr "İngilizce"
 msgid "Fcitx Rime Config"
 msgstr ""
 
-#: gui/src/ConfigMain.cpp:246
+#: gui/src/ConfigMain.cpp:244
 msgid "Fcitx Rime Config GUI Tool"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Page Up"
 msgstr ""
 
-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
 msgid "Rime"
 msgstr "Rime"
@@ -104,11 +104,10 @@ msgstr "Rime bakımda..."
 
 #. i18n: file: gui/src/ConfigMain.ui:195
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
-#, fuzzy
 msgid "Schema"
-msgstr "Şema Listesi"
+msgstr ""
 
-#: src/fcitx-rime.c:172
+#: src/fcitx-rime.c:173
 msgid "Schema List"
 msgstr "Şema Listesi"
 
@@ -117,7 +116,7 @@ msgstr "Şema Listesi"
 msgid "Shortcut"
 msgstr ""
 
-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
+#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
 msgid "Synchronize"
 msgstr "Eşitleme"
 

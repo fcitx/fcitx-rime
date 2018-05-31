@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
-"PO-Revision-Date: 2017-12-08 18:15+0000\n"
-"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"POT-Creation-Date: 2018-05-31 00:03-0700\n"
+"PO-Revision-Date: 2018-05-30 07:04+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/fcitx/fcitx/language/ca/)\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,11 @@ msgstr ""
 msgid "Candidate Word Number"
 msgstr ""
 
-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
+#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
 msgstr "Desplega"
 
-#: src/fcitx-rime.c:527
+#: src/fcitx-rime.c:528
 msgid "English"
 msgstr "Anglès"
 
@@ -56,7 +56,7 @@ msgstr "Anglès"
 msgid "Fcitx Rime Config"
 msgstr ""
 
-#: gui/src/ConfigMain.cpp:246
+#: gui/src/ConfigMain.cpp:244
 msgid "Fcitx Rime Config GUI Tool"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Page Up"
 msgstr ""
 
-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
+#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
 msgid "Rime"
 msgstr "Rime"
@@ -103,11 +103,10 @@ msgstr "Rime estar sota manteniment ..."
 
 #. i18n: file: gui/src/ConfigMain.ui:195
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
-#, fuzzy
 msgid "Schema"
-msgstr "Llista d'esquemes"
+msgstr ""
 
-#: src/fcitx-rime.c:172
+#: src/fcitx-rime.c:173
 msgid "Schema List"
 msgstr "Llista d'esquemes"
 
@@ -116,7 +115,7 @@ msgstr "Llista d'esquemes"
 msgid "Shortcut"
 msgstr ""
 
-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
+#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
 msgid "Synchronize"
 msgstr "Sincronitza"
 
