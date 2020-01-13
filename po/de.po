@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # mar well <m.wellendorf@gmx.de>, 2013
 # mar well <m.wellendorf@gmx.de>, 2014,2017-2018
@@ -9,130 +9,132 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+"POT-Creation-Date: 2020-01-13 00:01-0800\n"
 "PO-Revision-Date: 2018-06-19 19:02+0000\n"
 "Last-Translator: mar well <m.wellendorf@gmx.de>\n"
 "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: gui/src/ConfigMain.cpp:246
-msgid "Fcitx Rime Config GUI Tool"
-msgstr "Graphisches Benutzerinterface für Fcitx Rime"
-
-#: src/fcitx-rime.c:60
-msgid "Rime is under maintenance ..."
-msgstr "Rime wird im Moment gewartet."
-
-#: src/fcitx-rime.c:62
-msgid "Rime is ready."
-msgstr "Rime ist bereit."
-
-#: src/fcitx-rime.c:64
-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
-msgstr "Rime ist auf einen Fehler gestoßen. Bitte sehen Sie für mehr Infos in /tmp/rime.fcitx.ERROR nach."
-
-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
-#: src/rime.conf.in:3
-msgid "Rime"
-msgstr "Rime"
-
-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
-msgid "Deploy"
-msgstr "Deploy"
-
-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
-msgid "Synchronize"
-msgstr "Synchronisieren"
-
-#: src/fcitx-rime.c:172
-msgid "Schema List"
-msgstr "Liste Schemata"
-
-#: src/fcitx-rime.c:527
-msgid "English"
-msgstr "Englisch"
-
-#: src/fcitx-rime.conf.in:4
-msgid "Rime Wrapper For Fcitx"
-msgstr "Rime Wrapper für Fcitx"
-
-#: src/fcitx-rime.conf.in:11
-msgid "Fcitx Rime Config"
-msgstr "Fcitx Rime Konfiguration"
-
-#. i18n: file: gui/src/ConfigMain.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
-msgid "MainWindow"
-msgstr "MainWindow"
-
-#. i18n: file: gui/src/ConfigMain.ui:26
-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
-msgid "Shortcut"
-msgstr ""
-
-#. i18n: file: gui/src/ConfigMain.ui:33
-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
-msgid "Call-out Menu"
-msgstr ""
-
-#. i18n: file: gui/src/ConfigMain.ui:58
-#. i18n: ectx: property (text), widget (QLabel, label_pageup)
-msgid "Page Up"
-msgstr "Seite nach oben"
-
-#. i18n: file: gui/src/ConfigMain.ui:86
-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
-msgid "Page Down"
-msgstr "Seite nach unten"
-
-#. i18n: file: gui/src/ConfigMain.ui:114
-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
-msgid "Half/Full Shape"
-msgstr "Half/Full Shape"
-
-#. i18n: file: gui/src/ConfigMain.ui:139
-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
-msgid "Western/Eastern"
-msgstr "Westlich/Östlich"
-
-#. i18n: file: gui/src/ConfigMain.ui:159
-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
-msgid "Traditional/Simplified"
-msgstr "Traditionell/Simplifiziert"
-
-#. i18n: file: gui/src/ConfigMain.ui:179
-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
-msgid "Candidate Word Number"
-msgstr "Anzahl Zeichenvorschläge"
-
-#. i18n: file: gui/src/ConfigMain.ui:195
-#. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
-msgid "Schema"
-msgstr "Schema"
-
-#. i18n: file: gui/src/ConfigMain.ui:221
-#. i18n: ectx: property (text), widget (QLabel, label)
-msgid "Available Input Schemas:"
-msgstr "Vorhandene Eingabeschemata:"
-
-#. i18n: file: gui/src/ConfigMain.ui:283
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-msgid "Active Input Schemas:"
-msgstr "Aktive Eingabeschemata:"
 
 #. i18n: file: gui/src/ConfigMain.ui:348
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
 msgstr "<b>Auswahl Eingabeschema:</b>"
 
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Marcus Wellendorf"
+#. i18n: file: gui/src/ConfigMain.ui:283
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+msgid "Active Input Schemas:"
+msgstr "Aktive Eingabeschemata:"
+
+#. i18n: file: gui/src/ConfigMain.ui:221
+#. i18n: ectx: property (text), widget (QLabel, label)
+msgid "Available Input Schemas:"
+msgstr "Vorhandene Eingabeschemata:"
+
+#. i18n: file: gui/src/ConfigMain.ui:33
+#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+msgid "Call-out Menu"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:179
+#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+msgid "Candidate Word Number"
+msgstr "Anzahl Zeichenvorschläge"
+
+#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+msgid "Deploy"
+msgstr "Deploy"
+
+#: src/fcitx-rime.c:528
+msgid "English"
+msgstr "Englisch"
+
+#: src/fcitx-rime.conf.in:11
+msgid "Fcitx Rime Config"
+msgstr "Fcitx Rime Konfiguration"
+
+#: gui/src/ConfigMain.cpp:244
+msgid "Fcitx Rime Config GUI Tool"
+msgstr "Graphisches Benutzerinterface für Fcitx Rime"
+
+#. i18n: file: gui/src/ConfigMain.ui:114
+#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+msgid "Half/Full Shape"
+msgstr "Half/Full Shape"
+
+#. i18n: file: gui/src/ConfigMain.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+msgid "MainWindow"
+msgstr "MainWindow"
+
+#. i18n: file: gui/src/ConfigMain.ui:86
+#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+msgid "Page Down"
+msgstr "Seite nach unten"
+
+#. i18n: file: gui/src/ConfigMain.ui:58
+#. i18n: ectx: property (text), widget (QLabel, label_pageup)
+msgid "Page Up"
+msgstr "Seite nach oben"
+
+#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+#: src/rime.conf.in:3
+msgid "Rime"
+msgstr "Rime"
+
+#: src/fcitx-rime.conf.in:4
+msgid "Rime Wrapper For Fcitx"
+msgstr "Rime Wrapper für Fcitx"
+
+#: src/fcitx-rime.c:64
+msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+msgstr ""
+"Rime ist auf einen Fehler gestoßen. Bitte sehen Sie für mehr Infos in /tmp/"
+"rime.fcitx.ERROR nach."
+
+#: src/fcitx-rime.c:62
+msgid "Rime is ready."
+msgstr "Rime ist bereit."
+
+#: src/fcitx-rime.c:60
+msgid "Rime is under maintenance ..."
+msgstr "Rime wird im Moment gewartet."
+
+#. i18n: file: gui/src/ConfigMain.ui:195
+#. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+msgid "Schema"
+msgstr "Schema"
+
+#: src/fcitx-rime.c:173
+msgid "Schema List"
+msgstr "Liste Schemata"
+
+#. i18n: file: gui/src/ConfigMain.ui:26
+#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+msgid "Shortcut"
+msgstr ""
+
+#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+msgid "Synchronize"
+msgstr "Synchronisieren"
+
+#. i18n: file: gui/src/ConfigMain.ui:159
+#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+msgid "Traditional/Simplified"
+msgstr "Traditionell/Simplifiziert"
+
+#. i18n: file: gui/src/ConfigMain.ui:139
+#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+msgid "Western/Eastern"
+msgstr "Westlich/Östlich"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "marwell.1980@freenet.de"
+
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Marcus Wellendorf"

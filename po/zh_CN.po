@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # csslayer <wengxt@gmail.com>, 2014,2018
 # csslayer <wengxt@gmail.com>, 2012-2013
@@ -10,130 +10,131 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2018-05-30 00:03-0700\n"
+"POT-Creation-Date: 2020-01-13 00:01-0800\n"
 "PO-Revision-Date: 2018-07-19 05:45+0000\n"
 "Last-Translator: wwj402 <wwj402@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
+"language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: gui/src/ConfigMain.cpp:246
-msgid "Fcitx Rime Config GUI Tool"
-msgstr "Fcitx Rime 配置 GUI 工具"
-
-#: src/fcitx-rime.c:60
-msgid "Rime is under maintenance ..."
-msgstr "Rime 正在维护中..."
-
-#: src/fcitx-rime.c:62
-msgid "Rime is ready."
-msgstr "Rime 就绪。"
-
-#: src/fcitx-rime.c:64
-msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
-msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
-
-#: src/fcitx-rime.c:70 src/fcitx-rime.c:128 src/fcitx-rime.conf.in:3
-#: src/rime.conf.in:3
-msgid "Rime"
-msgstr "中州韻"
-
-#: src/fcitx-rime.c:148 src/fcitx-rime.c:149
-msgid "Deploy"
-msgstr "重新部署"
-
-#: src/fcitx-rime.c:157 src/fcitx-rime.c:158
-msgid "Synchronize"
-msgstr "同步"
-
-#: src/fcitx-rime.c:172
-msgid "Schema List"
-msgstr "方案列表"
-
-#: src/fcitx-rime.c:527
-msgid "English"
-msgstr "英文"
-
-#: src/fcitx-rime.conf.in:4
-msgid "Rime Wrapper For Fcitx"
-msgstr "Fcitx 的中州韻封装"
-
-#: src/fcitx-rime.conf.in:11
-msgid "Fcitx Rime Config"
-msgstr "Fcitx Rime 配置"
-
-#. i18n: file: gui/src/ConfigMain.ui:14
-#. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
-msgid "MainWindow"
-msgstr "主窗口"
-
-#. i18n: file: gui/src/ConfigMain.ui:26
-#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
-msgid "Shortcut"
-msgstr "快捷键"
-
-#. i18n: file: gui/src/ConfigMain.ui:33
-#. i18n: ectx: property (text), widget (QLabel, toggle_label)
-msgid "Call-out Menu"
-msgstr "调用菜单"
-
-#. i18n: file: gui/src/ConfigMain.ui:58
-#. i18n: ectx: property (text), widget (QLabel, label_pageup)
-msgid "Page Up"
-msgstr "向上翻页"
-
-#. i18n: file: gui/src/ConfigMain.ui:86
-#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
-msgid "Page Down"
-msgstr "向下翻页"
-
-#. i18n: file: gui/src/ConfigMain.ui:114
-#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
-msgid "Half/Full Shape"
-msgstr "半/全 角"
-
-#. i18n: file: gui/src/ConfigMain.ui:139
-#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
-msgid "Western/Eastern"
-msgstr "英文/中文"
-
-#. i18n: file: gui/src/ConfigMain.ui:159
-#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
-msgid "Traditional/Simplified"
-msgstr "繁体/简体"
-
-#. i18n: file: gui/src/ConfigMain.ui:179
-#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
-msgid "Candidate Word Number"
-msgstr "候选词个数"
-
-#. i18n: file: gui/src/ConfigMain.ui:195
-#. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
-msgid "Schema"
-msgstr "输入方案"
-
-#. i18n: file: gui/src/ConfigMain.ui:221
-#. i18n: ectx: property (text), widget (QLabel, label)
-msgid "Available Input Schemas:"
-msgstr "可用的输入方案："
-
-#. i18n: file: gui/src/ConfigMain.ui:283
-#. i18n: ectx: property (text), widget (QLabel, label_2)
-msgid "Active Input Schemas:"
-msgstr "激活的输入方案："
 
 #. i18n: file: gui/src/ConfigMain.ui:348
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
 msgstr "<b>选择输入方案：</b>"
 
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Weng Xuetian"
+#. i18n: file: gui/src/ConfigMain.ui:283
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+msgid "Active Input Schemas:"
+msgstr "激活的输入方案："
+
+#. i18n: file: gui/src/ConfigMain.ui:221
+#. i18n: ectx: property (text), widget (QLabel, label)
+msgid "Available Input Schemas:"
+msgstr "可用的输入方案："
+
+#. i18n: file: gui/src/ConfigMain.ui:33
+#. i18n: ectx: property (text), widget (QLabel, toggle_label)
+msgid "Call-out Menu"
+msgstr "调用菜单"
+
+#. i18n: file: gui/src/ConfigMain.ui:179
+#. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
+msgid "Candidate Word Number"
+msgstr "候选词个数"
+
+#: src/fcitx-rime.c:149 src/fcitx-rime.c:150
+msgid "Deploy"
+msgstr "重新部署"
+
+#: src/fcitx-rime.c:528
+msgid "English"
+msgstr "英文"
+
+#: src/fcitx-rime.conf.in:11
+msgid "Fcitx Rime Config"
+msgstr "Fcitx Rime 配置"
+
+#: gui/src/ConfigMain.cpp:244
+msgid "Fcitx Rime Config GUI Tool"
+msgstr "Fcitx Rime 配置 GUI 工具"
+
+#. i18n: file: gui/src/ConfigMain.ui:114
+#. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
+msgid "Half/Full Shape"
+msgstr "半/全 角"
+
+#. i18n: file: gui/src/ConfigMain.ui:14
+#. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
+msgid "MainWindow"
+msgstr "主窗口"
+
+#. i18n: file: gui/src/ConfigMain.ui:86
+#. i18n: ectx: property (text), widget (QLabel, label_pagedown)
+msgid "Page Down"
+msgstr "向下翻页"
+
+#. i18n: file: gui/src/ConfigMain.ui:58
+#. i18n: ectx: property (text), widget (QLabel, label_pageup)
+msgid "Page Up"
+msgstr "向上翻页"
+
+#: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
+#: src/rime.conf.in:3
+msgid "Rime"
+msgstr "中州韻"
+
+#: src/fcitx-rime.conf.in:4
+msgid "Rime Wrapper For Fcitx"
+msgstr "Fcitx 的中州韻封装"
+
+#: src/fcitx-rime.c:64
+msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
+msgstr "Rime 出现了一个错误。请参阅/tmp/rime.fcitx.ERROR中细节。"
+
+#: src/fcitx-rime.c:62
+msgid "Rime is ready."
+msgstr "Rime 就绪。"
+
+#: src/fcitx-rime.c:60
+msgid "Rime is under maintenance ..."
+msgstr "Rime 正在维护中..."
+
+#. i18n: file: gui/src/ConfigMain.ui:195
+#. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
+msgid "Schema"
+msgstr "输入方案"
+
+#: src/fcitx-rime.c:173
+msgid "Schema List"
+msgstr "方案列表"
+
+#. i18n: file: gui/src/ConfigMain.ui:26
+#. i18n: ectx: attribute (title), widget (QWidget, general_tab)
+msgid "Shortcut"
+msgstr "快捷键"
+
+#: src/fcitx-rime.c:158 src/fcitx-rime.c:159
+msgid "Synchronize"
+msgstr "同步"
+
+#. i18n: file: gui/src/ConfigMain.ui:159
+#. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
+msgid "Traditional/Simplified"
+msgstr "繁体/简体"
+
+#. i18n: file: gui/src/ConfigMain.ui:139
+#. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
+msgid "Western/Eastern"
+msgstr "英文/中文"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "wengxt@gmail.com"
+
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Weng Xuetian"
