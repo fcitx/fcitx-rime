@@ -2,7 +2,7 @@
 
 RIME(中州韻輸入法引擎) is _mainly_ a Traditional Chinese input method engine.
 
-project: https://code.google.com/p/rimeime
+project: http://rime.im/
 
 
 ## Build From Source:
@@ -51,6 +51,10 @@ Generally it means, distros that are a little old like openSUSE 11.4 or Ubuntu 1
 
 
 ## Install from Distribution
+
+### Debian/Ubuntu
+
+	sudo apt-get install fcitx-rime
 
 ### openSUSE
 
