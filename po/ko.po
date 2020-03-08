@@ -4,13 +4,14 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017
+# 이정희 <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-01-13 00:01-0800\n"
-"PO-Revision-Date: 2018-05-30 07:04+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2020-03-08 00:02-0800\n"
+"PO-Revision-Date: 2020-01-01 07:36+0000\n"
+"Last-Translator: 이정희 <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -21,27 +22,27 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:348
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
-msgstr ""
+msgstr "<b>입력 스키마 선택:</b>"
 
 #. i18n: file: gui/src/ConfigMain.ui:283
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 msgid "Active Input Schemas:"
-msgstr ""
+msgstr "활성 입력 스키마:"
 
 #. i18n: file: gui/src/ConfigMain.ui:221
 #. i18n: ectx: property (text), widget (QLabel, label)
 msgid "Available Input Schemas:"
-msgstr ""
+msgstr "사용 가능한 입력 스키마:"
 
 #. i18n: file: gui/src/ConfigMain.ui:33
 #. i18n: ectx: property (text), widget (QLabel, toggle_label)
 msgid "Call-out Menu"
-msgstr ""
+msgstr "콜아웃 메뉴"
 
 #. i18n: file: gui/src/ConfigMain.ui:179
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
-msgstr ""
+msgstr "후보 단어 수"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -53,58 +54,59 @@ msgstr "영어"
 
 #: src/fcitx-rime.conf.in:11
 msgid "Fcitx Rime Config"
-msgstr ""
+msgstr "Fcitx 라임 설정"
 
 #: gui/src/ConfigMain.cpp:244
 msgid "Fcitx Rime Config GUI Tool"
-msgstr ""
+msgstr "Fcitx 라임 설정 GUI 도구"
 
 #. i18n: file: gui/src/ConfigMain.ui:114
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
 msgid "Half/Full Shape"
-msgstr ""
+msgstr "반각/전각"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
 msgid "MainWindow"
-msgstr ""
+msgstr "기본창"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
 msgid "Page Down"
-msgstr ""
+msgstr "페이지 아래로"
 
 #. i18n: file: gui/src/ConfigMain.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_pageup)
 msgid "Page Up"
-msgstr ""
+msgstr "페이지 위로"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
 msgid "Rime"
-msgstr "Rime"
+msgstr "라임"
 
 #: src/fcitx-rime.conf.in:4
 msgid "Rime Wrapper For Fcitx"
-msgstr "Fcitx Rime 입력기"
+msgstr "Fcitx용 라임 래퍼"
 
 #: src/fcitx-rime.c:64
 msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
 msgstr ""
-"Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR을 참조하세요."
+"라임에서 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR를 참조하시"
+"기 바랍니다."
 
 #: src/fcitx-rime.c:62
 msgid "Rime is ready."
-msgstr "Rime이 준비되었습니다."
+msgstr "라임이 준비되었습니다."
 
 #: src/fcitx-rime.c:60
 msgid "Rime is under maintenance ..."
-msgstr "Rime은 관리 중입니다..."
+msgstr "라임이 유지 보수 중입니다..."
 
 #. i18n: file: gui/src/ConfigMain.ui:195
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
 msgid "Schema"
-msgstr ""
+msgstr "스키마"
 
 #: src/fcitx-rime.c:173
 msgid "Schema List"
@@ -113,7 +115,7 @@ msgstr "스키마 목록"
 #. i18n: file: gui/src/ConfigMain.ui:26
 #. i18n: ectx: attribute (title), widget (QWidget, general_tab)
 msgid "Shortcut"
-msgstr ""
+msgstr "단축키"
 
 #: src/fcitx-rime.c:158 src/fcitx-rime.c:159
 msgid "Synchronize"
@@ -122,17 +124,17 @@ msgstr "동기화"
 #. i18n: file: gui/src/ConfigMain.ui:159
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
-msgstr ""
+msgstr "번체/;간체"
 
 #. i18n: file: gui/src/ConfigMain.ui:139
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
 msgid "Western/Eastern"
-msgstr ""
+msgstr "서부/동부"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "daemul72@gmail.com"
 
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "이정희(JungHee Lee)"
