@@ -60,8 +60,15 @@ void RimeConfigParser::start(bool firstRun) {
         api->setup(&fcitx_rime_traits);
     }
     api->initialize(&fcitx_rime_traits);
-    api->config_open("default", &default_conf);
-
+    RimeModule* module = api->find_module("levers");
+    if(!module) {
+        qDebug() << "missing Rime module: levers, please check your install.\n";
+        exit(1);
+    }    
+    levers = (RimeLeversApi*)module->get_api();
+    settings = levers->custom_settings_init("default", "rime_patch");
+    levers->load_settings(settings);
+    levers->settings_get_config(settings, &default_conf);
     free(user_path);
 }
 
@@ -152,12 +159,12 @@ void RimeConfigParser::setKeybindings(const std::vector<Keybinding> &bindings) {
     RimeConfigEnd(&iterator);
 }
 
-void RimeConfigParser::setInteger(const char *key, int i) {
-    RimeConfigSetInt(&default_conf, key, i);
+void RimeConfigParser::setPageSize(int page_size) {
+    RimeConfigSetInt(&default_conf, "menu/page_size", page_size);
 }
 
-bool RimeConfigParser::readInteger(const char *key, int *i) {
-    return RimeConfigGetInt(&default_conf, key, i);
+bool RimeConfigParser::getPageSize(int *page_size) {
+    return RimeConfigGetInt(&default_conf, "menu/page_size", page_size);
 }
 
 std::vector<Keybinding> RimeConfigParser::keybindings() {
@@ -221,15 +228,24 @@ void RimeConfigParser::listForeach(
 }
 
 void RimeConfigParser::finalize() {
-    RimeConfigClose(&default_conf);
-    memset(&default_conf, 0, sizeof(default_conf));
     api->finalize();
 }
 
 void RimeConfigParser::sync() {
+    int page_size;
+    RimeConfig hotkeys;
+    RimeConfig keybindings;
+    RimeConfigGetInt(&default_conf, "menu/page_size", &page_size);
+    levers->customize_int(settings, "menu/page_size", page_size);
+    // RimeConfigGetItem(&default_conf, "switcher/hotkeys", &hotkeys);
+    // levers->customize_item(settings, "switcher/hotkeys", &hotkeys);
+    // RimeConfigGetItem(&default_conf, "keybinder/bindings", &keybindings);
+    // levers->customize_item(settings, "keybinder/bindings", &keybindings);
+    levers->save_settings(settings);
+    levers->custom_settings_destroy(settings);
     RimeStartMaintenanceOnWorkspaceChange();
     finalize();
-    start();
+    start(false);
 }
 
 std::string RimeConfigParser::stringFromYAML(const char *yaml,

@@ -377,7 +377,7 @@ void ConfigMain::updateIMList() {
 }
 
 void ConfigMain::modelToYaml() {
-    config.setInteger("menu/page_size", model->candidate_per_word);
+    config.setPageSize(model->candidate_per_word);
     std::vector<std::string> toggleKeys;
     for (size_t i = 0; i < model->toggle_keys.size(); i++) {
         toggleKeys.push_back(model->toggle_keys[i].toString());
@@ -411,7 +411,7 @@ void ConfigMain::modelToYaml() {
 void ConfigMain::yamlToModel() {
     // load page size
     int page_size = 0;
-    bool suc = config.readInteger("menu/page_size", &page_size);
+    bool suc = config.getPageSize(&page_size);
     if (suc) {
         model->candidate_per_word = page_size;
     } else {
@@ -425,7 +425,6 @@ void ConfigMain::yamlToModel() {
         }
     }
     // load other shortcuts
-
     auto bindings = config.keybindings();
     for (const auto &binding : bindings) {
         if (binding.accept.empty()) {
@@ -462,11 +461,12 @@ void ConfigMain::getAvailableSchemas() {
             continue;
         }
         QDir dir(path);
-        files.unite(QSet<QString>::fromList(dir.entryList(
-            QStringList("*.schema.yaml"), QDir::Files | QDir::Readable)));
+        QList<QString> entryList = dir.entryList(
+            QStringList("*.schema.yaml"), QDir::Files | QDir::Readable);
+        files.unite(QSet<QString>(entryList.begin(), entryList.end()));
     }
 
-    auto filesList = files.toList();
+    auto filesList = files.values();
     filesList.sort();
 
     for (const auto &file : filesList) {
