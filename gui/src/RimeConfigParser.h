@@ -20,7 +20,7 @@
 #define FCITX_RIME_CONFIG_H
 
 #include <functional>
-#include <rime_api.h>
+#include <rime_levers_api.h>
 #include <string>
 #include <vector>
 
@@ -61,8 +61,8 @@ public:
     void setKeybindings(const std::vector<Keybinding> &bindings);
     std::vector<Keybinding> keybindings();
 
-    void setInteger(const char *key, int i);
-    bool readInteger(const char *key, int *i);
+    void setPageSize(int page_size);
+    bool getPageSize(int *page_size);
 
     std::string stringFromYAML(const char *yaml, const char *attr);
     void setSchemas(const std::vector<std::string> &schemas);
@@ -76,6 +76,9 @@ private:
                 std::function<bool(RimeConfig *config, const char *path)>);
 
     RimeApi *api;
+    RimeLeversApi *levers;
+
+    RimeCustomSettings *settings;
     RimeConfig default_conf;
 };
 
