@@ -80,6 +80,7 @@ private:
 
     RimeCustomSettings *settings;
     RimeConfig default_conf;
+    std::vector<std::string> schema_id_list;
 };
 
 } // namespace fcitx_rime
