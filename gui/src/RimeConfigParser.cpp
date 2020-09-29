@@ -50,7 +50,7 @@ void RimeConfigParser::start(bool firstRun) {
     fcitx_rime_traits.user_data_dir = user_path;
     fcitx_rime_traits.distribution_name = "Rime";
     fcitx_rime_traits.distribution_code_name = "fcitx-rime-config";
-    fcitx_rime_traits.distribution_version = "0.0.2";
+    fcitx_rime_traits.distribution_version = "0.1.0";
     fcitx_rime_traits.app_name = "rime.fcitx-rime-config";
     if (firstRun) {
         api->setup(&fcitx_rime_traits);
@@ -187,6 +187,7 @@ std::vector<Keybinding> RimeConfigParser::keybindings() {
                     if (!action) {
                         return false;
                     }
+                    binding.action = action;
                     result.push_back(std::move(binding));
                     return true;
                 });
