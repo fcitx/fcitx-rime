@@ -18,6 +18,7 @@
 #ifndef FCITX_RIME_MODEL_H
 #define FCITX_RIME_MODEL_H
 
+#include "RimeConfigParser.h"
 #include "keysym.h"
 #include "keysymgen.h"
 #include <QFlags>
@@ -56,13 +57,15 @@ public:
 class RimeConfigDataModel {
 public:
     QVector<FcitxKeySeq> toggle_keys;
+    int candidate_per_word;
+    QVector<FcitxRimeSchema> schemas_;
     QVector<FcitxKeySeq> ascii_key;
     QVector<FcitxKeySeq> trasim_key;
     QVector<FcitxKeySeq> halffull_key;
     QVector<FcitxKeySeq> pgup_key;
     QVector<FcitxKeySeq> pgdown_key;
-    int candidate_per_word;
-    QVector<FcitxRimeSchema> schemas_;
+    void setKeybindings(const std::vector<Keybinding> bindings);
+    std::vector<Keybinding> getKeybindings();
     void sortSchemas();
     void sortKeys();
 

@@ -4,10 +4,10 @@
   <widget class="QWidget" name="MainUI">
     <property name="geometry">
       <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>500</width>
-	<height>500</height>
+	    <x>0</x>
+	    <y>0</y>
+	    <width>500</width>
+	    <height>500</height>
       </rect>
     </property>
     <property name="windowTitle">
@@ -15,345 +15,540 @@
     </property>
     <property name="windowIcon">
       <iconset theme="fcitx-rime">
-	<normaloff/>
+	    <normaloff/>
       </iconset>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_overview">
       <item>
-	<widget class="QTabWidget" name="frcu_tab">
-	  <widget class="QWidget" name="general_tab">
-	    <attribute name="title">
-	      <string>Shortcut</string>
-	    </attribute>
-	    <layout class="QVBoxLayout" name="verticallayout_general">
-	      <item>
-		<layout class="QHBoxLayout" name="horizontallayout_toggle">
-		  <item>
-		    <widget class="QLabel" name="toggle_label">
-		      <property name="text"><string>Call-out Menu</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut_3">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>
+	    <widget class="QTabWidget" name="frcu_tab">
+	      <widget class="QWidget" name="general_tab">
+	        <attribute name="title">
+	          <string>Shortcut</string>
+	        </attribute>
+	        <layout class="QVBoxLayout" name="verticallayout_general">
+
+
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_toggle">
+		          <item>
+		            <widget class="QLabel" name="toggle_label">
+		              <property name="text"><string>Call-out Menu</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="toggle_shortcut_3">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_toggle -->
+	          </item>
 
               <item>
-		<layout class="QHBoxLayout" name="horizontallayout_pageup">
-		  <item>
-		    <widget class="QLabel" name="label_pageup">
-		      <property name="text"><string>Page Up</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup_3">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>
+		        <layout class="QHBoxLayout" name="horizontallayout_pageup">
+		          <item>
+		            <widget class="QLabel" name="label_pageup">
+		              <property name="text"><string>Page Up</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pageup_3">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
 
-	      <item>
-		<layout class="QHBoxLayout" name="horizontallayout_pagedown">
-		  <item>
-		    <widget class="QLabel" name="label_pagedown">
-		      <property name="text"><string>Page Down</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown_3">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		      <property name="modifierlessAllowed"><bool>true</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>
-	      
- 	      <item>
-		<layout class="QHBoxLayout" name="horizontallayout_hfshape">
-		  <item>
-		    <widget class="QLabel" name="toggle_hfshape">
-		      <property name="text"><string>Half/Full Shape</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape_3">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>       
-	      
-	      <item>
-		<layout class="QHBoxLayout" name="horizontallayout_ascii">
-		  <item>
-		    <widget class="QLabel" name="toggle_ascii">
-		      <property name="text"><string>Western/Eastern</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="shortcut_ascii">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="shortcut_ascii_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_pagedown">
+		          <item>
+		            <widget class="QLabel" name="label_pagedown">
+		              <property name="text"><string>Page Down</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_pagedown_3">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		              <property name="modifierlessAllowed"><bool>true</bool></property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
+              <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_hfshape">
+		          <item>
+		            <widget class="QLabel" name="toggle_hfshape">
+		              <property name="text"><string>Half/Full Shape</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="hotkey_hfshape_3">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_ascii">
+		          <item>
+		            <widget class="QLabel" name="toggle_ascii">
+		              <property name="text"><string>Western/Eastern</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="shortcut_ascii">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="shortcut_ascii_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
 
-	      <item>
-		<layout class="QHBoxLayout" name="horizontallayout_trasim">
-		  <item>
-		    <widget class="QLabel" name="toggle_trasim">
-		      <property name="text"><string>Traditional/Simplified</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="transim_shortcut">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		  <item>
-		    <widget class="FcitxQtKeySequenceWidget" name="transim_shortcut_2">
-		      <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
-		    </widget>
-		  </item>
-		</layout>
-	      </item>
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_trasim">
+		          <item>
+		            <widget class="QLabel" name="toggle_trasim">
+		              <property name="text"><string>Traditional/Simplified</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="transim_shortcut">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="FcitxQtKeySequenceWidget" name="transim_shortcut_2">
+		              <property name="multiKeyShortcutsAllowed"><bool>false</bool></property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
 
-	      <item>
-		<layout class="QHBoxLayout" name="horizontalLayout_toggle1">
-		  <item>
-		    <widget class="QLabel" name="candidate_word_number_label">
-		      <property name="text"><string>Candidate Word Number</string></property>
-		    </widget>
-		  </item>
-		  <item>
-		     <widget class="QSpinBox" name="cand_cnt_spinbox" >
-		       <property name="objectName" >
-			 <string notr="true" >CandidateWordNumber</string>
-		       </property>
-		     </widget>
-		  </item>
-		</layout>
-	      </item>
-	    </layout>
-	  </widget> <!-- general_tab -->
-	  <widget class="QWidget" name="schemas_tab">
-	    <attribute name="title">
-	      <string>Schema</string>
-	    </attribute>
-	   <layout class="QGridLayout" name="gridLayout">
-	     <item row="3" column="0">
-	       <spacer name="horizontalSpacer_2">
-		 <property name="orientation">
-		   <enum>Qt::Horizontal</enum>
-		 </property>
-		 <property name="sizeType">
-		   <enum>QSizePolicy::Fixed</enum>
-		 </property>
-		 <property name="sizeHint" stdset="0">
-		   <size>
-		     <width>20</width>
-		     <height>20</height>
-		   </size>
-		 </property>
-	       </spacer>
-	     </item>
-	     <item row="3" column="1" colspan="2">
-	       <layout class="QHBoxLayout" name="horizontalLayout">
-		 <item>
-		   <layout class="QVBoxLayout" name="verticalLayout">
-		     <item>
-		       <widget class="QLabel" name="label">
-			 <property name="text">
-			   <string>Available Input Schemas:</string>
-			 </property>
-		       </widget>
-		     </item>
-		     <!-- <item> -->
-		     <!--   <widget class="QLineEdit" name="filterTextEdit"/> -->
-		     <!-- </item> -->
-		     <item>
-		       <widget class="QListView" name="availIMView">
-		       </widget>
-		     </item>
-		   </layout>
-		 </item>
-		 <item>
-		   <layout class="QVBoxLayout" name="verticalLayout_3">
-		     <item>
-		       <spacer name="verticalSpacer">
-			 <property name="orientation">
-			   <enum>Qt::Vertical</enum>
-			 </property>
-			 <property name="sizeHint" stdset="0">
-			   <size>
-			     <width>20</width>
-			     <height>40</height>
-			   </size>
-			 </property>
-		       </spacer>
-		     </item>
-		     <item>
-		       <widget class="QPushButton" name="addIMButton">
-			 <property name="enabled">
-			   <bool>false</bool>
-			 </property>
-		       </widget>
-		     </item>
-		     <item>
-		       <widget class="QPushButton" name="removeIMButton">
-			 <property name="enabled">
-			   <bool>false</bool>
-			 </property>
-		       </widget>
-		     </item>
-		     <item>
-		       <spacer name="verticalSpacer_2">
-			 <property name="orientation">
-			   <enum>Qt::Vertical</enum>
-			 </property>
-			 <property name="sizeHint" stdset="0">
-			   <size>
-			     <width>20</width>
-			     <height>40</height>
-			   </size>
-			 </property>
-		       </spacer>
-		     </item>
-		   </layout>
-		 </item>
-		 <item>
-		   <layout class="QVBoxLayout" name="verticalLayout_2">
-		     <item>
-		       <widget class="QLabel" name="label_2">
-			 <property name="text">
-			   <string>Active Input Schemas:</string>
-			 </property>
-		       </widget>
-		     </item>
-		     <item>
-		       <widget class="QListView" name="currentIMView"/>
-		     </item>
-		   </layout>
-		 </item>
-		 <item>
-		   <layout class="QVBoxLayout" name="verticalLayout_4">
-		     <item>
-		       <spacer name="verticalSpacer_3">
-			 <property name="orientation">
-			   <enum>Qt::Vertical</enum>
-			 </property>
-			 <property name="sizeHint" stdset="0">
-			   <size>
-			     <width>20</width>
-			     <height>40</height>
-			   </size>
-			 </property>
-		       </spacer>
-		     </item>
-		     <item>
-		       <widget class="QPushButton" name="moveUpButton">
-			 <property name="enabled">
-			   <bool>false</bool>
-			 </property>
-		       </widget>
-		     </item>
-		     <item>
-		       <widget class="QPushButton" name="moveDownButton">
-			 <property name="enabled">
-			   <bool>false</bool>
-			 </property>
-		       </widget>
-		     </item>
-		     <!-- <item> -->
-		     <!--   <widget class="QPushButton" name="configureButton"/> -->
-		     <!-- </item> -->
-		     <item>
-		       <spacer name="verticalSpacer_4">
-			 <property name="orientation">
-			   <enum>Qt::Vertical</enum>
-			 </property>
-			 <property name="sizeHint" stdset="0">
-			   <size>
-			     <width>20</width>
-			     <height>40</height>
-			   </size>
-			 </property>
-		       </spacer>
-		     </item>
-		   </layout>
-		 </item>
-	       </layout>
-	     </item>
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontalLayout_toggle1">
+		          <item>
+		            <widget class="QLabel" name="candidate_word_number_label">
+		              <property name="text"><string>Candidate Word Number</string></property>
+		            </widget>
+		          </item>
+		          <item>
+		            <widget class="QSpinBox" name="cand_cnt_spinbox" >
+		              <property name="objectName" >
+			            <string notr="true" >CandidateWordNumber</string>
+		              </property>
+		            </widget>
+		          </item>
+		        </layout>
+	          </item>
 
-	     <item row="2" column="0" colspan="3">
-	       <widget class="QLabel" name="label_4">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>&lt;b&gt;Select Input Schema:&lt;/b&gt;</string>
-           </property>
-	       </widget>
-	     </item>
-	   </layout> 
-	  </widget><!-- schemas -->
-	</widget> <!-- QTabwidget -->
-  </item>
-  </layout>
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_caps">
+		          <item>
+		            <widget class="QLabel" name="caps_label">
+		              <property name="text"><string>Caps Lock Key</string></property>
+		            </widget>
+		          </item>
+		          <item>
+                    <widget class="QComboBox" name="caps_combo">
+                      <item>
+                        <property name="text">
+                          <string>Noop</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Inline ASCII</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Text</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Code</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Clear</string>
+                        </property>
+                      </item>
+                    </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_caps -->
+	          </item>
+
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_shift_l">
+		          <item>
+		            <widget class="QLabel" name="shift_l_label">
+		              <property name="text"><string>Left Shift Key</string></property>
+		            </widget>
+		          </item>
+		          <item>
+                    <widget class="QComboBox" name="shift_l_combo">
+                      <item>
+                        <property name="text">
+                          <string>Noop</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Inline ASCII</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Text</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Code</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Clear</string>
+                        </property>
+                      </item>
+                    </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_shift_l -->
+	          </item>
+
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_shift_r">
+		          <item>
+		            <widget class="QLabel" name="shift_r_label">
+		              <property name="text"><string>Right Shift Key</string></property>
+		            </widget>
+		          </item>
+		          <item>
+                    <widget class="QComboBox" name="shift_r_combo">
+                      <item>
+                        <property name="text">
+                          <string>Noop</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Inline ASCII</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Text</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Code</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Clear</string>
+                        </property>
+                      </item>
+                    </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_shift_r -->
+	          </item>
+
+	          <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_caps">
+		          <item>
+		            <widget class="QLabel" name="ctrl_l_label">
+		              <property name="text"><string>Left Ctrl Key</string></property>
+		            </widget>
+		          </item>
+		          <item>
+                    <widget class="QComboBox" name="ctrl_l_combo">
+                      <item>
+                        <property name="text">
+                          <string>Noop</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Inline ASCII</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Text</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Code</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Clear</string>
+                        </property>
+                      </item>
+                    </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_ctrl_l -->
+	          </item>
+
+              <item>
+		        <layout class="QHBoxLayout" name="horizontallayout_ctrl_r">
+		          <item>
+		            <widget class="QLabel" name="ctrl_r_label">
+		              <property name="text"><string>Right Ctrl Key</string></property>
+		            </widget>
+		          </item>
+		          <item>
+                    <widget class="QComboBox" name="ctrl_r_combo">
+                      <item>
+                        <property name="text">
+                          <string>Noop</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Inline ASCII</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Text</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Commit Code</string>
+                        </property>
+                      </item>
+                      <item>
+                        <property name="text">
+                          <string>Clear</string>
+                        </property>
+                      </item>
+                    </widget>
+		          </item>
+		        </layout> <!-- horizontallayout_ctrl_r -->
+	          </item>
+	        </layout>
+	      </widget> <!-- general_tab -->
+	      <widget class="QWidget" name="schemas_tab">
+	        <attribute name="title">
+	          <string>Schema</string>
+	        </attribute>
+	        <layout class="QGridLayout" name="gridLayout">
+	          <item row="3" column="0">
+	            <spacer name="horizontalSpacer_2">
+		          <property name="orientation">
+		            <enum>Qt::Horizontal</enum>
+		          </property>
+		          <property name="sizeType">
+		            <enum>QSizePolicy::Fixed</enum>
+		          </property>
+		          <property name="sizeHint" stdset="0">
+		            <size>
+		              <width>20</width>
+		              <height>20</height>
+		            </size>
+		          </property>
+	            </spacer>
+	          </item>
+	          <item row="3" column="1" colspan="2">
+	            <layout class="QHBoxLayout" name="horizontalLayout">
+		          <item>
+		            <layout class="QVBoxLayout" name="verticalLayout">
+		              <item>
+		                <widget class="QLabel" name="label">
+			              <property name="text">
+			                <string>Available Input Schemas:</string>
+			              </property>
+		                </widget>
+		              </item>
+		              <!-- <item> -->
+		              <!--   <widget class="QLineEdit" name="filterTextEdit"/> -->
+		              <!-- </item> -->
+		              <item>
+		                <widget class="QListView" name="availIMView">
+		                </widget>
+		              </item>
+		            </layout>
+		          </item>
+		          <item>
+		            <layout class="QVBoxLayout" name="verticalLayout_3">
+		              <item>
+		                <spacer name="verticalSpacer">
+			              <property name="orientation">
+			                <enum>Qt::Vertical</enum>
+			              </property>
+			              <property name="sizeHint" stdset="0">
+			                <size>
+			                  <width>20</width>
+			                  <height>40</height>
+			                </size>
+			              </property>
+		                </spacer>
+		              </item>
+		              <item>
+		                <widget class="QPushButton" name="addIMButton">
+			              <property name="enabled">
+			                <bool>false</bool>
+			              </property>
+		                </widget>
+		              </item>
+		              <item>
+		                <widget class="QPushButton" name="removeIMButton">
+			              <property name="enabled">
+			                <bool>false</bool>
+			              </property>
+		                </widget>
+		              </item>
+		              <item>
+		                <spacer name="verticalSpacer_2">
+			              <property name="orientation">
+			                <enum>Qt::Vertical</enum>
+			              </property>
+			              <property name="sizeHint" stdset="0">
+			                <size>
+			                  <width>20</width>
+			                  <height>40</height>
+			                </size>
+			              </property>
+		                </spacer>
+		              </item>
+		            </layout>
+		          </item>
+		          <item>
+		            <layout class="QVBoxLayout" name="verticalLayout_2">
+		              <item>
+		                <widget class="QLabel" name="label_2">
+			              <property name="text">
+			                <string>Active Input Schemas:</string>
+			              </property>
+		                </widget>
+		              </item>
+		              <item>
+		                <widget class="QListView" name="currentIMView"/>
+		              </item>
+		            </layout>
+		          </item>
+		          <item>
+		            <layout class="QVBoxLayout" name="verticalLayout_4">
+		              <item>
+		                <spacer name="verticalSpacer_3">
+			              <property name="orientation">
+			                <enum>Qt::Vertical</enum>
+			              </property>
+			              <property name="sizeHint" stdset="0">
+			                <size>
+			                  <width>20</width>
+			                  <height>40</height>
+			                </size>
+			              </property>
+		                </spacer>
+		              </item>
+		              <item>
+		                <widget class="QPushButton" name="moveUpButton">
+			              <property name="enabled">
+			                <bool>false</bool>
+			              </property>
+		                </widget>
+		              </item>
+		              <item>
+		                <widget class="QPushButton" name="moveDownButton">
+			              <property name="enabled">
+			                <bool>false</bool>
+			              </property>
+		                </widget>
+		              </item>
+		              <!-- <item> -->
+		              <!--   <widget class="QPushButton" name="configureButton"/> -->
+		              <!-- </item> -->
+		              <item>
+		                <spacer name="verticalSpacer_4">
+			              <property name="orientation">
+			                <enum>Qt::Vertical</enum>
+			              </property>
+			              <property name="sizeHint" stdset="0">
+			                <size>
+			                  <width>20</width>
+			                  <height>40</height>
+			                </size>
+			              </property>
+		                </spacer>
+		              </item>
+		            </layout>
+		          </item>
+	            </layout>
+	          </item>
+
+	          <item row="2" column="0" colspan="3">
+	            <widget class="QLabel" name="label_4">
+                  <property name="toolTip">
+                    <string/>
+                  </property>
+                  <property name="text">
+                    <string>&lt;b&gt;Select Input Schema:&lt;/b&gt;</string>
+                  </property>
+	            </widget>
+	          </item>
+	        </layout>
+	      </widget><!-- schemas -->
+	    </widget> <!-- QTabwidget -->
+      </item>
+    </layout>
   </widget>
   <customwidgets>
     <customwidget>

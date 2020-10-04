@@ -28,8 +28,9 @@
 #include <QtConcurrentRun>
 #include <QtGlobal>
 
-// TODO: when failed-read happens, disable ui
-// TODO: when failed-save happens, disable ui and show reason
+// TODO: when failed to load rime-levers module, disable ui
+// TODO: when failed to read config, disable ui
+// TODO: when failed to save config, disable ui
 
 namespace fcitx_rime {
 ConfigMain::ConfigMain(QWidget *parent)
@@ -385,12 +386,8 @@ void ConfigMain::modelToYaml() {
 
     config.setToggleKeys(toggleKeys);
 
-    // FIXME: implement new ui for key bindings.
-    // setModelKeysToYaml(model->ascii_key, 0, "ascii_mode");
-    // setModelKeysToYaml(model->trasim_key, 0, "simplification");
-    // setModelKeysToYaml(model->halffull_key, 0, "full_shape");
-    // setModelKeysToYaml(model->pgup_key, 1, "Page_Up");
-    // setModelKeysToYaml(model->pgdown_key, 1, "Page_Down");
+    auto bindings = model->getKeybindings();
+    config.setKeybindings(std::move(bindings));
 
     // set active schema list
     std::vector<std::string> schemaNames;
@@ -417,37 +414,18 @@ void ConfigMain::yamlToModel() {
     } else {
         model->candidate_per_word = default_page_size;
     }
-    // toggle keys
+    // load toggle keys
     auto toggleKeys = config.toggleKeys();
     for (const auto &toggleKey : toggleKeys) {
         if (!toggleKey.empty()) { // skip the empty keys
             model->toggle_keys.push_back(FcitxKeySeq(toggleKey.data()));
         }
     }
-    // load other shortcuts
+    // load keybindings
+    qDebug() << "calling keybindings...";
     auto bindings = config.keybindings();
-    for (const auto &binding : bindings) {
-        if (binding.accept.empty()) {
-            continue;
-        }
-        if (binding.action == "ascii_mode") {
-            FcitxKeySeq seq(binding.accept);
-            model->ascii_key.push_back(seq);
-        } else if (binding.action == "full_shape") {
-            FcitxKeySeq seq(binding.accept);
-            model->halffull_key.push_back(seq);
-        } else if (binding.action == "simplification") {
-            FcitxKeySeq seq(binding.accept);
-            model->trasim_key.push_back(seq);
-        } else if (binding.action == "Page_Up") {
-            FcitxKeySeq seq(binding.accept);
-            model->pgup_key.push_back(seq);
-        } else if (binding.action == "Page_Down") {
-            FcitxKeySeq seq(binding.accept);
-            model->pgdown_key.push_back(seq);
-        }
-    }
-    model->sortKeys();
+    model->setKeybindings(std::move(bindings));
+    // load schemas
     getAvailableSchemas();
 }
 
@@ -461,8 +439,8 @@ void ConfigMain::getAvailableSchemas() {
             continue;
         }
         QDir dir(path);
-        QList<QString> entryList = dir.entryList(
-            QStringList("*.schema.yaml"), QDir::Files | QDir::Readable);
+        QList<QString> entryList = dir.entryList(QStringList("*.schema.yaml"),
+                                                 QDir::Files | QDir::Readable);
         files.unite(QSet<QString>(entryList.begin(), entryList.end()));
     }
 
