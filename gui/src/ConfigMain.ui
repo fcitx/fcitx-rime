@@ -307,7 +307,7 @@
 	          </item>
 
 	          <item>
-		        <layout class="QHBoxLayout" name="horizontallayout_caps">
+		        <layout class="QHBoxLayout" name="horizontallayout_ctrl_l">
 		          <item>
 		            <widget class="QLabel" name="ctrl_l_label">
 		              <property name="text"><string>Left Ctrl Key</string></property>
