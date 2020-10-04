@@ -24,12 +24,12 @@
 namespace fcitx_rime {
 
 RimeConfigParser::RimeConfigParser() : api(rime_get_api()), default_conf({0}) {
-    RimeModule* module = api->find_module("levers");
-    if(!module) {
+    RimeModule *module = api->find_module("levers");
+    if (!module) {
         qDebug() << "missing Rime module: levers, please check your install.\n";
         exit(1);
     }
-    levers = (RimeLeversApi*)module->get_api();
+    levers = (RimeLeversApi *)module->get_api();
     start(true);
 }
 
@@ -55,10 +55,12 @@ void RimeConfigParser::start(bool firstRun) {
     if (firstRun) {
         api->setup(&fcitx_rime_traits);
     }
+    default_conf = {0};
     api->initialize(&fcitx_rime_traits);
     settings = levers->custom_settings_init("default", "rime_patch");
     levers->load_settings(settings);
     levers->settings_get_config(settings, &default_conf);
+
     free(user_path);
 }
 
@@ -128,23 +130,51 @@ const char *keybindingTypeToString(KeybindingType type) {
 }
 
 void RimeConfigParser::setKeybindings(const std::vector<Keybinding> &bindings) {
-    api->config_clear(&default_conf, "key_binder/bindings");
-    api->config_create_list(&default_conf, "key_binder/bindings");
+    RimeConfig copy_config = {0};
+    RimeConfig copy_config_map = {0};
     RimeConfigIterator iterator;
+    RimeConfigIterator copy_iterator;
+    api->config_init(&copy_config);
+    api->config_create_list(&copy_config, "key_binder/bindings");
     api->config_begin_list(&iterator, &default_conf, "key_binder/bindings");
-    api->config_next(&iterator);
-    for (const auto &binding : bindings) {
-        api->config_next(&iterator);
-        api->config_create_map(&default_conf, iterator.path);
+    api->config_begin_list(&copy_iterator, &copy_config, "key_binder/bindings");
+    while (!copy_iterator.path) {
+        api->config_next(&copy_iterator);
+    }
+    while (api->config_next(&iterator)) {
         RimeConfig map = {0};
+        const char *send_key = NULL;
         api->config_get_item(&default_conf, iterator.path, &map);
+        send_key = api->config_get_cstring(&map, "send");
+        if (!send_key) {
+            send_key = api->config_get_cstring(&map, "toggle");
+        }
+        if (!send_key) {
+            send_key = api->config_get_cstring(&map, "select");
+        }
+        if (strcmp(send_key, "Page_Up") && strcmp(send_key, "Page_Down") &&
+            strcmp(send_key, "ascii_mode") && strcmp(send_key, "full_shape") &&
+            strcmp(send_key, "simplification")) {
+            api->config_set_item(&copy_config, copy_iterator.path, &map);
+            api->config_next(&copy_iterator);
+        }
+    };
+    api->config_end(&iterator);
+    for (auto &binding : bindings) {
+        RimeConfig map = {0};
+        api->config_init(&map);
+        api->config_set_string(&map, "accept", binding.accept.data());
         api->config_set_string(&map, "when",
                                keyBindingConditionToString(binding.when));
-        api->config_set_string(&map, "accept", binding.accept.data());
         api->config_set_string(&map, keybindingTypeToString(binding.type),
-                            binding.action.data());
+                               binding.action.data());
+        api->config_set_item(&copy_config, copy_iterator.path, &map);
+        api->config_next(&copy_iterator);
     }
-    api->config_end(&iterator);
+    api->config_end(&copy_iterator);
+    api->config_get_item(&copy_config, "key_binder/bindings", &copy_config_map);
+    api->config_set_item(&default_conf, "key_binder/bindings",
+                         &copy_config_map);
 }
 
 void RimeConfigParser::setPageSize(int page_size) {
@@ -198,7 +228,6 @@ void RimeConfigParser::listForeach(
     RimeConfig *config, const char *key,
     std::function<bool(RimeConfig *, const char *)> callback) {
     size_t size = RimeConfigListSize(config, key);
-
     if (!size) {
         return;
     }
@@ -214,9 +243,7 @@ void RimeConfigParser::listForeach(
     RimeConfigEnd(&iterator);
 }
 
-void RimeConfigParser::finalize() {
-    api->finalize();
-}
+void RimeConfigParser::finalize() { api->finalize(); }
 
 void RimeConfigParser::sync() {
     int page_size;
@@ -265,20 +292,19 @@ void RimeConfigParser::setSchemas(const std::vector<std::string> &schemas) {
 int RimeConfigParser::schemaIndex(const char *schema_id) {
     int idx = 0;
     bool found = false;
-    listForeach(
-        &default_conf, "schema_list",
-        [=, &idx, &found](RimeConfig *config, const char *path) {
-            RimeConfig map = {0};
-            this->api->config_get_item(config, path, &map);
-            auto schema = this->api->config_get_cstring(&map, "schema");
-            /* This schema is enabled in default */
-            if (schema && strcmp(schema, schema_id) == 0) {
-                found = true;
-                return false;
-            }
-            idx++;
-            return true;
-        });
+    listForeach(&default_conf, "schema_list",
+                [=, &idx, &found](RimeConfig *config, const char *path) {
+                    RimeConfig map = {0};
+                    this->api->config_get_item(config, path, &map);
+                    auto schema = this->api->config_get_cstring(&map, "schema");
+                    /* This schema is enabled in default */
+                    if (schema && strcmp(schema, schema_id) == 0) {
+                        found = true;
+                        return false;
+                    }
+                    idx++;
+                    return true;
+                });
 
     return found ? (idx + 1) : 0;
 }

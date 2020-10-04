@@ -60,6 +60,81 @@ void RimeConfigDataModel::sortSingleKeySet(QVector<FcitxKeySeq> &keys) {
               });
 }
 
+void RimeConfigDataModel::setKeybindings(std::vector<Keybinding> bindings) {
+    for (const auto &binding : bindings) {
+        if (binding.accept.empty()) {
+            continue;
+        }
+        if (binding.action == "ascii_mode") {
+            FcitxKeySeq seq(binding.accept);
+            ascii_key.push_back(seq);
+        } else if (binding.action == "full_shape") {
+            FcitxKeySeq seq(binding.accept);
+            halffull_key.push_back(seq);
+        } else if (binding.action == "simplification") {
+            FcitxKeySeq seq(binding.accept);
+            trasim_key.push_back(seq);
+        } else if (binding.action == "Page_Up") {
+            FcitxKeySeq seq(binding.accept);
+            pgup_key.push_back(seq);
+        } else if (binding.action == "Page_Down") {
+            FcitxKeySeq seq(binding.accept);
+            pgdown_key.push_back(seq);
+        }
+    }
+    sortKeys();
+}
+
+std::vector<Keybinding> RimeConfigDataModel::getKeybindings() {
+    std::vector<Keybinding> out;
+    // Fill ascii_key
+    for (auto &ascii : ascii_key) {
+        Keybinding binding;
+        binding.action = "ascii_mode";
+        binding.when = KeybindingCondition::Always;
+        binding.type = KeybindingType::Toggle;
+        binding.accept = ascii.toString();
+        out.push_back(binding);
+    }
+    // Fill trasim_key
+    for (auto &trasim : trasim_key) {
+        Keybinding binding;
+        binding.action = "simplification";
+        binding.when = KeybindingCondition::Always;
+        binding.type = KeybindingType::Toggle;
+        binding.accept = trasim.toString();
+        out.push_back(binding);
+    }
+    // Fill halffull_key
+    for (auto &halffull : halffull_key) {
+        Keybinding binding;
+        binding.action = "full_shape";
+        binding.when = KeybindingCondition::Always;
+        binding.type = KeybindingType::Toggle;
+        binding.accept = halffull.toString();
+        out.push_back(binding);
+    }
+    // Fill pgup_key
+    for (auto &pgup : pgup_key) {
+        Keybinding binding;
+        binding.action = "Page_Up";
+        binding.when = KeybindingCondition::HasMenu;
+        binding.type = KeybindingType::Send;
+        binding.accept = pgup.toString();
+        out.push_back(binding);
+    }
+    // Fill pgdown_key
+    for (auto &pgup : pgdown_key) {
+        Keybinding binding;
+        binding.action = "Page_Down";
+        binding.when = KeybindingCondition::HasMenu;
+        binding.type = KeybindingType::Send;
+        binding.accept = pgup.toString();
+        out.push_back(binding);
+    }
+    return out;
+}
+
 // default constructor
 FcitxKeySeq::FcitxKeySeq() {}
 
