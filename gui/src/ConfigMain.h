@@ -57,6 +57,8 @@ private:
     void getAvailableSchemas();
     void updateIMList();
     void focusSelectedIM(const QString im_name);
+    void setSwitchKey(QComboBox *box, SwitchKeyFunction switch_key);
+    SwitchKeyFunction textToSwitchKey(const QString &text);
     QList<FcitxQtKeySequenceWidget *> getKeyWidgetsFromLayout(QLayout *layout);
     void setKeySeqFromLayout(QLayout *layout, QVector<FcitxKeySeq> &model_keys);
     void setModelFromLayout(QVector<FcitxKeySeq> &model_keys, QLayout *layout);

@@ -42,6 +42,14 @@ enum class KeybindingType {
     Select,
 };
 
+enum class SwitchKeyFunction {
+    Noop,
+    InlineASCII,
+    CommitText,
+    CommitCode,
+    Clear,
+};
+
 struct Keybinding {
     KeybindingCondition when;
     std::string accept;
@@ -55,11 +63,15 @@ public:
     ~RimeConfigParser();
 
     void sync();
+
+    void setSwitchKeys(const std::vector<SwitchKeyFunction> &switch_keys);
+    std::vector<SwitchKeyFunction> getSwitchKeys();
+
     void setToggleKeys(const std::vector<std::string> &keys);
-    std::vector<std::string> toggleKeys();
+    std::vector<std::string> getToggleKeys();
 
     void setKeybindings(const std::vector<Keybinding> &bindings);
-    std::vector<Keybinding> keybindings();
+    std::vector<Keybinding> getKeybindings();
 
     void setPageSize(int page_size);
     bool getPageSize(int *page_size);
@@ -77,7 +89,6 @@ private:
 
     RimeApi *api;
     RimeLeversApi *levers;
-
     RimeCustomSettings *settings;
     RimeConfig default_conf;
     std::vector<std::string> schema_id_list;

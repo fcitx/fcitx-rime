@@ -58,14 +58,17 @@ class RimeConfigDataModel {
 public:
     QVector<FcitxKeySeq> toggle_keys;
     int candidate_per_word;
+    QVector<SwitchKeyFunction> switch_keys;
     QVector<FcitxRimeSchema> schemas_;
     QVector<FcitxKeySeq> ascii_key;
     QVector<FcitxKeySeq> trasim_key;
     QVector<FcitxKeySeq> halffull_key;
     QVector<FcitxKeySeq> pgup_key;
     QVector<FcitxKeySeq> pgdown_key;
+
     void setKeybindings(const std::vector<Keybinding> bindings);
     std::vector<Keybinding> getKeybindings();
+
     void sortSchemas();
     void sortKeys();
 

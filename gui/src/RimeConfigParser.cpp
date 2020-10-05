@@ -77,7 +77,7 @@ void RimeConfigParser::setToggleKeys(const std::vector<std::string> &keys) {
     api->config_end(&iterator);
 }
 
-std::vector<std::string> RimeConfigParser::toggleKeys() {
+std::vector<std::string> RimeConfigParser::getToggleKeys() {
     std::vector<std::string> result;
     listForeach(&default_conf, "switcher/hotkeys",
                 [=, &result](RimeConfig *config, const char *path) {
@@ -127,6 +127,37 @@ const char *keybindingTypeToString(KeybindingType type) {
         return "toggle";
     }
     return "";
+}
+
+const char *switchKeyFunctionToString(SwitchKeyFunction type) {
+    switch (type) {
+    case SwitchKeyFunction::Noop:
+        return "noop";
+    case SwitchKeyFunction::InlineASCII:
+        return "inline_ascii";
+    case SwitchKeyFunction::CommitText:
+        return "commit_text";
+    case SwitchKeyFunction::CommitCode:
+        return "commit_code";
+    case SwitchKeyFunction::Clear:
+        return "clear";
+    }
+    return "";
+}
+
+SwitchKeyFunction switchKeyFunctionFromString(const char *str) {
+    if (strcmp(str, "noop") == 0) {
+        return SwitchKeyFunction::Noop;
+    } else if (strcmp(str, "inline_ascii") == 0) {
+        return SwitchKeyFunction::InlineASCII;
+    } else if (strcmp(str, "commit_text")) {
+        return SwitchKeyFunction::CommitText;
+    } else if (strcmp(str, "commit_code")) {
+        return SwitchKeyFunction::CommitCode;
+    } else if (strcmp(str, "clear")) {
+        return SwitchKeyFunction::Clear;
+    }
+    return SwitchKeyFunction::Noop;
 }
 
 void RimeConfigParser::setKeybindings(const std::vector<Keybinding> &bindings) {
@@ -185,7 +216,7 @@ bool RimeConfigParser::getPageSize(int *page_size) {
     return api->config_get_int(&default_conf, "menu/page_size", page_size);
 }
 
-std::vector<Keybinding> RimeConfigParser::keybindings() {
+std::vector<Keybinding> RimeConfigParser::getKeybindings() {
     std::vector<Keybinding> result;
     listForeach(&default_conf, "key_binder/bindings",
                 [=, &result](RimeConfig *config, const char *path) {
@@ -256,6 +287,14 @@ void RimeConfigParser::sync() {
     levers->customize_item(settings, "switcher/hotkeys", &hotkeys);
     api->config_get_item(&default_conf, "key_binder/bindings", &keybindings);
     levers->customize_item(settings, "key_binder/bindings", &keybindings);
+    levers->customize_string(
+        settings, "ascii_composer/switch_key/Shift_L",
+        api->config_get_cstring(&default_conf,
+                                "ascii_composer/switch_key/Shift_L"));
+    levers->customize_string(
+        settings, "ascii_composer/switch_key/Shift_R",
+        api->config_get_cstring(&default_conf,
+                                "ascii_composer/switch_key/Shift_R"));
 
     /* Concatenate all active schemas */
     std::string yaml = "";
@@ -307,6 +346,30 @@ int RimeConfigParser::schemaIndex(const char *schema_id) {
                 });
 
     return found ? (idx + 1) : 0;
+}
+
+std::vector<SwitchKeyFunction> RimeConfigParser::getSwitchKeys() {
+    std::vector<SwitchKeyFunction> out;
+    const char *shift_l = NULL, *shift_r = NULL;
+    shift_l = api->config_get_cstring(&default_conf,
+                                      "ascii_composer/switch_key/Shift_L");
+    shift_r = api->config_get_cstring(&default_conf,
+                                      "ascii_composer/switch_key/Shift_R");
+    out.push_back(switchKeyFunctionFromString(shift_l));
+    out.push_back(switchKeyFunctionFromString(shift_r));
+    return out;
+}
+
+void RimeConfigParser::setSwitchKeys(
+    const std::vector<SwitchKeyFunction> &switch_keys) {
+    if (switch_keys.size() < 2) {
+        return;
+    }
+    api->config_set_string(&default_conf, "ascii_composer/switch_key/Shift_L",
+                           switchKeyFunctionToString(switch_keys[0]));
+    api->config_set_string(&default_conf, "ascii_composer/switch_key/Shift_R",
+                           switchKeyFunctionToString(switch_keys[1]));
+    return;
 }
 
 } // namespace fcitx_rime

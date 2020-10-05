@@ -26,8 +26,6 @@
 	          <string>Shortcut</string>
 	        </attribute>
 	        <layout class="QVBoxLayout" name="verticallayout_general">
-
-
 	          <item>
 		        <layout class="QHBoxLayout" name="horizontallayout_toggle">
 		          <item>
@@ -188,46 +186,6 @@
 		          </item>
 		        </layout>
 	          </item>
-
-	          <item>
-		        <layout class="QHBoxLayout" name="horizontallayout_caps">
-		          <item>
-		            <widget class="QLabel" name="caps_label">
-		              <property name="text"><string>Caps Lock Key</string></property>
-		            </widget>
-		          </item>
-		          <item>
-                    <widget class="QComboBox" name="caps_combo">
-                      <item>
-                        <property name="text">
-                          <string>Noop</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Inline ASCII</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Text</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Code</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Clear</string>
-                        </property>
-                      </item>
-                    </widget>
-		          </item>
-		        </layout> <!-- horizontallayout_caps -->
-	          </item>
-
 	          <item>
 		        <layout class="QHBoxLayout" name="horizontallayout_shift_l">
 		          <item>
@@ -304,84 +262,6 @@
                     </widget>
 		          </item>
 		        </layout> <!-- horizontallayout_shift_r -->
-	          </item>
-
-	          <item>
-		        <layout class="QHBoxLayout" name="horizontallayout_ctrl_l">
-		          <item>
-		            <widget class="QLabel" name="ctrl_l_label">
-		              <property name="text"><string>Left Ctrl Key</string></property>
-		            </widget>
-		          </item>
-		          <item>
-                    <widget class="QComboBox" name="ctrl_l_combo">
-                      <item>
-                        <property name="text">
-                          <string>Noop</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Inline ASCII</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Text</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Code</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Clear</string>
-                        </property>
-                      </item>
-                    </widget>
-		          </item>
-		        </layout> <!-- horizontallayout_ctrl_l -->
-	          </item>
-
-              <item>
-		        <layout class="QHBoxLayout" name="horizontallayout_ctrl_r">
-		          <item>
-		            <widget class="QLabel" name="ctrl_r_label">
-		              <property name="text"><string>Right Ctrl Key</string></property>
-		            </widget>
-		          </item>
-		          <item>
-                    <widget class="QComboBox" name="ctrl_r_combo">
-                      <item>
-                        <property name="text">
-                          <string>Noop</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Inline ASCII</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Text</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Commit Code</string>
-                        </property>
-                      </item>
-                      <item>
-                        <property name="text">
-                          <string>Clear</string>
-                        </property>
-                      </item>
-                    </widget>
-		          </item>
-		        </layout> <!-- horizontallayout_ctrl_r -->
 	          </item>
 	        </layout>
 	      </widget> <!-- general_tab -->
