@@ -52,6 +52,10 @@ ConfigMain::ConfigMain(QWidget *parent)
     // tab shortcut
     connect(cand_cnt_spinbox, QOverload<int>::of(&QSpinBox::valueChanged), this,
             &ConfigMain::stateChanged);
+    connect(shift_l_combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ConfigMain::stateChanged);
+    connect(shift_r_combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &ConfigMain::stateChanged);
     QList<FcitxQtKeySequenceWidget *> keywgts =
         general_tab->findChildren<FcitxQtKeySequenceWidget *>();
     for (size_t i = 0; i < keywgts.size(); i++) {
@@ -259,12 +263,18 @@ void ConfigMain::setModelFromLayout(QVector<FcitxKeySeq> &model_keys,
 
 void ConfigMain::uiToModel() {
     model->candidate_per_word = cand_cnt_spinbox->value();
+
     setModelFromLayout(model->toggle_keys, horizontallayout_toggle);
     setModelFromLayout(model->ascii_key, horizontallayout_ascii);
     setModelFromLayout(model->pgdown_key, horizontallayout_pagedown);
     setModelFromLayout(model->pgup_key, horizontallayout_pageup);
     setModelFromLayout(model->trasim_key, horizontallayout_trasim);
     setModelFromLayout(model->halffull_key, horizontallayout_hfshape);
+
+    if (model->switch_keys.size() >= 2) {
+        model->switch_keys[0] = textToSwitchKey(shift_l_combo->currentText());
+        model->switch_keys[1] = textToSwitchKey(shift_r_combo->currentText());
+    }
 
     // clear cuurent model and save from the ui
     for (int i = 0; i < model->schemas_.size(); i++) {
@@ -327,8 +337,52 @@ void ConfigMain::setKeySeqFromLayout(QLayout *layout,
     return;
 }
 
+void ConfigMain::setSwitchKey(QComboBox *box, SwitchKeyFunction switch_key) {
+    const char *value = NULL;
+    int index = -1;
+    switch (switch_key) {
+    case SwitchKeyFunction::Noop:
+        value = "Noop";
+        break;
+    case SwitchKeyFunction::InlineASCII:
+        value = "Inline ASCII";
+        break;
+    case SwitchKeyFunction::CommitText:
+        value = "Commit Text";
+        break;
+    case SwitchKeyFunction::CommitCode:
+        value = "Commit Code";
+        break;
+    case SwitchKeyFunction::Clear:
+        value = "Clear";
+        break;
+    };
+    index = box->findText(value);
+    if (index == -1) {
+        index = 0;
+    }
+    box->setCurrentIndex(index);
+}
+
+SwitchKeyFunction ConfigMain::textToSwitchKey(const QString &text) {
+    if (text == "Noop") {
+        return SwitchKeyFunction::Noop;
+    } else if (text == "Inline ASCII") {
+        return SwitchKeyFunction::InlineASCII;
+    } else if (text == "Commit Text") {
+        return SwitchKeyFunction::CommitText;
+    } else if (text == "Commit Code") {
+        return SwitchKeyFunction::CommitCode;
+    } else if (text == "Clear") {
+        return SwitchKeyFunction::Clear;
+    } else {
+        return SwitchKeyFunction::Noop;
+    }
+}
+
 void ConfigMain::modelToUi() {
     cand_cnt_spinbox->setValue(model->candidate_per_word);
+
     // set shortcut keys
     setKeySeqFromLayout(horizontallayout_toggle, model->toggle_keys);
     setKeySeqFromLayout(horizontallayout_pagedown, model->pgdown_key);
@@ -336,6 +390,12 @@ void ConfigMain::modelToUi() {
     setKeySeqFromLayout(horizontallayout_ascii, model->ascii_key);
     setKeySeqFromLayout(horizontallayout_trasim, model->trasim_key);
     setKeySeqFromLayout(horizontallayout_hfshape, model->halffull_key);
+
+    // set switch keys
+    if (model->switch_keys.size() >= 2) {
+        setSwitchKey(shift_l_combo, model->switch_keys[0]);
+        setSwitchKey(shift_r_combo, model->switch_keys[1]);
+    }
 
     // set available and enabled input methods
     for (size_t i = 0; i < model->schemas_.size(); i++) {
@@ -385,9 +445,9 @@ void ConfigMain::modelToYaml() {
     }
 
     config.setToggleKeys(toggleKeys);
-
-    auto bindings = model->getKeybindings();
-    config.setKeybindings(std::move(bindings));
+    config.setKeybindings(model->getKeybindings());
+    config.setSwitchKeys(std::vector<SwitchKeyFunction>(
+        model->switch_keys.begin(), model->switch_keys.end()));
 
     // set active schema list
     std::vector<std::string> schemaNames;
@@ -415,16 +475,19 @@ void ConfigMain::yamlToModel() {
         model->candidate_per_word = default_page_size;
     }
     // load toggle keys
-    auto toggleKeys = config.toggleKeys();
+    auto toggleKeys = config.getToggleKeys();
     for (const auto &toggleKey : toggleKeys) {
         if (!toggleKey.empty()) { // skip the empty keys
             model->toggle_keys.push_back(FcitxKeySeq(toggleKey.data()));
         }
     }
     // load keybindings
-    qDebug() << "calling keybindings...";
-    auto bindings = config.keybindings();
+    auto bindings = config.getKeybindings();
     model->setKeybindings(std::move(bindings));
+    // load switchkeys
+    auto switch_keys = config.getSwitchKeys();
+    model->switch_keys =
+        QVector<SwitchKeyFunction>(switch_keys.begin(), switch_keys.end());
     // load schemas
     getAvailableSchemas();
 }
