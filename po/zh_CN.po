@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-01-13 00:01-0800\n"
+"POT-Creation-Date: 2020-10-07 00:03-0700\n"
 "PO-Revision-Date: 2018-07-19 05:45+0000\n"
 "Last-Translator: wwj402 <wwj402@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
@@ -21,17 +21,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#. i18n: file: gui/src/ConfigMain.ui:348
+#. i18n: file: gui/src/ConfigMain.ui:423
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
 msgstr "<b>选择输入方案：</b>"
 
-#. i18n: file: gui/src/ConfigMain.ui:283
+#. i18n: file: gui/src/ConfigMain.ui:358
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 msgid "Active Input Schemas:"
 msgstr "激活的输入方案："
 
-#. i18n: file: gui/src/ConfigMain.ui:221
+#. i18n: file: gui/src/ConfigMain.ui:296
 #. i18n: ectx: property (text), widget (QLabel, label)
 msgid "Available Input Schemas:"
 msgstr "可用的输入方案："
@@ -41,10 +41,31 @@ msgstr "可用的输入方案："
 msgid "Call-out Menu"
 msgstr "调用菜单"
 
-#. i18n: file: gui/src/ConfigMain.ui:179
+#. i18n: file: gui/src/ConfigMain.ui:177
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
 msgstr "候选词个数"
+
+#. i18n: file: gui/src/ConfigMain.ui:220
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:259
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Clear"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:215
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:254
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Commit Code"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:210
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:249
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Commit Text"
+msgstr ""
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -58,19 +79,38 @@ msgstr "英文"
 msgid "Fcitx Rime Config"
 msgstr "Fcitx Rime 配置"
 
-#: gui/src/ConfigMain.cpp:244
+#: gui/src/ConfigMain.cpp:249
 msgid "Fcitx Rime Config GUI Tool"
 msgstr "Fcitx Rime 配置 GUI 工具"
 
-#. i18n: file: gui/src/ConfigMain.ui:114
+#. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
 msgid "Half/Full Shape"
 msgstr "半/全 角"
+
+#. i18n: file: gui/src/ConfigMain.ui:205
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:244
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Inline ASCII"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:193
+#. i18n: ectx: property (text), widget (QLabel, shift_l_label)
+msgid "Left Shift Key"
+msgstr ""
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
 msgid "MainWindow"
 msgstr "主窗口"
+
+#. i18n: file: gui/src/ConfigMain.ui:200
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:239
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Noop"
+msgstr ""
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
@@ -81,6 +121,11 @@ msgstr "向下翻页"
 #. i18n: ectx: property (text), widget (QLabel, label_pageup)
 msgid "Page Up"
 msgstr "向上翻页"
+
+#. i18n: file: gui/src/ConfigMain.ui:232
+#. i18n: ectx: property (text), widget (QLabel, shift_r_label)
+msgid "Right Shift Key"
+msgstr ""
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
@@ -103,7 +148,7 @@ msgstr "Rime 就绪。"
 msgid "Rime is under maintenance ..."
 msgstr "Rime 正在维护中..."
 
-#. i18n: file: gui/src/ConfigMain.ui:195
+#. i18n: file: gui/src/ConfigMain.ui:270
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
 msgid "Schema"
 msgstr "输入方案"
@@ -121,12 +166,12 @@ msgstr "快捷键"
 msgid "Synchronize"
 msgstr "同步"
 
-#. i18n: file: gui/src/ConfigMain.ui:159
+#. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
 msgstr "繁体/简体"
 
-#. i18n: file: gui/src/ConfigMain.ui:139
+#. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
 msgid "Western/Eastern"
 msgstr "英文/中文"

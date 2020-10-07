@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-01-13 00:01-0800\n"
+"POT-Creation-Date: 2020-10-07 00:03-0700\n"
 "PO-Revision-Date: 2018-05-30 07:04+0000\n"
 "Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/fcitx/fcitx/language/ja/)\n"
@@ -20,17 +20,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#. i18n: file: gui/src/ConfigMain.ui:348
+#. i18n: file: gui/src/ConfigMain.ui:423
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
 msgstr ""
 
-#. i18n: file: gui/src/ConfigMain.ui:283
+#. i18n: file: gui/src/ConfigMain.ui:358
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 msgid "Active Input Schemas:"
 msgstr ""
 
-#. i18n: file: gui/src/ConfigMain.ui:221
+#. i18n: file: gui/src/ConfigMain.ui:296
 #. i18n: ectx: property (text), widget (QLabel, label)
 msgid "Available Input Schemas:"
 msgstr ""
@@ -40,9 +40,30 @@ msgstr ""
 msgid "Call-out Menu"
 msgstr ""
 
-#. i18n: file: gui/src/ConfigMain.ui:179
+#. i18n: file: gui/src/ConfigMain.ui:177
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:220
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:259
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Clear"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:215
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:254
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Commit Code"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:210
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:249
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Commit Text"
 msgstr ""
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
@@ -57,18 +78,37 @@ msgstr ""
 msgid "Fcitx Rime Config"
 msgstr ""
 
-#: gui/src/ConfigMain.cpp:244
+#: gui/src/ConfigMain.cpp:249
 msgid "Fcitx Rime Config GUI Tool"
 msgstr ""
 
-#. i18n: file: gui/src/ConfigMain.ui:114
+#. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
 msgid "Half/Full Shape"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:205
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:244
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Inline ASCII"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:193
+#. i18n: ectx: property (text), widget (QLabel, shift_l_label)
+msgid "Left Shift Key"
 msgstr ""
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
 msgid "MainWindow"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:200
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
+#. i18n: file: gui/src/ConfigMain.ui:239
+#. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
+msgid "Noop"
 msgstr ""
 
 #. i18n: file: gui/src/ConfigMain.ui:86
@@ -79,6 +119,11 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_pageup)
 msgid "Page Up"
+msgstr ""
+
+#. i18n: file: gui/src/ConfigMain.ui:232
+#. i18n: ectx: property (text), widget (QLabel, shift_r_label)
+msgid "Right Shift Key"
 msgstr ""
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
@@ -104,7 +149,7 @@ msgstr "Rimeの準備ができました。"
 msgid "Rime is under maintenance ..."
 msgstr "Rimeはメンテナンス中です..."
 
-#. i18n: file: gui/src/ConfigMain.ui:195
+#. i18n: file: gui/src/ConfigMain.ui:270
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
 msgid "Schema"
 msgstr ""
@@ -122,12 +167,12 @@ msgstr ""
 msgid "Synchronize"
 msgstr "同期"
 
-#. i18n: file: gui/src/ConfigMain.ui:159
+#. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
 msgstr ""
 
-#. i18n: file: gui/src/ConfigMain.ui:139
+#. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
 msgid "Western/Eastern"
 msgstr ""
