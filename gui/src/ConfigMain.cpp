@@ -41,8 +41,8 @@ ConfigMain::ConfigMain(QWidget *parent)
     removeIMButton->setIcon(QIcon::fromTheme("go-previous"));
     moveUpButton->setIcon(QIcon::fromTheme("go-up"));
     moveDownButton->setIcon(QIcon::fromTheme("go-down"));
-
     // configureButton->setIcon(QIcon::fromTheme("help-about"));
+
     // listViews for currentIM and availIM
     QStandardItemModel *listModel = new QStandardItemModel(this);
     currentIMView->setModel(listModel);
