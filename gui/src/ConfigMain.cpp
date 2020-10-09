@@ -28,28 +28,28 @@
 #include <QtConcurrentRun>
 #include <QtGlobal>
 
-// TODO: when failed to load rime-levers module, disable ui
-// TODO: when failed to read config, disable ui
-// TODO: when failed to save config, disable ui
-
 namespace fcitx_rime {
 ConfigMain::ConfigMain(QWidget *parent)
-    : FcitxQtConfigUIWidget(parent), model(new RimeConfigDataModel()) {
+    : FcitxQtConfigUIWidget(parent), model(new RimeConfigDataModel()), inError(false) {
+
     // Setup UI
     setMinimumSize(680, 500);
     setupUi(this);
+    overlay = new ErrorOverlay(this);
     verticallayout_general->setAlignment(Qt::AlignTop);
     addIMButton->setIcon(QIcon::fromTheme("go-next"));
     removeIMButton->setIcon(QIcon::fromTheme("go-previous"));
     moveUpButton->setIcon(QIcon::fromTheme("go-up"));
     moveDownButton->setIcon(QIcon::fromTheme("go-down"));
+
     // configureButton->setIcon(QIcon::fromTheme("help-about"));
     // listViews for currentIM and availIM
     QStandardItemModel *listModel = new QStandardItemModel(this);
     currentIMView->setModel(listModel);
     QStandardItemModel *availIMModel = new QStandardItemModel(this);
     availIMView->setModel(availIMModel);
-    // tab shortcut
+
+    // Shortcuts Tab
     connect(cand_cnt_spinbox, QOverload<int>::of(&QSpinBox::valueChanged), this,
             &ConfigMain::stateChanged);
     connect(shift_l_combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
@@ -62,7 +62,8 @@ ConfigMain::ConfigMain(QWidget *parent)
         connect(keywgts[i], &FcitxQtKeySequenceWidget::keySequenceChanged, this,
                 &ConfigMain::keytoggleChanged);
     }
-    // tab schemas
+
+    // Schemas Tab
     connect(removeIMButton, &QPushButton::clicked, this, &ConfigMain::removeIM);
     connect(addIMButton, &QPushButton::clicked, this, &ConfigMain::addIM);
     connect(moveUpButton, &QPushButton::clicked, this, &ConfigMain::moveUpIM);
@@ -73,8 +74,12 @@ ConfigMain::ConfigMain(QWidget *parent)
     connect(currentIMView->selectionModel(),
             &QItemSelectionModel::currentChanged, this,
             &ConfigMain::activeIMSelectionChanged);
-    yamlToModel();
-    modelToUi();
+
+    if(!yamlToModel()) {  // Load data from yaml
+        disableUi("Failed to load Rime config or api. Please check your Rime config or installation.");
+    } else {
+        modelToUi();
+    }
 }
 
 ConfigMain::~ConfigMain() { delete model; }
@@ -248,7 +253,19 @@ QString ConfigMain::addon() { return "fcitx-rime"; }
 
 QString ConfigMain::title() { return _("Fcitx Rime Config GUI Tool"); }
 
-void ConfigMain::load() {}
+void ConfigMain::load() {
+    if(inError) {
+        return;
+    }
+
+    modelToUi();
+}
+
+    void ConfigMain::disableUi(const char *message) {
+        setEnabled(false);
+        overlay->enable(message);
+        inError = true;
+    }
 
 void ConfigMain::setModelFromLayout(QVector<FcitxKeySeq> &model_keys,
                                     QLayout *layout) {
@@ -272,8 +289,8 @@ void ConfigMain::uiToModel() {
     setModelFromLayout(model->halffull_key, horizontallayout_hfshape);
 
     if (model->switch_keys.size() >= 2) {
-        model->switch_keys[0] = textToSwitchKey(shift_l_combo->currentText());
-        model->switch_keys[1] = textToSwitchKey(shift_r_combo->currentText());
+        model->switch_keys[0] = textToSwitchKey(shift_l_combo->currentIndex());
+        model->switch_keys[1] = textToSwitchKey(shift_r_combo->currentIndex());
     }
 
     // clear cuurent model and save from the ui
@@ -299,13 +316,22 @@ void ConfigMain::uiToModel() {
 }
 
 void ConfigMain::save() {
+
+    if(inError) {
+        return;
+    }
+
     uiToModel();
     QFutureWatcher<void> *futureWatcher = new QFutureWatcher<void>(this);
     futureWatcher->setFuture(
         QtConcurrent::run<void>(this, &ConfigMain::modelToYaml));
     connect(futureWatcher, &QFutureWatcher<void>::finished, this, [this]() {
-        emit changed(false);
-        emit saveFinished();
+        if(inError) {
+            disableUi("Failed to save your preferences into Rime config. Please check your config file manually.");
+        } else {
+            emit changed(false);
+            emit saveFinished();
+        }
     });
 }
 
@@ -338,44 +364,40 @@ void ConfigMain::setKeySeqFromLayout(QLayout *layout,
 }
 
 void ConfigMain::setSwitchKey(QComboBox *box, SwitchKeyFunction switch_key) {
-    const char *value = NULL;
     int index = -1;
     switch (switch_key) {
     case SwitchKeyFunction::Noop:
-        value = "Noop";
+        index = 0;
         break;
     case SwitchKeyFunction::InlineASCII:
-        value = "Inline ASCII";
+        index = 1;
         break;
     case SwitchKeyFunction::CommitText:
-        value = "Commit Text";
+        index = 2;
         break;
     case SwitchKeyFunction::CommitCode:
-        value = "Commit Code";
+        index = 3;
         break;
     case SwitchKeyFunction::Clear:
-        value = "Clear";
+        index = 4;
         break;
     };
-    index = box->findText(value);
-    if (index == -1) {
-        index = 0;
-    }
     box->setCurrentIndex(index);
 }
 
-SwitchKeyFunction ConfigMain::textToSwitchKey(const QString &text) {
-    if (text == "Noop") {
+SwitchKeyFunction ConfigMain::textToSwitchKey(int current_index) {
+    switch (current_index) {
+    case 0:
         return SwitchKeyFunction::Noop;
-    } else if (text == "Inline ASCII") {
+    case 1:
         return SwitchKeyFunction::InlineASCII;
-    } else if (text == "Commit Text") {
+    case 2:
         return SwitchKeyFunction::CommitText;
-    } else if (text == "Commit Code") {
+    case 3:
         return SwitchKeyFunction::CommitCode;
-    } else if (text == "Clear") {
+    case 4:
         return SwitchKeyFunction::Clear;
-    } else {
+    default:
         return SwitchKeyFunction::Noop;
     }
 }
@@ -397,7 +419,10 @@ void ConfigMain::modelToUi() {
         setSwitchKey(shift_r_combo, model->switch_keys[1]);
     }
 
-    // set available and enabled input methods
+    // Clear both models
+    static_cast<QStandardItemModel *>(currentIMView->model())->clear();
+    static_cast<QStandardItemModel *>(availIMView->model())->clear();
+    // Set available and enabled input methods
     for (size_t i = 0; i < model->schemas_.size(); i++) {
         auto &schema = model->schemas_[i];
         if (schema.active) {
@@ -461,19 +486,27 @@ void ConfigMain::modelToYaml() {
     }
     config.setSchemas(schemaNames);
 
-    config.sync();
+    inError = !(config.sync());
     return;
 }
 
-void ConfigMain::yamlToModel() {
+bool ConfigMain::yamlToModel() {
     // load page size
     int page_size = 0;
-    bool suc = config.getPageSize(&page_size);
+    bool suc;
+
+    suc = config.isError();
+    if(suc) {
+        return false;
+    }
+
+    suc = config.getPageSize(&page_size);
     if (suc) {
         model->candidate_per_word = page_size;
     } else {
         model->candidate_per_word = default_page_size;
     }
+
     // load toggle keys
     auto toggleKeys = config.getToggleKeys();
     for (const auto &toggleKey : toggleKeys) {
@@ -481,15 +514,19 @@ void ConfigMain::yamlToModel() {
             model->toggle_keys.push_back(FcitxKeySeq(toggleKey.data()));
         }
     }
+
     // load keybindings
     auto bindings = config.getKeybindings();
     model->setKeybindings(std::move(bindings));
+
     // load switchkeys
     auto switch_keys = config.getSwitchKeys();
     model->switch_keys =
         QVector<SwitchKeyFunction>(switch_keys.begin(), switch_keys.end());
+
     // load schemas
     getAvailableSchemas();
+    return true;
 }
 
 void ConfigMain::getAvailableSchemas() {

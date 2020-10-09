@@ -21,6 +21,7 @@
 #include <fcitxqtconfiguiwidget.h>
 #include <fcitxqtkeysequencewidget.h>
 
+#include "ErrorOverlay.h"
 #include "Model.h"
 #include "RimeConfigParser.h"
 #include "ui_ConfigMain.h"
@@ -49,8 +50,9 @@ public slots:
     void activeIMSelectionChanged();
 
 private:
+    void disableUi(const char *message);
     void setFcitxQtKeySeq(char *rime_key, FcitxKeySeq &keyseq);
-    void yamlToModel();
+    bool yamlToModel();
     void uiToModel();
     void modelToUi();
     void modelToYaml();
@@ -58,13 +60,16 @@ private:
     void updateIMList();
     void focusSelectedIM(const QString im_name);
     void setSwitchKey(QComboBox *box, SwitchKeyFunction switch_key);
-    SwitchKeyFunction textToSwitchKey(const QString &text);
+    SwitchKeyFunction textToSwitchKey(int current_index);
     QList<FcitxQtKeySequenceWidget *> getKeyWidgetsFromLayout(QLayout *layout);
     void setKeySeqFromLayout(QLayout *layout, QVector<FcitxKeySeq> &model_keys);
     void setModelFromLayout(QVector<FcitxKeySeq> &model_keys, QLayout *layout);
 
     RimeConfigParser config;
     RimeConfigDataModel *model;
+    ErrorOverlay *overlay;
+
+    bool inError;
 };
 } // namespace fcitx_rime
 
