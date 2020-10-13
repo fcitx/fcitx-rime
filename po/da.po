@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# scootergrisen, 2017-2018
+# scootergrisen, 2017-2018,2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-07 00:03-0700\n"
-"PO-Revision-Date: 2018-06-04 09:40+0000\n"
+"POT-Creation-Date: 2020-10-13 00:02-0700\n"
+"PO-Revision-Date: 2020-10-12 19:44+0000\n"
 "Last-Translator: scootergrisen\n"
 "Language-Team: Danish (http://www.transifex.com/fcitx/fcitx/language/da/)\n"
 "Language: da\n"
@@ -48,21 +48,21 @@ msgstr "Kandidatord-nummer"
 #. i18n: file: gui/src/ConfigMain.ui:259
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Clear"
-msgstr ""
+msgstr "Ryd"
 
 #. i18n: file: gui/src/ConfigMain.ui:215
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "Udfør kode"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:249
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Text"
-msgstr ""
+msgstr "Udfør tekst"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -90,12 +90,12 @@ msgstr "Halv/fuld form"
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "Inline ASCII"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr ""
+msgstr "Venstre Skift-tast"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
@@ -107,7 +107,7 @@ msgstr "Hovedvindue"
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "Noop"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
@@ -122,7 +122,7 @@ msgstr "Page Up"
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr ""
+msgstr "Højre Skift-tast"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
