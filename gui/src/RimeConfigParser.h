@@ -62,7 +62,8 @@ public:
     RimeConfigParser();
     ~RimeConfigParser();
 
-    void sync();
+    bool isError();
+    bool sync();
 
     void setSwitchKeys(const std::vector<SwitchKeyFunction> &switch_keys);
     std::vector<SwitchKeyFunction> getSwitchKeys();
@@ -81,8 +82,7 @@ public:
     int schemaIndex(const char *schema);
 
 private:
-    void start(bool firstRun = false);
-    void finalize();
+    bool start(bool firstRun = false);
     static void
     listForeach(RimeConfig *config, const char *key,
                 std::function<bool(RimeConfig *config, const char *path)>);
@@ -92,6 +92,7 @@ private:
     RimeCustomSettings *settings;
     RimeConfig default_conf;
     std::vector<std::string> schema_id_list;
+    bool inError;
 };
 
 } // namespace fcitx_rime

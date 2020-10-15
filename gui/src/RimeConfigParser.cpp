@@ -23,19 +23,24 @@
 
 namespace fcitx_rime {
 
-RimeConfigParser::RimeConfigParser() : api(rime_get_api()), default_conf({0}) {
+RimeConfigParser::RimeConfigParser() : api(rime_get_api()), default_conf({0}), inError(false) {
     RimeModule *module = api->find_module("levers");
     if (!module) {
-        qDebug() << "missing Rime module: levers, please check your install.\n";
-        exit(1);
+        inError = true;
+    } else {
+        levers = (RimeLeversApi *)module->get_api();
+        start(true);
     }
-    levers = (RimeLeversApi *)module->get_api();
-    start(true);
 }
 
-RimeConfigParser::~RimeConfigParser() { finalize(); }
+RimeConfigParser::~RimeConfigParser() { api->finalize(); }
 
-void RimeConfigParser::start(bool firstRun) {
+bool RimeConfigParser::isError() {
+    return inError;
+}
+
+bool RimeConfigParser::start(bool firstRun) {
+    bool suc;
     char *user_path = NULL;
     FILE *fp = FcitxXDGGetFileUserWithPrefix(fcitx_rime_dir_prefix,
                                              ".place_holder", "w", NULL);
@@ -58,10 +63,17 @@ void RimeConfigParser::start(bool firstRun) {
     default_conf = {0};
     api->initialize(&fcitx_rime_traits);
     settings = levers->custom_settings_init("default", "rime_patch");
-    levers->load_settings(settings);
-    levers->settings_get_config(settings, &default_conf);
+    suc = levers->load_settings(settings);
+    if(!suc) {
+        return false;
+    }
+    suc = levers->settings_get_config(settings, &default_conf);
+    if(!suc) {
+        return false;
+    }
 
     free(user_path);
+    return true;
 }
 
 void RimeConfigParser::setToggleKeys(const std::vector<std::string> &keys) {
@@ -274,13 +286,14 @@ void RimeConfigParser::listForeach(
     RimeConfigEnd(&iterator);
 }
 
-void RimeConfigParser::finalize() { api->finalize(); }
-
-void RimeConfigParser::sync() {
+bool RimeConfigParser::sync() {
     int page_size;
+    bool suc;
     RimeConfig hotkeys = {0};
     RimeConfig keybindings = {0};
     RimeConfig schema_list = {0};
+    std::string yaml;
+
     api->config_get_int(&default_conf, "menu/page_size", &page_size);
     levers->customize_int(settings, "menu/page_size", page_size);
     api->config_get_item(&default_conf, "switcher/hotkeys", &hotkeys);
@@ -297,18 +310,22 @@ void RimeConfigParser::sync() {
                                 "ascii_composer/switch_key/Shift_R"));
 
     /* Concatenate all active schemas */
-    std::string yaml = "";
     for (const auto &schema : schema_id_list) {
         yaml += "- { schema: " + schema + " } \n";
     }
     api->config_load_string(&schema_list, yaml.c_str());
     levers->customize_item(settings, "schema_list", &schema_list);
-    levers->save_settings(settings);
+    suc = levers->save_settings(settings);
+    if(!suc) {
+        return false;
+    }
     levers->custom_settings_destroy(settings);
-    api->start_maintenance(true); // Full check mode
-    RimeStartMaintenanceOnWorkspaceChange();
-    finalize();
-    start(false);
+    suc = api->start_maintenance(true); // Full check mode
+    if(!suc) {
+        return false;
+    }
+    api->finalize();
+    return start(false);
 }
 
 std::string RimeConfigParser::stringFromYAML(const char *yaml,

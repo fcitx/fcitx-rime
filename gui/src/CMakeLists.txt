@@ -2,13 +2,15 @@ set(FRCU_SRCS
   Main.cpp
   ConfigMain.cpp
   Model.cpp
-  RimeConfigParser.cpp)
+  RimeConfigParser.cpp
+  ErrorOverlay.cpp)
 set(FRCU_HDRS
   Main.h
   ConfigMain.h
   Model.h
   Common.h
-  RimeConfigParser.h)
+  RimeConfigParser.h
+  ErrorOverlay.h)
 
 set(FRCU_UIS
   ConfigMain.ui)
