@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# csslayer <wengxt@gmail.com>, 2014,2018
+# csslayer <wengxt@gmail.com>, 2014,2018,2020
 # csslayer <wengxt@gmail.com>, 2012-2013
 # wwj402 <wwj402@gmail.com>, 2013,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-07 00:03-0700\n"
-"PO-Revision-Date: 2018-07-19 05:45+0000\n"
-"Last-Translator: wwj402 <wwj402@gmail.com>\n"
+"POT-Creation-Date: 2020-10-29 00:02-0700\n"
+"PO-Revision-Date: 2020-10-28 19:08+0000\n"
+"Last-Translator: csslayer <wengxt@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/fcitx/fcitx/"
 "language/zh_CN/)\n"
 "Language: zh_CN\n"
@@ -51,21 +51,21 @@ msgstr "候选词个数"
 #. i18n: file: gui/src/ConfigMain.ui:259
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Clear"
-msgstr ""
+msgstr "清除"
 
 #. i18n: file: gui/src/ConfigMain.ui:215
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "提交码"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:249
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Text"
-msgstr ""
+msgstr "提交文本"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -79,7 +79,7 @@ msgstr "英文"
 msgid "Fcitx Rime Config"
 msgstr "Fcitx Rime 配置"
 
-#: gui/src/ConfigMain.cpp:249
+#: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
 msgstr "Fcitx Rime 配置 GUI 工具"
 
@@ -93,12 +93,12 @@ msgstr "半/全 角"
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "内联 ASCII"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr ""
+msgstr "左 Shift"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
@@ -110,7 +110,7 @@ msgstr "主窗口"
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "无操作"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
@@ -125,7 +125,7 @@ msgstr "向上翻页"
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr ""
+msgstr "右 Shift"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
