@@ -5,14 +5,17 @@
 # Translators:
 # shirou - しろう <shirou.faw@gmail.com>, 2013
 # ABE Tsunehiko, 2017
+# ABE Tsunehiko, 2017
+# shirou - しろう <shirou.faw@gmail.com>, 2013
+# Takuro Onoue <kusanaginoturugi@gmail.com>, 2020
 # shirou - しろう <shirou.faw@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-07 00:03-0700\n"
-"PO-Revision-Date: 2018-05-30 07:04+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2020-12-08 00:01+0100\n"
+"PO-Revision-Date: 2020-12-07 02:40+0000\n"
+"Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/fcitx/fcitx/language/ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -23,17 +26,17 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:423
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
-msgstr ""
+msgstr "<b>入力スキーマの選択:</b>"
 
 #. i18n: file: gui/src/ConfigMain.ui:358
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 msgid "Active Input Schemas:"
-msgstr ""
+msgstr "有効な入力スキーマ"
 
 #. i18n: file: gui/src/ConfigMain.ui:296
 #. i18n: ectx: property (text), widget (QLabel, label)
 msgid "Available Input Schemas:"
-msgstr ""
+msgstr "利用可能な入力スキーマ"
 
 #. i18n: file: gui/src/ConfigMain.ui:33
 #. i18n: ectx: property (text), widget (QLabel, toggle_label)
@@ -43,28 +46,28 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:177
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
-msgstr ""
+msgstr "候補の単語数"
 
 #. i18n: file: gui/src/ConfigMain.ui:220
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:259
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Clear"
-msgstr ""
+msgstr "クリア"
 
 #. i18n: file: gui/src/ConfigMain.ui:215
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "確定コード"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:249
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Text"
-msgstr ""
+msgstr "確定テキスト"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -72,15 +75,15 @@ msgstr "デプロイ"
 
 #: src/fcitx-rime.c:528
 msgid "English"
-msgstr ""
+msgstr "英語"
 
 #: src/fcitx-rime.conf.in:11
 msgid "Fcitx Rime Config"
-msgstr ""
+msgstr "Fcitx Rime 設定"
 
-#: gui/src/ConfigMain.cpp:249
+#: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
-msgstr ""
+msgstr "Fcitx Rime GUI 設定ツール"
 
 #. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
@@ -92,39 +95,39 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "インラインアスキー"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr ""
+msgstr "左シフトキー"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
 msgid "MainWindow"
-msgstr ""
+msgstr "メインウィンドウ"
 
 #. i18n: file: gui/src/ConfigMain.ui:200
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "なにもしない"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
 msgid "Page Down"
-msgstr ""
+msgstr "ページダウン"
 
 #. i18n: file: gui/src/ConfigMain.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_pageup)
 msgid "Page Up"
-msgstr ""
+msgstr "ページアップ"
 
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr ""
+msgstr "右シフトキー"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
@@ -152,7 +155,7 @@ msgstr "Rimeはメンテナンス中です..."
 #. i18n: file: gui/src/ConfigMain.ui:270
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
 msgid "Schema"
-msgstr ""
+msgstr "スキーマ"
 
 #: src/fcitx-rime.c:173
 msgid "Schema List"
@@ -161,7 +164,7 @@ msgstr "スキーマリスト"
 #. i18n: file: gui/src/ConfigMain.ui:26
 #. i18n: ectx: attribute (title), widget (QWidget, general_tab)
 msgid "Shortcut"
-msgstr ""
+msgstr "ショートカット"
 
 #: src/fcitx-rime.c:158 src/fcitx-rime.c:159
 msgid "Synchronize"
@@ -170,17 +173,17 @@ msgstr "同期"
 #. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
-msgstr ""
+msgstr "繁体字/簡体字"
 
 #. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
 msgid "Western/Eastern"
-msgstr ""
+msgstr "西洋/東洋"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "あなたのメールアドレス"
 
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "あなたのお名前"
