@@ -4,16 +4,17 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017
-# Bruce Lee <daemul72@gmail.com>, 2021
-# Bruce Lee <daemul72@gmail.com>, 2020
-# Bruce Lee <daemul72@gmail.com>, 2020
+# Jung Hee Lee <daemul72@gmail.com>, 2021
+# Jung Hee Lee <daemul72@gmail.com>, 2020
+# Jung Hee Lee <daemul72@gmail.com>, 2021
+# Jung Hee Lee <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-02-19 05:14+0000\n"
-"PO-Revision-Date: 2021-02-10 14:41+0000\n"
-"Last-Translator: Bruce Lee <daemul72@gmail.com>\n"
+"POT-Creation-Date: 2021-06-05 20:27+0000\n"
+"PO-Revision-Date: 2021-06-05 06:54+0000\n"
+"Last-Translator: Jung Hee Lee <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +59,7 @@ msgstr "지우기"
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "입력완료 코드"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
@@ -139,7 +140,7 @@ msgstr "Fcitx용 라임 래퍼"
 #: src/fcitx-rime.c:64
 msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
 msgstr ""
-"라임에서 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR를 참조하시"
+"라임에서 오류가 발생했습니다. 자세한 내용은 /tmp/rime.Fcitx.ERROR를 참조하시"
 "기 바랍니다."
 
 #: src/fcitx-rime.c:62
@@ -171,7 +172,7 @@ msgstr "동기화"
 #. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
-msgstr "번체/;간체"
+msgstr "번체/간체"
 
 #. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
