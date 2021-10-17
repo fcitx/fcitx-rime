@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Bon Keun Seo <scobyseo@gmail.com>, 2017
-# Jung Hee Lee <daemul72@gmail.com>, 2021
-# Jung Hee Lee <daemul72@gmail.com>, 2020
-# Jung Hee Lee <daemul72@gmail.com>, 2021
-# Jung Hee Lee <daemul72@gmail.com>, 2020
+# Bon Keun Seo <scobyseo@gmail.com>, 2017,2021
+# 이정희 <daemul72@gmail.com>, 2021
+# 이정희 <daemul72@gmail.com>, 2020
+# 이정희 <daemul72@gmail.com>, 2021
+# 이정희 <daemul72@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-06-05 20:27+0000\n"
-"PO-Revision-Date: 2021-06-05 06:54+0000\n"
-"Last-Translator: Jung Hee Lee <daemul72@gmail.com>\n"
+"POT-Creation-Date: 2021-10-17 20:26+0000\n"
+"PO-Revision-Date: 2021-10-17 02:13+0000\n"
+"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "반각/전각"
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "인라인 아스키"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
@@ -111,7 +111,7 @@ msgstr "기본창"
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "동작없음"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
@@ -181,8 +181,8 @@ msgstr "서부/동부"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "daemul72@gmail.com"
+msgstr "이메일"
 
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "이정희(JungHee Lee)"
+msgstr "이름"
