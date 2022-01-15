@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Ettore Atalan <atalanttore@googlemail.com>, 2022
 # mar well <m.wellendorf@gmx.de>, 2013
-# mar well <m.wellendorf@gmx.de>, 2014,2017-2018
+# mar well <m.wellendorf@gmx.de>, 2013-2014,2017-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-07 00:03-0700\n"
-"PO-Revision-Date: 2018-06-19 19:02+0000\n"
-"Last-Translator: mar well <m.wellendorf@gmx.de>\n"
+"POT-Creation-Date: 2022-01-15 20:26+0000\n"
+"PO-Revision-Date: 2022-01-15 15:10+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German (http://www.transifex.com/fcitx/fcitx/language/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -77,7 +78,7 @@ msgstr "Englisch"
 msgid "Fcitx Rime Config"
 msgstr "Fcitx Rime Konfiguration"
 
-#: gui/src/ConfigMain.cpp:249
+#: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
 msgstr "Graphisches Benutzerinterface für Fcitx Rime"
 
@@ -96,7 +97,7 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr ""
+msgstr "Linke Umschalttaste"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
@@ -123,7 +124,7 @@ msgstr "Seite nach oben"
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr ""
+msgstr "Rechte Umschalttaste"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3

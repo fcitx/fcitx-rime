@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dmitry <dmitrydmitry761@gmail.com>, 2022
+# TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
 # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-10-07 00:03-0700\n"
-"PO-Revision-Date: 2018-05-30 07:04+0000\n"
-"Last-Translator: csslayer <wengxt@gmail.com>\n"
+"POT-Creation-Date: 2022-01-15 20:26+0000\n"
+"PO-Revision-Date: 2022-01-15 13:12+0000\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -23,48 +25,48 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:423
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
-msgstr ""
+msgstr "<b>Выберите схему ввода:</b>"
 
 #. i18n: file: gui/src/ConfigMain.ui:358
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 msgid "Active Input Schemas:"
-msgstr ""
+msgstr "Активные схемы ввода:"
 
 #. i18n: file: gui/src/ConfigMain.ui:296
 #. i18n: ectx: property (text), widget (QLabel, label)
 msgid "Available Input Schemas:"
-msgstr ""
+msgstr "Доступные схемы ввода:"
 
 #. i18n: file: gui/src/ConfigMain.ui:33
 #. i18n: ectx: property (text), widget (QLabel, toggle_label)
 msgid "Call-out Menu"
-msgstr ""
+msgstr "Меню Вызова"
 
 #. i18n: file: gui/src/ConfigMain.ui:177
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
-msgstr ""
+msgstr "Номер слова-кандидата"
 
 #. i18n: file: gui/src/ConfigMain.ui:220
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:259
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Clear"
-msgstr ""
+msgstr "Очистить"
 
 #. i18n: file: gui/src/ConfigMain.ui:215
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "Код Фиксации"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:249
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Text"
-msgstr ""
+msgstr "Текст Фиксации"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -76,55 +78,55 @@ msgstr "Английский"
 
 #: src/fcitx-rime.conf.in:11
 msgid "Fcitx Rime Config"
-msgstr ""
+msgstr "Конфигурация Fcitx Rime"
 
-#: gui/src/ConfigMain.cpp:249
+#: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
-msgstr ""
+msgstr "Графический инструмент настройки Fcitx Rime Config"
 
 #. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
 msgid "Half/Full Shape"
-msgstr ""
+msgstr "Полуширинная/Полноширинная Форма"
 
 #. i18n: file: gui/src/ConfigMain.ui:205
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "Встроенный ASCII"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr ""
+msgstr "Левая клавиша Shift"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
 msgid "MainWindow"
-msgstr ""
+msgstr "Главное окно"
 
 #. i18n: file: gui/src/ConfigMain.ui:200
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "Noop"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
 msgid "Page Down"
-msgstr ""
+msgstr "Страница Вниз"
 
 #. i18n: file: gui/src/ConfigMain.ui:58
 #. i18n: ectx: property (text), widget (QLabel, label_pageup)
 msgid "Page Up"
-msgstr ""
+msgstr "Страница Вверх"
 
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr ""
+msgstr "Правая клавиша Shift"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
@@ -150,7 +152,7 @@ msgstr "Rime перегружен..."
 #. i18n: file: gui/src/ConfigMain.ui:270
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
 msgid "Schema"
-msgstr ""
+msgstr "Схема"
 
 #: src/fcitx-rime.c:173
 msgid "Schema List"
@@ -159,7 +161,7 @@ msgstr "Список схем"
 #. i18n: file: gui/src/ConfigMain.ui:26
 #. i18n: ectx: attribute (title), widget (QWidget, general_tab)
 msgid "Shortcut"
-msgstr ""
+msgstr "Ярлык"
 
 #: src/fcitx-rime.c:158 src/fcitx-rime.c:159
 msgid "Synchronize"
@@ -168,17 +170,17 @@ msgstr "Синхронизировать"
 #. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
-msgstr ""
+msgstr "Традиционный/Упрощённый"
 
 #. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
 msgid "Western/Eastern"
-msgstr ""
+msgstr "Западный/Восточный"
 
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "Ваши адреса электронной почты"
 
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "Ваши имена"
