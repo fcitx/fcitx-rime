@@ -4,17 +4,17 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017,2021
-# 이정희 <daemul72@gmail.com>, 2021
-# 이정희 <daemul72@gmail.com>, 2020
-# 이정희 <daemul72@gmail.com>, 2021
-# 이정희 <daemul72@gmail.com>, 2020
+# JungHee Lee <daemul72@gmail.com>, 2021
+# JungHee Lee <daemul72@gmail.com>, 2020
+# JungHee Lee <daemul72@gmail.com>, 2021
+# JungHee Lee <daemul72@gmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-10-17 20:26+0000\n"
-"PO-Revision-Date: 2021-10-17 02:13+0000\n"
-"Last-Translator: Bon Keun Seo <scobyseo@gmail.com>\n"
+"POT-Creation-Date: 2022-03-01 20:28+0000\n"
+"PO-Revision-Date: 2022-03-01 15:07+0000\n"
+"Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -78,11 +78,11 @@ msgstr "영어"
 
 #: src/fcitx-rime.conf.in:11
 msgid "Fcitx Rime Config"
-msgstr "Fcitx 라임 설정"
+msgstr "Fcitx 라임 구성"
 
 #: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
-msgstr "Fcitx 라임 설정 GUI 도구"
+msgstr "Fcitx Rime 구성 GUI 도구"
 
 #. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
@@ -131,11 +131,11 @@ msgstr "오른쪽 시프트 키"
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
 msgid "Rime"
-msgstr "라임"
+msgstr "Rime"
 
 #: src/fcitx-rime.conf.in:4
 msgid "Rime Wrapper For Fcitx"
-msgstr "Fcitx용 라임 래퍼"
+msgstr "Fcitx용 Rime 래퍼"
 
 #: src/fcitx-rime.c:64
 msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
