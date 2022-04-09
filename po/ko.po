@@ -4,17 +4,18 @@
 #
 # Translators:
 # Bon Keun Seo <scobyseo@gmail.com>, 2017,2021
-# JungHee Lee <daemul72@gmail.com>, 2021
-# JungHee Lee <daemul72@gmail.com>, 2020
-# JungHee Lee <daemul72@gmail.com>, 2021
-# JungHee Lee <daemul72@gmail.com>, 2020,2022
+# Junghee Lee <daemul72@gmail.com>, 2021
+# Junghee Lee <daemul72@gmail.com>, 2020
+# Junghee Lee <daemul72@gmail.com>, 2022
+# Junghee Lee <daemul72@gmail.com>, 2021
+# Junghee Lee <daemul72@gmail.com>, 2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-03-01 20:28+0000\n"
-"PO-Revision-Date: 2022-03-01 15:07+0000\n"
-"Last-Translator: JungHee Lee <daemul72@gmail.com>\n"
+"POT-Creation-Date: 2022-04-09 20:28+0000\n"
+"PO-Revision-Date: 2013-03-25 22:16+0000\n"
+"Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -172,7 +173,7 @@ msgstr "동기화"
 #. i18n: file: gui/src/ConfigMain.ui:157
 #. i18n: ectx: property (text), widget (QLabel, toggle_trasim)
 msgid "Traditional/Simplified"
-msgstr "번체/간체"
+msgstr "정체자/간화자"
 
 #. i18n: file: gui/src/ConfigMain.ui:137
 #. i18n: ectx: property (text), widget (QLabel, toggle_ascii)
