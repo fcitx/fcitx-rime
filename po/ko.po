@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-04-09 20:28+0000\n"
+"POT-Creation-Date: 2022-04-10 20:28+0000\n"
 "PO-Revision-Date: 2013-03-25 22:16+0000\n"
 "Last-Translator: Junghee Lee <daemul72@gmail.com>, 2022\n"
 "Language-Team: Korean (http://www.transifex.com/fcitx/fcitx/language/ko/)\n"
@@ -41,12 +41,12 @@ msgstr "사용 가능한 입력 스키마:"
 #. i18n: file: gui/src/ConfigMain.ui:33
 #. i18n: ectx: property (text), widget (QLabel, toggle_label)
 msgid "Call-out Menu"
-msgstr "콜아웃 메뉴"
+msgstr "호출 메뉴"
 
 #. i18n: file: gui/src/ConfigMain.ui:177
 #. i18n: ectx: property (text), widget (QLabel, candidate_word_number_label)
 msgid "Candidate Word Number"
-msgstr "후보 단어 수"
+msgstr "후보 단어 번호"
 
 #. i18n: file: gui/src/ConfigMain.ui:220
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
@@ -79,7 +79,7 @@ msgstr "영어"
 
 #: src/fcitx-rime.conf.in:11
 msgid "Fcitx Rime Config"
-msgstr "Fcitx 라임 구성"
+msgstr "Fcitx Rime 구성"
 
 #: gui/src/ConfigMain.cpp:254
 msgid "Fcitx Rime Config GUI Tool"
@@ -100,7 +100,7 @@ msgstr "인라인 아스키"
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
 msgid "Left Shift Key"
-msgstr "왼쪽 시프트 키"
+msgstr "왼쪽 Shift 키"
 
 #. i18n: file: gui/src/ConfigMain.ui:14
 #. i18n: ectx: property (windowTitle), widget (QWidget, MainUI)
@@ -127,7 +127,7 @@ msgstr "페이지 위로"
 #. i18n: file: gui/src/ConfigMain.ui:232
 #. i18n: ectx: property (text), widget (QLabel, shift_r_label)
 msgid "Right Shift Key"
-msgstr "오른쪽 시프트 키"
+msgstr "오른쪽 Shift 키"
 
 #: src/fcitx-rime.c:70 src/fcitx-rime.c:129 src/fcitx-rime.conf.in:3
 #: src/rime.conf.in:3
@@ -141,16 +141,16 @@ msgstr "Fcitx용 Rime 래퍼"
 #: src/fcitx-rime.c:64
 msgid "Rime has encountered an error. See /tmp/rime.fcitx.ERROR for details."
 msgstr ""
-"라임에서 오류가 발생했습니다. 자세한 내용은 /tmp/rime.Fcitx.ERROR를 참조하시"
-"기 바랍니다."
+"Rime에 오류가 발생했습니다. 자세한 내용은 /tmp/rime.fcitx.ERROR를 참조하십시"
+"오."
 
 #: src/fcitx-rime.c:62
 msgid "Rime is ready."
-msgstr "라임이 준비되었습니다."
+msgstr "Rime이 준비되었습니다."
 
 #: src/fcitx-rime.c:60
 msgid "Rime is under maintenance ..."
-msgstr "라임이 유지 보수 중입니다..."
+msgstr "라임이 점검중입니다..."
 
 #. i18n: file: gui/src/ConfigMain.ui:270
 #. i18n: ectx: attribute (title), widget (QWidget, schemas_tab)
