@@ -4,6 +4,7 @@
 #
 # Translators:
 # shirou - しろう <shirou.faw@gmail.com>, 2013
+# Aaron Muir Hamilton <aaron@correspondwith.me>, 2022
 # ABE Tsunehiko, 2017
 # ABE Tsunehiko, 2017
 # shirou - しろう <shirou.faw@gmail.com>, 2013
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2020-12-08 00:01+0100\n"
-"PO-Revision-Date: 2020-12-07 02:40+0000\n"
-"Last-Translator: Takuro Onoue <kusanaginoturugi@gmail.com>\n"
+"POT-Creation-Date: 2022-12-07 20:28+0000\n"
+"PO-Revision-Date: 2013-03-25 22:16+0000\n"
+"Last-Translator: Aaron Muir Hamilton <aaron@correspondwith.me>, 2022\n"
 "Language-Team: Japanese (http://www.transifex.com/fcitx/fcitx/language/ja/)\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +89,7 @@ msgstr "Fcitx Rime GUI 設定ツール"
 #. i18n: file: gui/src/ConfigMain.ui:113
 #. i18n: ectx: property (text), widget (QLabel, toggle_hfshape)
 msgid "Half/Full Shape"
-msgstr ""
+msgstr "半角/全角"
 
 #. i18n: file: gui/src/ConfigMain.ui:205
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
