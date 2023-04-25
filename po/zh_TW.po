@@ -7,16 +7,17 @@
 # csslayer <wengxt@gmail.com>, 2015
 # fhoshino <fh@pinchia.com>, 2021
 # 黃柏諺 <s8321414@gmail.com>, 2015
+# Lau YeeYu, 2023
 # csslayer <wengxt@gmail.com>, 2015
 # 黃柏諺 <s8321414@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2021-11-18 20:07+0000\n"
-"PO-Revision-Date: 2021-11-01 17:04+0000\n"
-"Last-Translator: fhoshino <fh@pinchia.com>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/fcitx/fcitx/"
+"POT-Creation-Date: 2023-04-25 20:26+0000\n"
+"PO-Revision-Date: 2013-03-25 22:16+0000\n"
+"Last-Translator: Lau YeeYu, 2023\n"
+"Language-Team: Chinese (Taiwan) (http://app.transifex.com/fcitx/fcitx/"
 "language/zh_TW/)\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
@@ -61,14 +62,14 @@ msgstr "清除"
 #. i18n: file: gui/src/ConfigMain.ui:254
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Code"
-msgstr ""
+msgstr "提交碼"
 
 #. i18n: file: gui/src/ConfigMain.ui:210
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_l_combo)
 #. i18n: file: gui/src/ConfigMain.ui:249
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Commit Text"
-msgstr ""
+msgstr "提交文本"
 
 #: src/fcitx-rime.c:149 src/fcitx-rime.c:150
 msgid "Deploy"
@@ -96,7 +97,7 @@ msgstr "半/全形"
 #. i18n: file: gui/src/ConfigMain.ui:244
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Inline ASCII"
-msgstr ""
+msgstr "內聯 ASCII"
 
 #. i18n: file: gui/src/ConfigMain.ui:193
 #. i18n: ectx: property (text), widget (QLabel, shift_l_label)
@@ -113,7 +114,7 @@ msgstr "主視窗"
 #. i18n: file: gui/src/ConfigMain.ui:239
 #. i18n: ectx: property (text), item, widget (QComboBox, shift_r_combo)
 msgid "Noop"
-msgstr ""
+msgstr "無操作"
 
 #. i18n: file: gui/src/ConfigMain.ui:86
 #. i18n: ectx: property (text), widget (QLabel, label_pagedown)
