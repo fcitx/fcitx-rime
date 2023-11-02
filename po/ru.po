@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dmitry <dmitrydmitry761@gmail.com>, 2022
+# Dmitry <dmitrydmitry761@gmail.com>, 2022-2023
 # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
 # TotalCaesar659 <x24cm5b8c54q6szxw@yandex.ru>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: fcitx\n"
 "Report-Msgid-Bugs-To: fcitx-dev@googlegroups.com\n"
-"POT-Creation-Date: 2022-06-02 20:29+0000\n"
+"POT-Creation-Date: 2023-11-02 20:26+0000\n"
 "PO-Revision-Date: 2013-03-25 22:16+0000\n"
-"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022\n"
-"Language-Team: Russian (http://www.transifex.com/fcitx/fcitx/language/ru/)\n"
+"Last-Translator: Dmitry <dmitrydmitry761@gmail.com>, 2022-2023\n"
+"Language-Team: Russian (http://app.transifex.com/fcitx/fcitx/language/ru/)\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. i18n: file: gui/src/ConfigMain.ui:423
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 msgid "<b>Select Input Schema:</b>"
-msgstr "<b>Выберите схему ввода:</b>"
+msgstr "<b>Выбрать схему ввода:</b>"
 
 #. i18n: file: gui/src/ConfigMain.ui:358
 #. i18n: ectx: property (text), widget (QLabel, label_2)
